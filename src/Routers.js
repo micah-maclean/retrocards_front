@@ -1,17 +1,30 @@
+import { useContext } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom"
-import { AuthProvider } from "./context/AuthContext";
+import { AuthContext } from "./context/AuthContext";
 import Home from "./pages/home/Home";
 import Login from "./pages/login/Login";
+import NotFound from "./pages/notFound/NotFound";
+import Signup from "./pages/signup/Signup";
 
 const Routers = () => {
+  const {token} = useContext(AuthContext);
+
   return (
     <BrowserRouter>
-        <AuthProvider>
-            <Routes>
+        <Routes>
+          {
+            token ? 
+              <>
                 <Route path='/' element={<Home/>} />
+              </>
+            :
+              <>
                 <Route path='/login' element={<Login/>} />
-            </Routes>
-        </AuthProvider>
+                <Route path='/cadastrar' element={<Signup/>} />
+              </>
+          }
+          <Route path='/*' element={<NotFound/>} />
+        </Routes>
     </BrowserRouter>
   )
 }
