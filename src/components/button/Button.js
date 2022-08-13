@@ -10,6 +10,7 @@ export const Button = styled.button`
     props.borderRadius ? props.borderRadius : "8px"};
 
   padding: 8px;
+  margin: ${(props) => props.margin && props.margin};
 
   background-color: ${(props) =>
     props.backgroundColor && props.backgroundColor};

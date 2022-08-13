@@ -5,8 +5,8 @@ export const CustomForm = styled(Form) `
     display: flex;
     flex-direction: column;
 
-    label {
-        
+    label { 
+        font-size: 1.25rem;       
         margin-bottom: 12px;
     }
 
@@ -14,10 +14,15 @@ export const CustomForm = styled(Form) `
         padding: 16px;
         margin-bottom: 32px;
         border-radius: 8px;
+        border: 1px solid #000;
     }
 
     input::placeholder {
         font-size: 16px;
+    }
+
+    input:focus {
+        outline: #000 solid 1px;
     }
 
 `
