@@ -1,4 +1,4 @@
-import { Field, Formik } from "formik";
+import { Field, Formik, ErrorMessage } from "formik";
 import { Link } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../../context/AuthContext";
@@ -6,6 +6,16 @@ import { CustomForm } from "../../components/customForm/CustomForm";
 import { Container } from "../../components/container/Container";
 import { Bar, Paragraph, Title } from "./Login.styled";
 import { Button } from "../../components/button/Button";
+import * as Yup from "yup";
+
+const validations = Yup.object({
+  email: Yup.string()
+    .email("Insira um email válido")
+    .required("Campo Obrigatório"),
+  password: Yup.string()
+    .min(3, "A senha precisa de pelo menos 3 caracteres")
+    .required("Campo Obrigatório"),
+});
 
 const Login = () => {
   const { handleLogin } = useContext(AuthContext);
@@ -24,7 +34,7 @@ const Login = () => {
             <Title color="#fff">Bem Vindo ao Retrocard</Title>
             <Bar height="10px" width="300px" backgroundColor="#fff"></Bar>
           </Container>
-          <Paragraph textAlign='justify'>
+          <Paragraph textAlign="justify">
             Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eos esse
             repellat aperiam animi alias, provident temporibus, deleniti
             consequatur ad, nisi mollitia vitae eius omnis voluptas. At
@@ -53,6 +63,7 @@ const Login = () => {
               email: "",
               password: "",
             }}
+            validationSchema={validations}
             onSubmit={(values, { resetForm }) => {
               handleLogin(values);
               resetForm({ values: { password: "" } });
@@ -61,13 +72,24 @@ const Login = () => {
             <CustomForm>
               <label htmlFor="email">Email</label>
               <Field name="email" placeholder="Email" />
-
+              <div style={{height:'32px'}}>
+              <ErrorMessage name="email" component="span" />
+              </div>
               <label htmlFor="password">Senha</label>
               <Field name="password" placeholder="Senha" type="password" />
+              <div style={{height:'32px'}}>
+              <ErrorMessage name="password" component="span" />
+              </div>
+              <Button
+                width="100%"
+                backgroundColor="#12101a"
+                margin="12px 0 20px 0"
+                type="submit"
+              >
+                Login
+              </Button>
 
-              <Button width='100%' backgroundColor='#12101a' margin='0 0 20px 0' type="submit">Login</Button>
-
-              <Paragraph alignSelf='center'>
+              <Paragraph alignSelf="center">
                 Não possui login? <Link to="/cadastrar">Cadastre-se aqui</Link>
               </Paragraph>
             </CustomForm>

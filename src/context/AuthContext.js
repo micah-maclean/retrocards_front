@@ -27,12 +27,14 @@ const AuthProvider =  ({children}) => {
     const handleLogin = async (values) => {
         try {
             const {data} = await api.post('/user/login', values);
-            setToken(data);
-            api.defaults.headers.common['Authorization'] = data;
-            localStorage.setItem('token', data);
+            setUser(data)
+            setToken(data.token);
+            api.defaults.headers.common['Authorization'] = data.token;
+            localStorage.setItem('token', data.token);
             window.location.href = '/';
         } catch (error) {
-            toast.error(error.message);
+            console.log(error)
+            toast.error(error);
         }
     }
 
