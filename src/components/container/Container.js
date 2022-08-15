@@ -22,5 +22,7 @@ export const Container = styled.div`
   width: ${(props) => props.width && props.width};
   height: ${(props) => props.height && props.height};
 
+  position: ${(props) => props.position && props.position};
+
   overflow: ${(props) => props.overflow && props.overflow};
 `;
