@@ -9,6 +9,9 @@ export const formatDateToDatabase = (values) => {
 export const formatDateToRender = (values) => {
     return moment(values).format('DD/MM/YYYY')
 }
+export const nomeFinal =  value => {
+    return value.toLowerCase().replace(/(^\w{1})|(\s+\w{1})/g, letra => letra.toUpperCase());
+}
 
 export const ehDataValida = (value) => {      
     return moment(value, 'DD/MM/YYYY').isValid()

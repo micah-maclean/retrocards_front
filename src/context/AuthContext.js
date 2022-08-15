@@ -21,7 +21,7 @@ const AuthProvider = ({ children }) => {
     if (token) {
       setToken(token);
       api.defaults.headers.common["Authorization"] = token;
-      isLogged();
+      getLogged();
     }
 
     setLoading(false);
@@ -46,12 +46,12 @@ const AuthProvider = ({ children }) => {
     setToken("");
     api.defaults.headers.common["Authorization"] = undefined;
     localStorage.removeItem("token");
-    window.location.href = "/login";
+    navigate("/login");
   };
 
-  const isLogged = async () => {
+  const getLogged = async () => {
     try {
-      const { data } = await api.get("/user/logged");
+      const { data } = await api.get("/user/get-logged");
       setUser(data);
     } catch (error) {
       toast.error(error.message);

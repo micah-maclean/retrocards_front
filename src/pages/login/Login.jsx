@@ -80,7 +80,7 @@ const Login = () => {
                         validationSchema={validations}
                         onSubmit={(values, { resetForm }) => {
                             handleLogin(values);
-                            resetForm({ values: { password: "" } });
+                            resetForm({ values: '' });
                         }}
                     >
                         <CustomForm>

@@ -3,8 +3,12 @@ import { HeaderContainer } from "./Header.styled";
 import { Button } from "../button/Button";
 import { BsMoon } from "react-icons/bs";
 import { MdOutlineLogout } from "react-icons/md";
+import { useContext } from "react";
+import { AuthContext } from "../../context/AuthContext";
+import { nomeFinal } from "../../utils/masks";
 
 const Header = () => {
+    const {handleLogout, user} = useContext(AuthContext);
     return (
         <HeaderContainer>
             <Container
@@ -18,9 +22,9 @@ const Header = () => {
             >
                 <span>Retrocard</span>
                 <Container alignItems="baseline" justifyContent='space-between' width='30%'>
-                    <span>Bem vindo usuário</span>
+                    <span>Bem vindo { user.name && nomeFinal(user.name)}</span>
                     <BsMoon />
-                    <Button backgroundColor='transparent' border='1px solid #fff' width='100px' padding='10px 0'>
+                    <Button backgroundColor='transparent' border='1px solid #fff' width='100px' padding='10px 0' onClick={handleLogout}>
                         <MdOutlineLogout /> Sair
                     </Button>
                 </Container>

@@ -1,6 +1,12 @@
 import { CustomTable } from "./Table.styled"
+import {useNavigate} from "react-router-dom"
+import { useState } from "react";
 
 const Table = ({list, params}) => {
+    const teste= '/sprint';
+    const teste1 = 'idSprint';
+
+    const navigate = useNavigate();
     return (
      <CustomTable>
           <thead>
@@ -16,11 +22,11 @@ const Table = ({list, params}) => {
               {
                   list.map( (row, i) => (
                       <tr key={i}>
-                          {
-                              params.map( (column, j) => (
-                                  <td key={j}>
-                                      {row[column.key]}
-                                  </td>
+                            {
+                              params.map( (column, j) => ( 
+                                <td key={j} onClick={() => navigate(`${teste}`)}>
+                                    {row[column.key]}
+                                </td>
                               ))
                           }
                       </tr>
