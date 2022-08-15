@@ -1,5 +1,4 @@
 import { Container } from "../../components/container/Container";
-import Header from "../../components/header/Header";
 import { Formik } from "formik";
 import {
     CustomForm,
@@ -43,7 +42,6 @@ const SprintForm = () => {
     const {handleCreateSprint} = useContext(SprintContext);
     return (
         <>
-            <Header />
             <Container backgroundColor="#12101a" height="calc(100vh - 100px)">
                 <Container
                     flexDirection="column"
