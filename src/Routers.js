@@ -15,9 +15,9 @@ const Routers = () => {
            <ToastContainer/>
             <Routes>
                 <Route element={<PrivateRoute/>}>
-                    <Route path='/' element={<Home/>} />
+                  <Route path='/' element={<Home/>} />  
                 </Route>
-            
+                
                 <Route path='/login' element={<Login/>} />
                 <Route path='/cadastrar' element={<Signup/>} />
                 <Route path='/*' element={<NotFound/>} />
