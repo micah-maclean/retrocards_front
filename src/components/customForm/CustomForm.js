@@ -1,31 +1,66 @@
-import { Form } from "formik";
+import { Form, Field, ErrorMessage } from "formik";
+import MaskedInput from "react-text-mask";
 import styled from "styled-components";
 
 export const CustomForm = styled(Form)`
-  display: flex;
-  flex-direction: column;
+    display: flex;
+    flex-direction: column;
+`;
 
-  label {
+export const Label = styled.label`
     font-size: 1.25rem;
-    margin-bottom: 12px;
-  }
+    margin: 8px 0;
+    color: ${(props) => props.color && props.color};
 
-  input {
+    :first-of-type {
+        margin-top: 0;
+    }
+`;
+
+export const Input = styled(Field)`
     padding: 16px;
+    font-size: 1rem;
     border-radius: 8px;
     margin-bottom: 5px;
-    border: 1px solid #000;
-  }
+    color: ${(props) => (props.color ? props.color : "#fff")};
+    background-color: ${(props) =>
+        props.background ? props.background : "#3c3e44"};
+    border: ${(props) => (props.border ? props.border : "1px solid #3c3e44")};
 
-  input::placeholder {
-    font-size: 16px;
-  }
+    ::placeholder {
+        font-size: 1rem;
+    }
 
-  input:focus {
-    outline: #000 solid 1px;
-  }
+    :focus {
+        outline-offset: -2px;
+        outline: #5454fb solid 3px;
+    }
+`;
 
-  span {
+export const InputMask = styled(MaskedInput)`
+    padding: 16px;
+    font-size: 1rem;
+    border-radius: 8px;
+    margin-bottom: 5px;
+    color: ${(props) => (props.color ? props.color : "#fff")};
+    background-color: ${(props) =>
+        props.background ? props.background : "#3c3e44"};
+    border: ${(props) => (props.border ? props.border : "1px solid #3c3e44")};
+
+    ::placeholder {
+        font-size: 1rem;
+    }
+
+    :focus {
+        outline-offset: -2px;
+        outline: #5454fb solid 3px;
+    }
+`;
+
+export const ErrorInputMessage = styled(ErrorMessage)`
     color: #b51212;
-  }
+`;
+
+export const ErrorMessageContainer = styled.div`
+    height: 32px;
 `;
