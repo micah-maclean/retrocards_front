@@ -3,7 +3,7 @@ import moment from "moment";
 export const dataMask = [/\d/, /\d/, "/", /\d/, /\d/, "/", /\d/, /\d/, /\d/, /\d/];
 
 export const formatDateToDatabase = (values) => {
-    return moment(values, 'DD/MM/YYYY').format('YYYY-MM-DD')
+    return moment(values, 'DD/MM/YYYY').toISOString()
 }
 
 export const formatDateToRender = (values) => {

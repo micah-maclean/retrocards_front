@@ -8,6 +8,10 @@ export const HeaderContainer = styled.header`
     width: 100%;
     height: 100px;
 
+    img {
+        width: 150px;
+    }
+    
     span {
         height: 25px;
     }
