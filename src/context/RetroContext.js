@@ -19,7 +19,9 @@ const RetroProvider = ({ children }) => {
         }
     };
     return (
-        <RetroContext.Provider value={{handleCreateRetrospective}}>{children}</RetroContext.Provider>
+        <RetroContext.Provider value={{ handleCreateRetrospective }}>
+            {children}
+        </RetroContext.Provider>
     );
 };
 export { RetroContext, RetroProvider };
