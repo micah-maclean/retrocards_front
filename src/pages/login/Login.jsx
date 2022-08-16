@@ -1,32 +1,30 @@
+//Import referente a dependência Formik
 import { Formik } from "formik";
+//Import referente a dependência de rotas
 import { Link } from "react-router-dom";
+//Import referente ao react
 import { useContext } from "react";
+//Import referente ao context
 import { AuthContext } from "../../context/AuthContext";
+//Import referente aos componentes
 import {
     CustomForm,
     Input,
     Label,
 } from "../../components/customForm/CustomForm";
 import { Container } from "../../components/container/Container";
-import { Bar, Paragraph, Title, HalfCircle } from "./Login.styled";
 import { Button } from "../../components/button/Button";
-import * as Yup from "yup";
 import CustomErrorMessage from "../../components/customForm/CustomErrorMessage";
-
-const validations = Yup.object({
-    email: Yup.string()
-        .email("Insira um email válido")
-        .required("Campo Obrigatório"),
-    password: Yup.string()
-        .min(3, "A senha precisa de pelo menos 3 caracteres")
-        .required("Campo Obrigatório"),
-});
+//Import referente ao styled components
+import { Bar, Paragraph, Title, HalfCircle } from "./Login.styled";
+//Import referente as validações
+import { validationsLogin } from "../../utils/validations";
 
 const Login = () => {
     const { handleLogin } = useContext(AuthContext);
     return (
         <Container width="100%" height="100vh" position="relative">
-            <Container backgroundColor="#12101a" width="50%" color="#fff">
+            <Container backgroundColor="#12101a" width="50%">
                 <Container
                     flexDirection="column"
                     width="500px"
@@ -34,14 +32,19 @@ const Login = () => {
                     alignItems="center"
                     height="400px"
                     gap="96px"
+                    color="#fff"
                 >
-                    <Container flexDirection="column" alignItems="center">
-                        <Title color="#fff">Bem Vindo ao Retrocard</Title>
+                    <Container
+                        flexDirection="column"
+                        alignItems="center"
+                        color="#fff"
+                    >
+                        <Title>Bem Vindo ao Retrocard</Title>
                         <Bar
                             height="10px"
                             width="300px"
                             backgroundColor="#fff"
-                        ></Bar>
+                        />
                     </Container>
                     <Paragraph textAlign="justify">
                         Lorem, ipsum dolor sit amet consectetur adipisicing
@@ -69,18 +72,18 @@ const Login = () => {
                         <Bar
                             height="10px"
                             width="300px"
-                            backgroundColor="#000"
-                        ></Bar>
+                            backgroundColor="#12101a"
+                        />
                     </Container>
                     <Formik
                         initialValues={{
                             email: "",
                             password: "",
                         }}
-                        validationSchema={validations}
+                        validationSchema={validationsLogin}
                         onSubmit={(values, { resetForm }) => {
                             handleLogin(values);
-                            resetForm({ values: '' });
+                            resetForm({ values: "" });
                         }}
                     >
                         <CustomForm>
@@ -92,6 +95,7 @@ const Login = () => {
                                 outline="#000 solid 1px"
                                 name="email"
                                 placeholder="Email"
+                                id="email"
                             />
                             <CustomErrorMessage name={"email"} />
                             <Label htmlFor="password">Senha</Label>
@@ -103,6 +107,7 @@ const Login = () => {
                                 name="password"
                                 placeholder="Senha"
                                 type="password"
+                                id="password"
                             />
                             <CustomErrorMessage name={"password"} />
                             <Button

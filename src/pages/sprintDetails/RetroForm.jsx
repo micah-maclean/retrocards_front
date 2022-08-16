@@ -2,8 +2,10 @@
 import { Formik } from "formik";
 //Import referente ao react
 import { useContext } from "react";
+//Import referente as rotas
+import { useParams } from "react-router-dom";
 //Import referente ao context
-import { SprintContext } from "../../context/SprintContext";
+import { RetroContext } from "../../context/RetroContext";
 //Import referente aos componentes
 import { Container } from "../../components/container/Container";
 import {
@@ -18,10 +20,11 @@ import { Button } from "../../components/button/Button";
 // Import referente as máscaras
 import { dataMask, formatDateToDatabase } from "../../utils/masks";
 //Import referente as validações
-import { validationsSprint } from "../../utils/validations";
+import { validationsRetrospective } from "../../utils/validations";
 
-const SprintForm = () => {
-    const { handleCreateSprint } = useContext(SprintContext);
+const RetroForm = () => {
+    const {handleCreateRetrospective} = useContext(RetroContext)
+    const {idSprint} = useParams()
     return (
         <>
             <Container backgroundColor="#12101a" height="calc(100vh - 100px)">
@@ -37,29 +40,25 @@ const SprintForm = () => {
                     <Formik
                         initialValues={{
                             title: "",
-                            startDate: "",
-                            endDate: "",
+                            occurredDate: "",
                         }}
-                        validationSchema={validationsSprint}
+                        validationSchema={validationsRetrospective}
                         onSubmit={(values, { resetForm }) => {
                             console.log(values);
                             const newValues = {
+                                idSprint: idSprint,
                                 title: values.title,
-                                startDate: formatDateToDatabase(
-                                    values.startDate
+                                occurredDate: formatDateToDatabase(
+                                    values.occurredDate
                                 ),
-                                endDate: formatDateToDatabase(values.endDate),
                             };
-                            console.log(newValues);
-                            handleCreateSprint(newValues);
-                            // resetForm({
-                            //     values: { startDate: "", endDate: "" },
-                            // });
+                            console.log(newValues)
+                            handleCreateRetrospective(newValues, idSprint);
                         }}
                     >
                         {(props) => (
                             <CustomForm>
-                                <h1>Criar Sprint</h1>
+                                <h1>Criar Retrospectiva</h1>
                                 <Label color="#fff" htmlFor="title">
                                     Título
                                 </Label>
@@ -68,58 +67,30 @@ const SprintForm = () => {
                                     onChange={props.handleChange}
                                     onBlur={props.handleBlur}
                                     value={props.values.title}
-                                    placeholder="Digite o título da Sprint"
+                                    placeholder="Digite o título da Retrospectiva"
                                     id="title"
                                 />
                                 <CustomErrorMessage name={"title"} />
-                                <Container justifyContent="space-between">
-                                    <Container
-                                        flexDirection="column"
-                                        width="45%"
-                                        position="relative"
-                                    >
-                                        <Label
-                                            color="#fff"
-                                            htmlFor="initialDate"
-                                        >
-                                            Data de Início
-                                        </Label>
-                                        <InputMask
-                                            mask={dataMask}
-                                            name="startDate"
-                                            onChange={props.handleChange}
-                                            onBlur={props.handleBlur}
-                                            value={props.values.startDate}
-                                            type="text"
-                                            id="startDate"
-                                            placeholder="Insira a data inicial"
-                                        />
-                                        <Calendar top="50px" right="15px" />
-                                        <CustomErrorMessage
-                                            name={"startDate"}
-                                        />
-                                    </Container>
-                                    <Container
-                                        flexDirection="column"
-                                        width="45%"
-                                        position="relative"
-                                    >
-                                        <Label color="#fff" htmlFor="endDate">
-                                            Data de Final
-                                        </Label>
-                                        <InputMask
-                                            mask={dataMask}
-                                            name="endDate"
-                                            onChange={props.handleChange}
-                                            onBlur={props.handleBlur}
-                                            value={props.values.endDate}
-                                            type="text"
-                                            id="endDate"
-                                            placeholder="Insira a data final"
-                                        />
-                                        <Calendar top="50px" right="15px" />
-                                        <CustomErrorMessage name={"endDate"} />
-                                    </Container>
+                                <Container
+                                    position="relative"
+                                    flexDirection="column"
+                                >
+                                    <Label color="#fff" htmlFor="initialDate">
+                                        Data da Retrospectiva
+                                    </Label>
+                                    <InputMask
+                                        mask={dataMask}
+                                        name="occurredDate"
+                                        onChange={props.handleChange}
+                                        onBlur={props.handleBlur}
+                                        value={props.values.occurredDate}
+                                        type="text"
+                                        id="occurredDate"
+                                        placeholder="Insira a data da retrospectiva"
+                                        width="100%"
+                                    />
+                                    <Calendar top="50px" right="35px" />
+                                    <CustomErrorMessage name={"occurredDate"} />
                                 </Container>
                                 <Container justifyContent="space-around">
                                     <Button
@@ -154,4 +125,4 @@ const SprintForm = () => {
         </>
     );
 };
-export default SprintForm;
+export default RetroForm;

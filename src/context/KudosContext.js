@@ -1,10 +1,23 @@
 import { createContext } from "react";
 import { api } from "../api";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 const KudosContext = createContext();
 
 const KudosProvider = ({children}) => {
+    const navigate = useNavigate();
+
+    const handleCreateKudoBox = async (values, idSprint) => {
+        try {
+            await api.post("/kudobox/create", values);
+            toast.success("Kudo Box criada com sucesso");
+            navigate(`/sprint/${idSprint}`);
+        } catch (error) {
+            console.log(error);
+            toast.error("Erro ao cadastrar");
+        }
+    };
 
     const getKudoboxBySprintId = async (sprintId, currentPage, pageSize) => {
         try {
@@ -13,10 +26,10 @@ const KudosProvider = ({children}) => {
         } catch (error) {
           toast.error(error.response.data.message)
         }
-      }
+    };
 
     return(
-        <KudosContext.Provider value={{getKudoboxBySprintId}}>
+        <KudosContext.Provider value={{handleCreateKudoBox, getKudoboxBySprintId}}>
             {children}
         </KudosContext.Provider>
     )

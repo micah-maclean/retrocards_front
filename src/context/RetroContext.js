@@ -1,9 +1,24 @@
 import { createContext } from "react";
-import { toast } from "react-toastify";
 import { api } from "../api";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
+
 const RetroContext = createContext();
 
-const RetroProvider = ({children}) => {
+const RetroProvider = ({ children }) => {
+    const navigate = useNavigate();
+
+    const handleCreateRetrospective = async (values, idSprint) => {
+        try {
+            await api.post("/retrospective/create", values);
+            toast.success("Retrospectiva criada com sucesso");
+            navigate(`/sprint/${idSprint}`);
+        } catch (error) {
+            console.log(error);
+            toast.error("Erro ao cadastrar");
+        }
+    };
+
     const getRetrospectiveBySprintId = async (sprintId, currentPage, pageSize) => {
       try {
         const {data} = await api.get(`/retrospective/list/sprint/${sprintId}?pagina=${currentPage}&registro=${pageSize}`);
@@ -13,10 +28,10 @@ const RetroProvider = ({children}) => {
       }
     }
 
-  return (
-    <RetroContext.Provider value={{getRetrospectiveBySprintId}}>
-        {children}
-    </RetroContext.Provider>
-  )
-}
-export {RetroContext, RetroProvider}
+    return (
+        <RetroContext.Provider value={{handleCreateRetrospective, getRetrospectiveBySprintId}}>
+          {children}
+        </RetroContext.Provider>
+    );
+};
+export { RetroContext, RetroProvider };
