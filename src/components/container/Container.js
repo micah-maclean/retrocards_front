@@ -8,7 +8,7 @@ export const Container = styled.div`
 
   background-color: ${(props) =>
     props.backgroundColor && props.backgroundColor};
-  color: ${(props) => props.color && props.color};
+  color: ${(props) => props.color ? props.color : '#12101a'};
 
   border: ${(props) => props.border && props.border};
   border-radius: ${(props) => props.borderRadius && props.borderRadius};
