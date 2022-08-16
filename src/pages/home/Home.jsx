@@ -12,8 +12,8 @@ const Home = () => {
   const { user } = useContext(AuthContext);
   const { getSprintList } = useContext(SprintContext);
   const navigate = useNavigate();
-  const [ currentPage, setCurrentPage] = useState(1);
-  const [ pageSize, setPageSize] = useState(5);
+  const [ currentPage, setCurrentPage] = useState(0);
+  const [ pageSize, setPageSize] = useState(2);
   const [ totalCount, setTotalCount] = useState(0);
   const [ totalPages, setTotalPages] = useState(0);
   const [ list, setList] = useState([]);
@@ -47,7 +47,9 @@ const Home = () => {
             <Button backgroundColor='white' color='black' onClick={() => navigate('/sprint/cadastrar')}> + Criar</Button>
           }
         </Container>
-        <Table list={list} params={params} />
+
+        <Table list={list} params={params} path='/sprint' pathKey='idSprint'/>
+        
         <Pagination totalCount={totalCount} totalPages={totalPages} currentPage={currentPage} pageSize={pageSize} onPageChange={setCurrentPage} />
       </Container>
     </Container>

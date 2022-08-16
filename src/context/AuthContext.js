@@ -37,14 +37,13 @@ const AuthProvider = ({ children }) => {
       localStorage.setItem("token", data.token);
       navigate(from, { replace: true });
     } catch (error) {
-      console.log(error);
-      toast.error(error);
+      toast.error(error.response.data.message);
     }
   };
 
   const handleLogout = () => {
     setToken("");
-    api.defaults.headers.common["Authorization"] = undefined;
+    delete api.defaults.headers.common["Authorization"];
     localStorage.removeItem("token");
     navigate("/login");
   };

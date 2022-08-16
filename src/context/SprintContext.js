@@ -10,10 +10,10 @@ const SprintProvider = ({ children }) => {
 
     const getSprintList = async(page, pageSize) => {
         try {
-            const {data} = await api.get(`sprint/list-sprint-conclusion?page=${page}&register=${pageSize}`);
+            const {data} = await api.get(`/sprint/list?page=${page}&register=${pageSize}`);
             return data;
         } catch (error) {
-            console.log(error)
+            toast.error(error.response.data.message)
         }
     }
 

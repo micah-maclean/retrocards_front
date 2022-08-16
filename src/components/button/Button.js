@@ -6,6 +6,7 @@ export const Button = styled.button`
 
     cursor: pointer;
 
+    visibility: ${props => props.visibility && props.visibility};
     display: flex;
     align-items: center;
     justify-content: center;
