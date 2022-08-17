@@ -23,8 +23,7 @@ const SprintProvider = ({ children }) => {
             toast.success("Criado com sucesso");
             navigate("/");
         } catch (error) {
-            console.log(error);
-            toast.error("Erro ao cadastrar");
+            toast.error(error.response.data.message);
         }
     };
 

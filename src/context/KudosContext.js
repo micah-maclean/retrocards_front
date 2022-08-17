@@ -14,8 +14,7 @@ const KudosProvider = ({children}) => {
             toast.success("Kudo Box criada com sucesso");
             navigate(`/sprint/${idSprint}`);
         } catch (error) {
-            console.log(error);
-            toast.error("Erro ao cadastrar");
+            toast.error(error.response.data.message);
         }
     };
 
@@ -24,6 +23,10 @@ const KudosProvider = ({children}) => {
           const {data} = await api.get(`/kudobox/list/sprint/${sprintId}?pagina=${currentPage}&registros=${pageSize}`);
           return data;
         } catch (error) {
+            if(error.response.data.status === 400){
+                return;
+            }
+
           toast.error(error.response.data.message)
         }
     };

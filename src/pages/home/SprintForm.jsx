@@ -41,8 +41,7 @@ const SprintForm = () => {
                             endDate: "",
                         }}
                         validationSchema={validationsSprint}
-                        onSubmit={(values, { resetForm }) => {
-                            console.log(values);
+                        onSubmit={(values) => {
                             const newValues = {
                                 title: values.title,
                                 startDate: formatDateToDatabase(
@@ -50,11 +49,7 @@ const SprintForm = () => {
                                 ),
                                 endDate: formatDateToDatabase(values.endDate),
                             };
-                            console.log(newValues);
                             handleCreateSprint(newValues);
-                            // resetForm({
-                            //     values: { startDate: "", endDate: "" },
-                            // });
                         }}
                     >
                         {(props) => (

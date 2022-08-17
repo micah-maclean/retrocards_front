@@ -17,25 +17,33 @@ const SprintDetails = () => {
     const { getKudoboxBySprintId } = useContext(KudosContext);
     const [filter, setFilter] = useState('Retrospectiva')
     const [ currentPage, setCurrentPage] = useState(0);
-    const [ pageSize, setPageSize] = useState(5);
+    const [ pageSize, setPageSize] = useState(10);
     const [ totalCount, setTotalCount] = useState(0);
     const [ totalPages, setTotalPages] = useState(0);
     const [ list, setList] = useState([]);
 
     const setup = async (filter) => {
        if(filter === 'Retrospectiva'){
+            setCurrentPage(0);
             const data = await getRetrospectiveBySprintId(idSprint, currentPage, pageSize);
-            setTotalCount(data.totalElements);
-            setTotalPages(data.totalPages);
-            setList(data.content);
+            if(data){
+                setTotalCount(data.totalElements);
+                setTotalPages(data.totalPages);
+                setList(data.content);    
+            } else{
+                setList([])
+            }
         } else {
             setCurrentPage(0);
-            setList([])
             const data = await getKudoboxBySprintId(idSprint, currentPage, pageSize);
-            console.log(data);
-            setTotalCount(data.totalElements);
-            setTotalPages(data.totalPages);
-            setList(data.content);
+            if(data){
+             setTotalCount(data.totalElements);
+             setTotalPages(data.totalPages);
+             setList(data.content);    
+            } else{
+                setList([])
+            }
+           
         } 
     }
 

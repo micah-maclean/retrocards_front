@@ -48,14 +48,13 @@ const KudoBoxForm = () => {
                             endDate: "",
                         }}
                         validationSchema={validationsKudoBox}
-                        onSubmit={(values, { resetForm }) => {
-
+                        onSubmit={(values) => {
                             const newValues = {
                                 idSprint: idSprint,
                                 title: values.title,
                                 endDate: formatDateToDatabase(values.endDate),
                             };
-                            console.log(newValues)
+                            
                             handleCreateKudoBox(newValues, idSprint);
                         }}
                     >

@@ -10,14 +10,6 @@ export const CustomForm = styled(Form)`
     display: flex;
     flex-direction: column;
 
-    /* h1 {
-        text-align: center;
-        font-size: 2rem;
-        font-weight: bold;
-        color: #fff;
-        margin-bottom: 30px;
-    } */
-
     select {
         appearance: none;
     }

@@ -15,8 +15,6 @@ import {
 import CustomErrorMessage from "../../components/customForm/CustomErrorMessage";
 import { Button } from "../../components/button/Button";
 import Select from '../../components/customForm/Select'
-// Import referente as máscaras
-import { formatDateToDatabase } from "../../utils/masks";
 //Import referente as validações
 import { validationsItem } from "../../utils/validations";
 //Import referente ao context
@@ -25,7 +23,6 @@ import { RetroContext } from "../../context/RetroContext";
 const ItemRetroForm = () => {
     const { handleCreateItemRetrospective } = useContext(RetroContext);
     const { idRetrospective } = useParams();
-    console.log(idRetrospective)
     const tipo = [{name: "O que pode melhorar", value: 'IMPROVE'}, {name: "O que funcionou bem", value: 'WORKED'}, {name: "O que faremos na próxima sprint para melhorar", value: 'NEXT'}]
 
     return (
@@ -47,13 +44,12 @@ const ItemRetroForm = () => {
                             description: "",
                         }}
                         validationSchema={validationsItem}
-                        onSubmit={(values, { resetForm }) => {
+                        onSubmit={(values) => {
                             const newValues = {
                                 idRetrospective: parseInt(idRetrospective),
                                 title: values.title,
                                 description: values.description,
                             };
-                            console.log(newValues)
                             handleCreateItemRetrospective(newValues, idRetrospective, values.type);
                         }}
                     >

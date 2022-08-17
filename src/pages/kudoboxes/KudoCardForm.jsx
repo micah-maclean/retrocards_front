@@ -49,8 +49,7 @@ const KudoCardForm = () => {
                             endDate: "",
                         }}
                         validationSchema={validationsKudoBox}
-                        onSubmit={(values, { resetForm }) => {
-                            console.log(values);
+                        onSubmit={(values) => {
                             const newValues = {
                                 idKudoBox: idKudoBox,
                                 title: values.title,

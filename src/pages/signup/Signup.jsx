@@ -1,10 +1,10 @@
-import { Formik, Field } from "formik";
+import { Formik } from "formik";
 import { useContext } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "../../components/button/Button";
 import { Container } from "../../components/container/Container";
 import CustomErrorMessage from "../../components/customForm/CustomErrorMessage";
-import { CustomForm, ErrorInputMessage, Input, Label } from "../../components/customForm/CustomForm";
+import { CustomForm, Input, Label } from "../../components/customForm/CustomForm";
 import { Paragraph } from "../../components/paragraph/Paragraph";
 import { Title } from "../../components/title/Title";
 import { AuthContext } from "../../context/AuthContext";
@@ -21,8 +21,8 @@ const Signup = () => {
             password: '',
         }}
         validationSchema={validationSignup}
-        onSubmit={ (values, {resetForm}) => {
-            handleSignup(values)
+        onSubmit={ (values) => {
+            handleSignup(values);
         }}
     >
         <Container> 

@@ -45,8 +45,7 @@ const RetroForm = () => {
                             occurredDate: "",
                         }}
                         validationSchema={validationsRetrospective}
-                        onSubmit={(values, { resetForm }) => {
-                            console.log(values);
+                        onSubmit={(values) => {
                             const newValues = {
                                 idSprint: idSprint,
                                 title: values.title,
@@ -54,7 +53,6 @@ const RetroForm = () => {
                                     values.occurredDate
                                 ),
                             };
-                            console.log(newValues)
                             handleCreateRetrospective(newValues, idSprint);
                         }}
                     >

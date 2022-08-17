@@ -13,16 +13,20 @@ const Home = () => {
   const { getSprintList } = useContext(SprintContext);
   const navigate = useNavigate();
   const [ currentPage, setCurrentPage] = useState(0);
-  const [ pageSize, setPageSize] = useState(2);
+  const [ pageSize, setPageSize] = useState(10);
   const [ totalCount, setTotalCount] = useState(0);
   const [ totalPages, setTotalPages] = useState(0);
   const [ list, setList] = useState([]);
 
   const setup = async() => {
     const data = await getSprintList(currentPage, pageSize)
-    setList(data.content);
-    setTotalCount(data.totalElements)
-    setTotalPages(data.totalPages);
+    if(data){
+      setTotalCount(data.totalElements);
+      setTotalPages(data.totalPages);
+      setList(data.content);    
+    } else{
+      setList([])
+    }
   }
 
   useEffect(() => {
@@ -32,7 +36,6 @@ const Home = () => {
   const params = [
     {heading: 'Id', key: 'idSprint'},
     {heading: 'Titulo', key: 'title'},
-    {heading: 'Data de Inicio', key: 'startDate'},
     {heading: 'data de Fim', key: 'endDate'},
   ];
 

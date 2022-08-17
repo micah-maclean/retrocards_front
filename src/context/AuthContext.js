@@ -48,11 +48,9 @@ const AuthProvider = ({ children }) => {
     navigate("/login");
   };
 
-  const handleSignup = async (values, resetForm) => {
+  const handleSignup = async (values) => {
     try {
-      const data = await api.post('/user/create', values);
-      resetValue()
-      console.log(data);
+      await api.post('/user/create', values);
     } catch (error) {
       toast.error(error.response.data.message);
     }
