@@ -3,11 +3,11 @@ import moment from "moment";
 export const dataMask = [/\d/, /\d/, "/", /\d/, /\d/, "/", /\d/, /\d/, /\d/, /\d/];
 
 export const formatDateToDatabase = (values) => {
-    return moment(values, 'DD/MM/YYYY').toISOString()
+    return moment(values, 'DD/MM/YYYY').format('YYYY-MM-DD')
 }
 
 export const formatDateToRender = (values) => {
-    return moment(values).format('DD/MM/YYYY')
+    return moment(values, 'YYYY-MM-DD').format('DD/MM/YYYY')
 }
 export const nomeFinal =  value => {
     return value.toLowerCase().replace(/(^\w{1})|(\s+\w{1})/g, letra => letra.toUpperCase());
@@ -24,4 +24,9 @@ export const ehDataAnterior = (value) => {
     }
 
     return true
+}
+
+export const ehDataFinalValida = (startDate, endDate) => {
+    console.log(startDate);
+    // console.log(endDate);
 }

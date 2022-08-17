@@ -135,17 +135,19 @@ const Login = () => {
                 position="absolute"
                 backgroundColor="#fff"
                 width="256px"
-                height="256px"
-                bottom="20px"
-                left="calc(50% - 256px)"
+                height="156px"
+                borderRadius='206px 206px 0 0'
+                bottom="65px"
+                left="calc(50% - 206px)"
             />
             <HalfCircle
                 backgroundColor="#12101a"
                 position="absolute"
                 width="128px"
-                height="128px"
-                bottom="84px"
-                left="calc(50% - 128px)"
+                height="78px"
+                borderRadius='78px 78px 0 0'
+                bottom="98px"
+                left="calc(50% - 102px)"
             />
         </Container>
     );

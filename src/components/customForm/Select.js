@@ -4,8 +4,7 @@ import {
     SelectLabelButton,
     DropdownStyle,
     DropdownItem,
-    Dropdown,
-    Label,
+    Dropdown
 } from "./CustomForm";
 
 const Select = ({ label, values, onChange }) => {

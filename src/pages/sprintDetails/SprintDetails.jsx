@@ -7,11 +7,12 @@ import Tab from "../../components/tab/Tab"
 import Table from "../../components/table/Table"
 import {KudosContext} from "../../context/KudosContext"
 import { RetroContext } from "../../context/RetroContext"
-import {useParams} from "react-router-dom"
+import {useNavigate, useParams} from "react-router-dom"
 import Pagination from "../../components/pagination/Pagination"
 
 const SprintDetails = () => {
     const {idSprint} = useParams();
+    const navigate = useNavigate()
     const { getRetrospectiveBySprintId } = useContext(RetroContext);
     const { getKudoboxBySprintId } = useContext(KudosContext);
     const [filter, setFilter] = useState('Retrospectiva')
@@ -58,12 +59,16 @@ const SprintDetails = () => {
         {heading: 'Status', key: 'status'},
         {heading: 'Sprint', key: 'sprint'}
     ]
+
+    const retrospectiva = `/retrospectiva/cadastrar/${idSprint}`
+    const kudobox = `/kudo-box/cadastrar/${idSprint}`
+
   return (
     <Container minHeight='calc(100vh - 100px)' backgroundColor='#12101A' flexDirection='column' alignItems='center' padding='30px 0'>
         <Container maxWidth='1120px' flexDirection='column' alignItems='flex-start' gap='30px'>
             <Container color="white" width='100%' justifyContent='space-between'>
                 <Tab filterList={filterList} setFilter={setFilter} activeFilter={filter}/>
-                <Button backgroundColor='white' color='black' padding='8px 16px'>
+                <Button backgroundColor='white' color='black' padding='8px 16px' onClick={() => navigate(filter === 'Retrospectiva' ? retrospectiva : kudobox )}>
                     {filter === 'Retrospectiva' ? '+ Criar Retrospectiva' : '+ Criar Kudos Box'}
                 </Button>
             </Container>
