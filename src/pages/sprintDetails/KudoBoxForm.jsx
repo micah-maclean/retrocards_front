@@ -21,6 +21,7 @@ import { dataMask, formatDateToDatabase } from "../../utils/masks";
 import { validationsKudoBox } from "../../utils/validations";
 import { KudosContext } from "../../context/KudosContext";
 import { SprintContext } from "../../context/SprintContext";
+import { Title } from "../../components/title/Title";
 
 
 
@@ -48,21 +49,20 @@ const KudoBoxForm = () => {
                             endDate: "",
                         }}
                         validationSchema={validationsKudoBox}
-                        onSubmit={(values, { resetForm }) => {
-
+                        onSubmit={(values) => {
                             const newValues = {
                                 idSprint: idSprint,
                                 title: values.title,
                                 endDate: formatDateToDatabase(values.endDate),
                             };
-                            console.log(newValues)
+                            
                             handleCreateKudoBox(newValues, idSprint);
                         }}
                     >
                         {(props) => (
-                            <CustomForm>
-                                <h1>Criar Kudo Box</h1>
-                                <Label color="#fff" htmlFor="title">
+                            <CustomForm color="#fff">
+                                <Title marginBottom='30px'>Criar Kudo Box</Title>
+                                <Label htmlFor="title">
                                     Título
                                 </Label>
                                 <Input
@@ -75,7 +75,7 @@ const KudoBoxForm = () => {
                                 />
                                 <CustomErrorMessage name={"title"} />
                                 <Container position="relative" flexDirection='column'>
-                                    <Label color="#fff" htmlFor="initialDate">
+                                    <Label htmlFor="initialDate">
                                         Data de Encerramento do Kudo Box
                                     </Label>
                                     <InputMask

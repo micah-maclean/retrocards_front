@@ -22,6 +22,7 @@ import { dataMask, formatDateToDatabase } from "../../utils/masks";
 //Import referente as validações
 import { validationsRetrospective } from "../../utils/validations";
 import { SprintContext } from "../../context/SprintContext";
+import { Title } from "../../components/title/Title";
 
 const RetroForm = () => {
     const {handleCreateRetrospective} = useContext(RetroContext)
@@ -45,8 +46,7 @@ const RetroForm = () => {
                             occurredDate: "",
                         }}
                         validationSchema={validationsRetrospective}
-                        onSubmit={(values, { resetForm }) => {
-                            console.log(values);
+                        onSubmit={(values) => {
                             const newValues = {
                                 idSprint: idSprint,
                                 title: values.title,
@@ -54,14 +54,13 @@ const RetroForm = () => {
                                     values.occurredDate
                                 ),
                             };
-                            console.log(newValues)
                             handleCreateRetrospective(newValues, idSprint);
                         }}
                     >
                         {(props) => (
-                            <CustomForm>
-                                <h1>Criar Retrospectiva</h1>
-                                <Label color="#fff" htmlFor="title">
+                            <CustomForm color='#fff'>
+                                <Title marginBottom='30px'>Criar Retrospectiva</Title>
+                                <Label htmlFor="title">
                                     Título
                                 </Label>
                                 <Input
@@ -77,7 +76,7 @@ const RetroForm = () => {
                                     position="relative"
                                     flexDirection="column"
                                 >
-                                    <Label color="#fff" htmlFor="initialDate">
+                                    <Label htmlFor="initialDate">
                                         Data da Retrospectiva
                                     </Label>
                                     <InputMask

@@ -14,8 +14,7 @@ const RetroProvider = ({ children }) => {
             toast.success("Retrospectiva criada com sucesso");
             navigate(`/sprint/${idSprint}`);
         } catch (error) {
-            console.log(error);
-            toast.error("Erro ao cadastrar");
+            toast.error(error.response.data.message);
         }
     };
 
@@ -24,6 +23,9 @@ const RetroProvider = ({ children }) => {
         const {data} = await api.get(`/retrospective/list/sprint/${sprintId}?pagina=${currentPage}&registro=${pageSize}`);
         return data;
       } catch (error) {
+        if(error.response.data.status === 400){
+          return;
+        }
         toast.error(error.response.data.message)
       }
     }

@@ -19,6 +19,7 @@ import { Button } from "../../components/button/Button";
 import { dataMask, formatDateToDatabase } from "../../utils/masks";
 //Import referente as validações
 import { validationsSprint } from "../../utils/validations";
+import { Title } from "../../components/title/Title";
 
 const SprintForm = () => {
     const { handleCreateSprint, handleNavigateToSprint } = useContext(SprintContext);
@@ -41,8 +42,7 @@ const SprintForm = () => {
                             endDate: "",
                         }}
                         validationSchema={validationsSprint}
-                        onSubmit={(values, { resetForm }) => {
-                            console.log(values);
+                        onSubmit={(values) => {
                             const newValues = {
                                 title: values.title,
                                 startDate: formatDateToDatabase(
@@ -50,17 +50,13 @@ const SprintForm = () => {
                                 ),
                                 endDate: formatDateToDatabase(values.endDate),
                             };
-                            console.log(newValues);
                             handleCreateSprint(newValues);
-                            // resetForm({
-                            //     values: { startDate: "", endDate: "" },
-                            // });
                         }}
                     >
                         {(props) => (
-                            <CustomForm>
-                                <h1>Criar Sprint</h1>
-                                <Label color="#fff" htmlFor="title">
+                            <CustomForm color="white">
+                                <Title marginBottom='30px'>Criar Sprint</Title>
+                                <Label htmlFor="title">
                                     Título
                                 </Label>
                                 <Input
@@ -79,7 +75,6 @@ const SprintForm = () => {
                                         position="relative"
                                     >
                                         <Label
-                                            color="#fff"
                                             htmlFor="initialDate"
                                         >
                                             Data de Início
@@ -104,7 +99,7 @@ const SprintForm = () => {
                                         width="45%"
                                         position="relative"
                                     >
-                                        <Label color="#fff" htmlFor="endDate">
+                                        <Label htmlFor="endDate">
                                             Data de Final
                                         </Label>
                                         <InputMask

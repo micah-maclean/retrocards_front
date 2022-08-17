@@ -17,31 +17,32 @@ const SprintDetails = () => {
     const { getKudoboxBySprintId } = useContext(KudosContext);
     const [filter, setFilter] = useState('Retrospectiva')
     const [ currentPage, setCurrentPage] = useState(0);
-    const [ pageSize, setPageSize] = useState(5);
+    const [ pageSize, setPageSize] = useState(10);
     const [ totalCount, setTotalCount] = useState(0);
     const [ totalPages, setTotalPages] = useState(0);
     const [ list, setList] = useState([]);
 
     const setup = async (filter) => {
-       if(filter === 'Retrospectiva'){
-            const data = await getRetrospectiveBySprintId(idSprint, currentPage, pageSize);
+        const data = filter === 'Retrospectiva' 
+        ? await getRetrospectiveBySprintId(idSprint, currentPage, pageSize)
+        :await getKudoboxBySprintId(idSprint, currentPage, pageSize);
+
+        if(data){
             setTotalCount(data.totalElements);
             setTotalPages(data.totalPages);
-            setList(data.content);
-        } else {
-            setCurrentPage(0);
-            setList([])
-            const data = await getKudoboxBySprintId(idSprint, currentPage, pageSize);
-            console.log(data);
-            setTotalCount(data.totalElements);
-            setTotalPages(data.totalPages);
-            setList(data.content);
-        } 
+            setList(data.content);    
+        } else{
+            setList([]);
+            setTotalCount(0);
+            setTotalPages(0);
+        }
     }
 
     useEffect(()=>{
         setup(filter)
     }, [filter, currentPage])
+
+    
 
     const filterList = [ 'Retrospectiva', 'Kudo Box'];
     const paramsRetro =[
@@ -68,11 +69,14 @@ const SprintDetails = () => {
         <Container maxWidth='1120px' flexDirection='column' alignItems='flex-start' gap='30px'>
             <Container color="white" width='100%' justifyContent='space-between'>
                 <Tab filterList={filterList} setFilter={setFilter} activeFilter={filter}/>
+
                 <Button backgroundColor='white' color='black' padding='8px 16px' onClick={() => navigate(filter === 'Retrospectiva' ? retrospectiva : kudobox )}>
                     {filter === 'Retrospectiva' ? '+ Criar Retrospectiva' : '+ Criar Kudos Box'}
                 </Button>
             </Container>
+
             <Table params={filter === 'Retrospectiva' ? paramsRetro: paramsKudo} list={list} path='/retrospectiva' pathKey='idRetrospective'/>
+            
             <Pagination totalCount={totalCount} totalPages={totalPages} currentPage={currentPage} pageSize={pageSize} onPageChange={setCurrentPage}/>
         </Container>
     </Container>

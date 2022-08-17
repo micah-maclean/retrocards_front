@@ -27,6 +27,10 @@ export const ehDataAnterior = (value) => {
 }
 
 export const ehDataFinalValida = (startDate, endDate) => {
-    console.log(startDate);
-    // console.log(endDate);
+    if(startDate?.length === 8 && endDate?.length === 8) {
+        const start = moment(startDate, 'DDMMYYYY')
+        return moment(endDate, "DDMMYYYY").diff(start, 'days') >= 0;
+    }
+
+    return true
 }

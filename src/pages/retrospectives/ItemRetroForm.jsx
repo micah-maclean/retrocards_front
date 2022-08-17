@@ -15,17 +15,15 @@ import {
 import CustomErrorMessage from "../../components/customForm/CustomErrorMessage";
 import { Button } from "../../components/button/Button";
 import Select from '../../components/customForm/Select'
-// Import referente as máscaras
-import { formatDateToDatabase } from "../../utils/masks";
 //Import referente as validações
 import { validationsItem } from "../../utils/validations";
 //Import referente ao context
 import { RetroContext } from "../../context/RetroContext";
+import { Title } from "../../components/title/Title";
 
 const ItemRetroForm = () => {
     const { handleCreateItemRetrospective } = useContext(RetroContext);
     const { idRetrospective } = useParams();
-    console.log(idRetrospective)
     const tipo = [{name: "O que pode melhorar", value: 'IMPROVE'}, {name: "O que funcionou bem", value: 'WORKED'}, {name: "O que faremos na próxima sprint para melhorar", value: 'NEXT'}]
 
     return (
@@ -47,20 +45,19 @@ const ItemRetroForm = () => {
                             description: "",
                         }}
                         validationSchema={validationsItem}
-                        onSubmit={(values, { resetForm }) => {
+                        onSubmit={(values) => {
                             const newValues = {
                                 idRetrospective: parseInt(idRetrospective),
                                 title: values.title,
                                 description: values.description,
                             };
-                            console.log(newValues)
                             handleCreateItemRetrospective(newValues, idRetrospective, values.type);
                         }}
                     >
                         {(props) => (
-                            <CustomForm>
-                                <h1>Criar Item da Retrospectiva</h1>
-                                <Label color="#fff" htmlFor="type">
+                            <CustomForm color="#fff">
+                                <Title marginBottom='30px'>Criar Item da Retrospectiva</Title>
+                                <Label htmlFor="type">
                                     Tipo
                                 </Label>
                                 <Container position="relative" flexDirection='column'>
@@ -68,7 +65,7 @@ const ItemRetroForm = () => {
                                     <Dropdown top="12px" right="25px" />
                                     <CustomErrorMessage name={"type"} />
                                 </Container>
-                                <Label color="#fff" htmlFor="title">
+                                <Label htmlFor="title">
                                     Título
                                 </Label>
                                 <Input
@@ -80,7 +77,7 @@ const ItemRetroForm = () => {
                                     id="title"
                                 />
                                 <CustomErrorMessage name={"title"} />
-                                <Label color="#fff" htmlFor="description">
+                                <Label htmlFor="description">
                                     Descrição
                                 </Label>
                                 <Input

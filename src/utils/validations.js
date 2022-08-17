@@ -1,5 +1,5 @@
 import * as Yup from "yup";
-import { ehDataAnterior, ehDataValida } from "./masks";
+import { ehDataAnterior, ehDataFinalValida, ehDataValida } from "./masks";
 
 export const validationsTitle = Yup.string()
     .max(60, "Insira um título de no máximo 60 caracteres")
@@ -15,6 +15,18 @@ export const validationsLogin = Yup.object({
         .required("Campo Obrigatório"),
 });
 
+export const validationSignup = Yup.object({
+    name: Yup.string()
+        .required("Campo Obrigatório"),
+    email: Yup.string()
+        .email("Insira um email válido")
+        .required("Campo Obrigatório"),
+    password: Yup.string()
+        .min(3, "A senha precisa de pelo menos 3 caracteres")
+        .required("Campo Obrigatório"),
+
+})
+
 export const validationsSprint = Yup.object({
     title: validationsTitle,
     startDate: Yup.string()
@@ -25,11 +37,15 @@ export const validationsSprint = Yup.object({
         )
         .transform((value) => value.replace(/\D/g, ""))
         .min(8, 'Insira uma data no formato "DD/MM/YYYY"'),
-    endDate: Yup.date().transform(() => {}),
-    // endDate: Yup.string()
-    //     .required("Campo Obrigatório")
-    //     .transform((value) => value.replace(/\D/g, ""))
-    //     .min(8, "Insira uma data válida"),
+    endDate: Yup.string()
+        .required("Campo Obrigatório")
+        .test("Datavalida", "Data Inválida", (value) => ehDataValida(value))
+        .test("Datafinalvalida", "Data final não pode ser antes que a inicial", function(){
+            const {startDate, endDate} = this.parent;
+            return ehDataFinalValida(startDate, endDate);
+        })
+        .transform((value) => value.replace(/\D/g, ""))
+        .min(8, "Insira uma data válida"),
 });
 
 export const validationsRetrospective = Yup.object({

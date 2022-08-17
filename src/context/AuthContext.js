@@ -17,7 +17,7 @@ const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     const token = localStorage.getItem("token");
-
+    
     if (token) {
       setToken(token);
       api.defaults.headers.common["Authorization"] = token;
@@ -48,6 +48,14 @@ const AuthProvider = ({ children }) => {
     navigate("/login");
   };
 
+  const handleSignup = async (values) => {
+    try {
+      await api.post('/user/create', values);
+    } catch (error) {
+      toast.error(error.response.data.message);
+    }
+  };
+
   const getLogged = async () => {
     try {
       const { data } = await api.get("/user/get-logged");
@@ -62,7 +70,7 @@ const AuthProvider = ({ children }) => {
   }
 
   return (
-    <AuthContext.Provider value={{ token, user, handleLogin, handleLogout }}>
+    <AuthContext.Provider value={{ token, user, handleLogin, handleLogout, handleSignup }}>
       {children}
     </AuthContext.Provider>
   );
