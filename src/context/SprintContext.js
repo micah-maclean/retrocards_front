@@ -28,8 +28,16 @@ const SprintProvider = ({ children }) => {
         }
     };
 
+    const handleNavigateToSprint = () => {
+        navigate('/')
+    }
+
+    const handleNavigateToSprintById = (idSprint) => {
+        navigate(`/sprint/${idSprint}`)
+    }
+
     return (
-        <SprintContext.Provider value={{handleCreateSprint, getSprintList}}>
+        <SprintContext.Provider value={{handleCreateSprint, getSprintList, handleNavigateToSprint, handleNavigateToSprintById}}>
             {children}
         </SprintContext.Provider>
     );

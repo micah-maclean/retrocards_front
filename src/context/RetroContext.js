@@ -28,8 +28,18 @@ const RetroProvider = ({ children }) => {
       }
     }
 
+    const handleCreateItemRetrospective = async(values, idRetrospective, type) => {
+      try {
+        await api.post(`/itemretrospective/create?itemType=${type}`, values)
+        toast.success("Item de Retrospectiva criada com sucesso");
+        // navigate(`/retrospective/${idRetrospective}`)
+      } catch (error) {
+        toast.error(error.response.data.message)
+      }
+    }
+
     return (
-        <RetroContext.Provider value={{handleCreateRetrospective, getRetrospectiveBySprintId}}>
+        <RetroContext.Provider value={{handleCreateRetrospective, getRetrospectiveBySprintId, handleCreateItemRetrospective}}>
           {children}
         </RetroContext.Provider>
     );

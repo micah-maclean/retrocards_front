@@ -1,6 +1,11 @@
 import * as Yup from "yup";
 import { ehDataAnterior, ehDataFinalValida, ehDataValida } from "./masks";
 
+export const validationsTitle = Yup.string()
+    .max(60, "Insira um título de no máximo 60 caracteres")
+    .min(3, "Insira um título de no mínimo 3 caracteres")
+    .required("Campo Obrigatório");
+
 export const validationsLogin = Yup.object({
     email: Yup.string()
         .email("Insira um email válido")
@@ -23,10 +28,7 @@ export const validationSignup = Yup.object({
 })
 
 export const validationsSprint = Yup.object({
-    title: Yup.string()
-        .max(60, "Insira um título de no máximo 60 caracteres")
-        .min(3, "Insira um título de no mínimo 3 caracteres")
-        .required("Campo Obrigatório"),
+    title: validationsTitle,
     startDate: Yup.string()
         .required("Campo Obrigatório")
         .test("Datavalida", "Data Inválida", (value) => ehDataValida(value))
@@ -47,10 +49,7 @@ export const validationsSprint = Yup.object({
 });
 
 export const validationsRetrospective = Yup.object({
-    title: Yup.string()
-        .max(60, "Insira um título de no máximo 60 caracteres")
-        .min(3, "Insira um título de no mínimo 3 caracteres")
-        .required("Campo Obrigatório"),
+    title: validationsTitle,
     occurredDate: Yup.string()
         .required("Campo Obrigatório")
         .test("Datavalida", "Data Inválida", (value) => ehDataValida(value))
@@ -62,23 +61,16 @@ export const validationsRetrospective = Yup.object({
 });
 
 export const validationsItem = Yup.object({
-    title: Yup.string()
-        .max(60, "Insira um título de no máximo 60 caracteres")
-        .min(3, "Insira um título de no mínimo 3 caracteres")
-        .required("Campo Obrigatório"),
-        type: Yup.string()
-        .required("Campo Obrigatório"),
-        description: Yup.string()
+    title: validationsTitle,
+    type: Yup.string().required("Campo Obrigatório"),
+    description: Yup.string()
         .max(60, "Insira um título de no máximo 60 caracteres")
         .min(3, "Insira um título de no mínimo 3 caracteres")
         .required("Campo Obrigatório"),
 });
 
 export const validationsKudoBox = Yup.object({
-    title: Yup.string()
-        .max(60, "Insira um título de no máximo 60 caracteres")
-        .min(3, "Insira um título de no mínimo 3 caracteres")
-        .required("Campo Obrigatório"),
+    title: validationsTitle,
     endDate: Yup.string()
         .required("Campo Obrigatório")
         .test("Datavalida", "Data Inválida", (value) => ehDataValida(value))

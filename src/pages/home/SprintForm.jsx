@@ -21,7 +21,7 @@ import { dataMask, formatDateToDatabase } from "../../utils/masks";
 import { validationsSprint } from "../../utils/validations";
 
 const SprintForm = () => {
-    const { handleCreateSprint } = useContext(SprintContext);
+    const { handleCreateSprint, handleNavigateToSprint } = useContext(SprintContext);
     return (
         <>
             <Container backgroundColor="#12101a" height="calc(100vh - 100px)">
@@ -130,6 +130,7 @@ const SprintForm = () => {
                                         backgroundColorHover="#5454fb"
                                         borderHover="1px solid #5454fb"
                                         colorHover="#fff"
+                                        onClick={handleNavigateToSprint}
                                     >
                                         Voltar
                                     </Button>
