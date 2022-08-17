@@ -29,7 +29,7 @@ const Routers = () => {
                 <SprintProvider>
                   <RetroProvider>
                     <KudosProvider>
-                      <ToastContainer />
+                      <ToastContainer autoClose={false} />
                       <Routes>
                           <Route element={<PrivateRoute />}>
                               <Route path="/" element={<Home />} />

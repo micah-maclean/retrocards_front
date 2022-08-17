@@ -6,16 +6,17 @@ import styled from "styled-components";
 import { IoMdArrowDropdown } from "react-icons/io";
 
 export const CustomForm = styled(Form)`
+    width: ${props => props.width ? props.width : '100%'};
     display: flex;
     flex-direction: column;
 
-    h1 {
+    /* h1 {
         text-align: center;
         font-size: 2rem;
         font-weight: bold;
         color: #fff;
         margin-bottom: 30px;
-    }
+    } */
 
     select {
         appearance: none;
