@@ -21,6 +21,7 @@ import { formatDateToDatabase } from "../../utils/masks";
 import { validationsKudoBox } from "../../utils/validations";
 //Import referente ao context
 import { KudosContext } from "../../context/KudosContext";
+import { Title } from "../../components/title/Title";
 
 const KudoCardForm = () => {
     const { handleCreateKudoBox } = useContext(KudosContext);
@@ -59,9 +60,9 @@ const KudoCardForm = () => {
                         }}
                     >
                         {(props) => (
-                            <CustomForm>
-                                <h1>Criar Kudo Card</h1>
-                                <Label color="#fff" htmlFor="title">
+                            <CustomForm color="#fff">
+                                <Title marginBottom='30px'>Criar Kudo Card</Title>
+                                <Label htmlFor="title">
                                     Título
                                 </Label>
                                 <Input
@@ -73,7 +74,7 @@ const KudoCardForm = () => {
                                     id="title"
                                 />
                                 <CustomErrorMessage name={"title"} />
-                                <Label color="#fff" htmlFor="description">
+                                <Label htmlFor="description">
                                     Descrição
                                 </Label>
                                 <Input
@@ -85,7 +86,7 @@ const KudoCardForm = () => {
                                     id="description"
                                 />
                                 <CustomErrorMessage name={"description"} />
-                                <Label color="#fff" htmlFor="receiver">
+                                <Label htmlFor="receiver">
                                     Para
                                 </Label>
                                 <Container position='relative' flexDirection='column' >
@@ -116,7 +117,7 @@ const KudoCardForm = () => {
                                         checked={checked}
                                         onClick={handleCheckboxChange}
                                     />
-                                    <Label color="#fff" margin='8px 0 0 0' checked={checked}>
+                                    <Label margin='8px 0 0 0' checked={checked}>
                                         Enviar Anônimo
                                     </Label>
                                 </Container>

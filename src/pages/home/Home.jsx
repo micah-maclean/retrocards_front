@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { SprintContext } from "../../context/SprintContext";
 import { AuthContext } from "../../context/AuthContext";
+import { Title } from "../../components/title/Title";
 
 const Home = () => {
   const { user } = useContext(AuthContext);
@@ -44,7 +45,7 @@ const Home = () => {
     <Container minHeight='calc(100vh - 100px)' backgroundColor='#12101A' flexDirection='column' alignItems='center' padding='30px 0'>
       <Container flexDirection='column' gap='32px' color='white'>
         <Container alignItems='center' justifyContent='space-between'>
-          <h1>Sprints</h1>
+          <Title textAlign='left' color="white">Sprints</Title>
           {
             user.role === 'ROLE_FACILITATOR' &&
             <Button backgroundColor='white' color='black' onClick={() => navigate('/sprint/cadastrar')}> + Criar</Button>

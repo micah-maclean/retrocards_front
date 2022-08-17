@@ -19,6 +19,7 @@ import Select from '../../components/customForm/Select'
 import { validationsItem } from "../../utils/validations";
 //Import referente ao context
 import { RetroContext } from "../../context/RetroContext";
+import { Title } from "../../components/title/Title";
 
 const ItemRetroForm = () => {
     const { handleCreateItemRetrospective } = useContext(RetroContext);
@@ -54,9 +55,9 @@ const ItemRetroForm = () => {
                         }}
                     >
                         {(props) => (
-                            <CustomForm>
-                                <h1>Criar Item da Retrospectiva</h1>
-                                <Label color="#fff" htmlFor="type">
+                            <CustomForm color="#fff">
+                                <Title marginBottom='30px'>Criar Item da Retrospectiva</Title>
+                                <Label htmlFor="type">
                                     Tipo
                                 </Label>
                                 <Container position="relative" flexDirection='column'>
@@ -64,7 +65,7 @@ const ItemRetroForm = () => {
                                     <Dropdown top="12px" right="25px" />
                                     <CustomErrorMessage name={"type"} />
                                 </Container>
-                                <Label color="#fff" htmlFor="title">
+                                <Label htmlFor="title">
                                     Título
                                 </Label>
                                 <Input
@@ -76,7 +77,7 @@ const ItemRetroForm = () => {
                                     id="title"
                                 />
                                 <CustomErrorMessage name={"title"} />
-                                <Label color="#fff" htmlFor="description">
+                                <Label htmlFor="description">
                                     Descrição
                                 </Label>
                                 <Input
