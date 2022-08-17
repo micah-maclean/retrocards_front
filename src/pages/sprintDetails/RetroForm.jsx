@@ -21,9 +21,11 @@ import { Button } from "../../components/button/Button";
 import { dataMask, formatDateToDatabase } from "../../utils/masks";
 //Import referente as validações
 import { validationsRetrospective } from "../../utils/validations";
+import { SprintContext } from "../../context/SprintContext";
 
 const RetroForm = () => {
     const {handleCreateRetrospective} = useContext(RetroContext)
+    const {handleNavigateToSprintById} = useContext(SprintContext)
     const {idSprint} = useParams()
     return (
         <>
@@ -101,6 +103,7 @@ const RetroForm = () => {
                                         backgroundColorHover="#5454fb"
                                         borderHover="1px solid #5454fb"
                                         colorHover="#fff"
+                                        onClick={() => handleNavigateToSprintById(idSprint)}
                                     >
                                         Voltar
                                     </Button>

@@ -20,11 +20,13 @@ import { dataMask, formatDateToDatabase } from "../../utils/masks";
 //Import referente as validações
 import { validationsKudoBox } from "../../utils/validations";
 import { KudosContext } from "../../context/KudosContext";
+import { SprintContext } from "../../context/SprintContext";
 
 
 
 const KudoBoxForm = () => {
     const {handleCreateKudoBox} = useContext(KudosContext)
+    const {handleNavigateToSprintById} = useContext(SprintContext)
     const {idSprint} = useParams()
 
 
@@ -99,6 +101,7 @@ const KudoBoxForm = () => {
                                         backgroundColorHover="#5454fb"
                                         borderHover="1px solid #5454fb"
                                         colorHover="#fff"
+                                        onClick={() => handleNavigateToSprintById(idSprint)}
                                     >
                                         Voltar
                                     </Button>

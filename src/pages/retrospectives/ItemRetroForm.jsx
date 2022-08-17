@@ -1,7 +1,7 @@
 //Import referente a dependência Formik
 import { Formik } from "formik";
 //Import referente ao context
-import { useContext, useState } from "react";
+import { useContext } from "react";
 //Import referente as rotas
 import { useParams } from "react-router-dom";
 //Import referente aos componentes
@@ -23,9 +23,9 @@ import { validationsItem } from "../../utils/validations";
 import { RetroContext } from "../../context/RetroContext";
 
 const ItemRetroForm = () => {
-    const { handleCreateRetrospective } = useContext(RetroContext);
+    const { handleCreateItemRetrospective } = useContext(RetroContext);
     const { idRetrospective } = useParams();
-
+    console.log(idRetrospective)
     const tipo = [{name: "O que pode melhorar", value: 'IMPROVE'}, {name: "O que funcionou bem", value: 'WORKED'}, {name: "O que faremos na próxima sprint para melhorar", value: 'NEXT'}]
 
     return (
@@ -48,13 +48,13 @@ const ItemRetroForm = () => {
                         }}
                         validationSchema={validationsItem}
                         onSubmit={(values, { resetForm }) => {
-                            console.log(values);
                             const newValues = {
-                                idRetrospective: idRetrospective,
+                                idRetrospective: parseInt(idRetrospective),
                                 title: values.title,
-                                endDate: formatDateToDatabase(values.endDate),
+                                description: values.description,
                             };
-                            // handleCreateKudoBox(newValues, idRetrospective);
+                            console.log(newValues)
+                            handleCreateItemRetrospective(newValues, idRetrospective, values.type);
                         }}
                     >
                         {(props) => (
@@ -76,7 +76,7 @@ const ItemRetroForm = () => {
                                     onChange={props.handleChange}
                                     onBlur={props.handleBlur}
                                     value={props.values.title}
-                                    placeholder="Digite o título do Kudo Box"
+                                    placeholder="Digite o título do Item da Retrospectiva"
                                     id="title"
                                 />
                                 <CustomErrorMessage name={"title"} />
@@ -88,7 +88,7 @@ const ItemRetroForm = () => {
                                     onChange={props.handleChange}
                                     onBlur={props.handleBlur}
                                     value={props.values.description}
-                                    placeholder="Digite a descrição do Kudo Card"
+                                    placeholder="Digite a descrição do Item da Retrospectiva"
                                     id="description"
                                 />
                                 <CustomErrorMessage name={"description"} />
