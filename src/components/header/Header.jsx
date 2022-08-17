@@ -26,7 +26,8 @@ const Header = () => {
                     <img src={logo} alt="Logo Retrocards" />
                 </Link>
 
-                <Container color="#fff"
+                <Container
+                    color="#fff"
                     alignItems="baseline"
                     justifyContent="space-between"
                     width="30%"
@@ -34,6 +35,7 @@ const Header = () => {
                     <span>Bem vindo {user.name && nomeFinal(user.name)}</span>
                     <BsMoon />
                     <Button
+                        id="logout"
                         backgroundColor="transparent"
                         border="1px solid #fff"
                         width="100px"

@@ -25,9 +25,9 @@ import { SprintContext } from "../../context/SprintContext";
 import { Title } from "../../components/title/Title";
 
 const RetroForm = () => {
-    const {handleCreateRetrospective} = useContext(RetroContext)
-    const {handleNavigateToSprintById} = useContext(SprintContext)
-    const {idSprint} = useParams()
+    const { handleCreateRetrospective } = useContext(RetroContext);
+    const { handleNavigateToSprintById } = useContext(SprintContext);
+    const { idSprint } = useParams();
     return (
         <>
             <Container backgroundColor="#12101a" height="calc(100vh - 100px)">
@@ -58,11 +58,11 @@ const RetroForm = () => {
                         }}
                     >
                         {(props) => (
-                            <CustomForm color='#fff'>
-                                <Title marginBottom='30px'>Criar Retrospectiva</Title>
-                                <Label htmlFor="title">
-                                    Título
-                                </Label>
+                            <CustomForm color="#fff">
+                                <Title marginBottom="30px">
+                                    Criar Retrospectiva
+                                </Title>
+                                <Label htmlFor="title">Título</Label>
                                 <Input
                                     name="title"
                                     onChange={props.handleChange}
@@ -95,6 +95,7 @@ const RetroForm = () => {
                                 </Container>
                                 <Container justifyContent="space-around">
                                     <Button
+                                        id="backToSprintFromRetropective"
                                         backgroundColor="transparent"
                                         color="#fff"
                                         margin="12px 0 20px 0"
@@ -102,11 +103,14 @@ const RetroForm = () => {
                                         backgroundColorHover="#5454fb"
                                         borderHover="1px solid #5454fb"
                                         colorHover="#fff"
-                                        onClick={() => handleNavigateToSprintById(idSprint)}
+                                        onClick={() =>
+                                            handleNavigateToSprintById(idSprint)
+                                        }
                                     >
                                         Voltar
                                     </Button>
                                     <Button
+                                        id="submitRetrospective"
                                         backgroundColor="#fff"
                                         color="#12101a"
                                         margin="12px 0 20px 0"

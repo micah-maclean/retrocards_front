@@ -22,7 +22,8 @@ import { validationsSprint } from "../../utils/validations";
 import { Title } from "../../components/title/Title";
 
 const SprintForm = () => {
-    const { handleCreateSprint, handleNavigateToSprint } = useContext(SprintContext);
+    const { handleCreateSprint, handleNavigateToSprint } =
+        useContext(SprintContext);
     return (
         <>
             <Container backgroundColor="#12101a" height="calc(100vh - 100px)">
@@ -55,10 +56,8 @@ const SprintForm = () => {
                     >
                         {(props) => (
                             <CustomForm color="white">
-                                <Title marginBottom='30px'>Criar Sprint</Title>
-                                <Label htmlFor="title">
-                                    Título
-                                </Label>
+                                <Title marginBottom="30px">Criar Sprint</Title>
+                                <Label htmlFor="title">Título</Label>
                                 <Input
                                     name="title"
                                     onChange={props.handleChange}
@@ -74,9 +73,7 @@ const SprintForm = () => {
                                         width="45%"
                                         position="relative"
                                     >
-                                        <Label
-                                            htmlFor="initialDate"
-                                        >
+                                        <Label htmlFor="initialDate">
                                             Data de Início
                                         </Label>
                                         <InputMask
@@ -118,6 +115,7 @@ const SprintForm = () => {
                                 </Container>
                                 <Container justifyContent="space-around">
                                     <Button
+                                        id="backSprint"
                                         backgroundColor="transparent"
                                         color="#fff"
                                         margin="12px 0 20px 0"
@@ -130,6 +128,7 @@ const SprintForm = () => {
                                         Voltar
                                     </Button>
                                     <Button
+                                        id="submitSprint"
                                         backgroundColor="#fff"
                                         color="#12101a"
                                         margin="12px 0 20px 0"

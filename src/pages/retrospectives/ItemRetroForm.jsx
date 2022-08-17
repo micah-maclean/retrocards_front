@@ -14,7 +14,7 @@ import {
 } from "../../components/customForm/CustomForm";
 import CustomErrorMessage from "../../components/customForm/CustomErrorMessage";
 import { Button } from "../../components/button/Button";
-import Select from '../../components/customForm/Select'
+import Select from "../../components/customForm/Select";
 //Import referente as validações
 import { validationsItem } from "../../utils/validations";
 //Import referente ao context
@@ -24,7 +24,14 @@ import { Title } from "../../components/title/Title";
 const ItemRetroForm = () => {
     const { handleCreateItemRetrospective } = useContext(RetroContext);
     const { idRetrospective } = useParams();
-    const tipo = [{name: "O que pode melhorar", value: 'IMPROVE'}, {name: "O que funcionou bem", value: 'WORKED'}, {name: "O que faremos na próxima sprint para melhorar", value: 'NEXT'}]
+    const tipo = [
+        { name: "O que pode melhorar", value: "IMPROVE" },
+        { name: "O que funcionou bem", value: "WORKED" },
+        {
+            name: "O que faremos na próxima sprint para melhorar",
+            value: "NEXT",
+        },
+    ];
 
     return (
         <>
@@ -40,7 +47,7 @@ const ItemRetroForm = () => {
                 >
                     <Formik
                         initialValues={{
-                            type: '',
+                            type: "",
                             title: "",
                             description: "",
                         }}
@@ -51,23 +58,34 @@ const ItemRetroForm = () => {
                                 title: values.title,
                                 description: values.description,
                             };
-                            handleCreateItemRetrospective(newValues, idRetrospective, values.type);
+                            handleCreateItemRetrospective(
+                                newValues,
+                                idRetrospective,
+                                values.type
+                            );
                         }}
                     >
                         {(props) => (
                             <CustomForm color="#fff">
-                                <Title marginBottom='30px'>Criar Item da Retrospectiva</Title>
-                                <Label htmlFor="type">
-                                    Tipo
-                                </Label>
-                                <Container position="relative" flexDirection='column'>
-                                <Select label='Escolha um tipo' values={tipo} onChange={v => props.setFieldValue('type', v) }/>
+                                <Title marginBottom="30px">
+                                    Criar Item da Retrospectiva
+                                </Title>
+                                <Label htmlFor="type">Tipo</Label>
+                                <Container
+                                    position="relative"
+                                    flexDirection="column"
+                                >
+                                    <Select
+                                        label="Escolha um tipo"
+                                        values={tipo}
+                                        onChange={(v) =>
+                                            props.setFieldValue("type", v)
+                                        }
+                                    />
                                     <Dropdown top="12px" right="25px" />
                                     <CustomErrorMessage name={"type"} />
                                 </Container>
-                                <Label htmlFor="title">
-                                    Título
-                                </Label>
+                                <Label htmlFor="title">Título</Label>
                                 <Input
                                     name="title"
                                     onChange={props.handleChange}
@@ -77,9 +95,7 @@ const ItemRetroForm = () => {
                                     id="title"
                                 />
                                 <CustomErrorMessage name={"title"} />
-                                <Label htmlFor="description">
-                                    Descrição
-                                </Label>
+                                <Label htmlFor="description">Descrição</Label>
                                 <Input
                                     name="description"
                                     onChange={props.handleChange}
@@ -91,6 +107,7 @@ const ItemRetroForm = () => {
                                 <CustomErrorMessage name={"description"} />
                                 <Container justifyContent="space-around">
                                     <Button
+                                        id="backToRetrospectiveFromItem"
                                         backgroundColor="transparent"
                                         color="#fff"
                                         margin="12px 0 20px 0"
@@ -102,6 +119,7 @@ const ItemRetroForm = () => {
                                         Voltar
                                     </Button>
                                     <Button
+                                        id="createItemRetrospective"
                                         backgroundColor="#fff"
                                         color="#12101a"
                                         margin="12px 0 20px 0"

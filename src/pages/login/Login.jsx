@@ -110,6 +110,7 @@ const Login = () => {
                             />
                             <CustomErrorMessage name={"password"} />
                             <Button
+                                id="login"
                                 width="100%"
                                 backgroundColor="#12101a"
                                 border="1px solid #12101a"
@@ -135,7 +136,7 @@ const Login = () => {
                 backgroundColor="#fff"
                 width="256px"
                 height="156px"
-                borderRadius='206px 206px 0 0'
+                borderRadius="206px 206px 0 0"
                 bottom="65px"
                 left="calc(50% - 206px)"
             />
@@ -144,7 +145,7 @@ const Login = () => {
                 position="absolute"
                 width="128px"
                 height="78px"
-                borderRadius='78px 78px 0 0'
+                borderRadius="78px 78px 0 0"
                 bottom="98px"
                 left="calc(50% - 102px)"
             />

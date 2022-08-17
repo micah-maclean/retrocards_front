@@ -61,10 +61,10 @@ const KudoCardForm = () => {
                     >
                         {(props) => (
                             <CustomForm color="#fff">
-                                <Title marginBottom='30px'>Criar Kudo Card</Title>
-                                <Label htmlFor="title">
-                                    Título
-                                </Label>
+                                <Title marginBottom="30px">
+                                    Criar Kudo Card
+                                </Title>
+                                <Label htmlFor="title">Título</Label>
                                 <Input
                                     name="title"
                                     onChange={props.handleChange}
@@ -74,9 +74,7 @@ const KudoCardForm = () => {
                                     id="title"
                                 />
                                 <CustomErrorMessage name={"title"} />
-                                <Label htmlFor="description">
-                                    Descrição
-                                </Label>
+                                <Label htmlFor="description">Descrição</Label>
                                 <Input
                                     name="description"
                                     onChange={props.handleChange}
@@ -86,27 +84,28 @@ const KudoCardForm = () => {
                                     id="description"
                                 />
                                 <CustomErrorMessage name={"description"} />
-                                <Label htmlFor="receiver">
-                                    Para
-                                </Label>
-                                <Container position='relative' flexDirection='column' >
-                                <Input
-                                    as="select"
-                                    name="receiver"
-                                    onChange={props.handleChange}
-                                    onBlur={props.handleBlur}
-                                    value={props.values.receiver}
-                                    placeholder="Digite para quem é o Kudo Card"
-                                    id="receiver"
-                                    width='100%'
+                                <Label htmlFor="receiver">Para</Label>
+                                <Container
+                                    position="relative"
+                                    flexDirection="column"
                                 >
-                                    <option value="">Qualquer coisa</option>
-                                </Input>
-                                <Dropdown top='12px' right='25px'/>
-                                <CustomErrorMessage name={"receiver"} />
+                                    <Input
+                                        as="select"
+                                        name="receiver"
+                                        onChange={props.handleChange}
+                                        onBlur={props.handleBlur}
+                                        value={props.values.receiver}
+                                        placeholder="Digite para quem é o Kudo Card"
+                                        id="receiver"
+                                        width="100%"
+                                    >
+                                        <option value="">Qualquer coisa</option>
+                                    </Input>
+                                    <Dropdown top="12px" right="25px" />
+                                    <CustomErrorMessage name={"receiver"} />
                                 </Container>
                                 <Container
-                                    margin='8px 0 40px 0 '
+                                    margin="8px 0 40px 0 "
                                     alignItems="center"
                                     checked={checked}
                                     onClick={handleCheckboxChange}
@@ -117,12 +116,13 @@ const KudoCardForm = () => {
                                         checked={checked}
                                         onClick={handleCheckboxChange}
                                     />
-                                    <Label margin='8px 0 0 0' checked={checked}>
+                                    <Label margin="8px 0 0 0" checked={checked}>
                                         Enviar Anônimo
                                     </Label>
                                 </Container>
                                 <Container justifyContent="space-around">
                                     <Button
+                                        id="backToKudoBoxFromKudoCard"
                                         backgroundColor="transparent"
                                         color="#fff"
                                         margin="12px 0 20px 0"
@@ -134,6 +134,7 @@ const KudoCardForm = () => {
                                         Voltar
                                     </Button>
                                     <Button
+                                        id="createKudoCard"
                                         backgroundColor="#fff"
                                         color="#12101a"
                                         margin="12px 0 20px 0"

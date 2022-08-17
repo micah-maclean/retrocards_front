@@ -23,13 +23,10 @@ import { KudosContext } from "../../context/KudosContext";
 import { SprintContext } from "../../context/SprintContext";
 import { Title } from "../../components/title/Title";
 
-
-
 const KudoBoxForm = () => {
-    const {handleCreateKudoBox} = useContext(KudosContext)
-    const {handleNavigateToSprintById} = useContext(SprintContext)
-    const {idSprint} = useParams()
-
+    const { handleCreateKudoBox } = useContext(KudosContext);
+    const { handleNavigateToSprintById } = useContext(SprintContext);
+    const { idSprint } = useParams();
 
     return (
         <>
@@ -55,16 +52,16 @@ const KudoBoxForm = () => {
                                 title: values.title,
                                 endDate: formatDateToDatabase(values.endDate),
                             };
-                            
+
                             handleCreateKudoBox(newValues, idSprint);
                         }}
                     >
                         {(props) => (
                             <CustomForm color="#fff">
-                                <Title marginBottom='30px'>Criar Kudo Box</Title>
-                                <Label htmlFor="title">
-                                    Título
-                                </Label>
+                                <Title marginBottom="30px">
+                                    Criar Kudo Box
+                                </Title>
+                                <Label htmlFor="title">Título</Label>
                                 <Input
                                     name="title"
                                     onChange={props.handleChange}
@@ -74,7 +71,10 @@ const KudoBoxForm = () => {
                                     id="title"
                                 />
                                 <CustomErrorMessage name={"title"} />
-                                <Container position="relative" flexDirection='column'>
+                                <Container
+                                    position="relative"
+                                    flexDirection="column"
+                                >
                                     <Label htmlFor="initialDate">
                                         Data de Encerramento do Kudo Box
                                     </Label>
@@ -91,9 +91,10 @@ const KudoBoxForm = () => {
                                     />
                                     <Calendar top="50px" right="35px" />
                                     <CustomErrorMessage name={"endDate"} />
-                                </Container>                                
+                                </Container>
                                 <Container justifyContent="space-around">
                                     <Button
+                                        id="backToSprintFromKudoBox"
                                         backgroundColor="transparent"
                                         color="#fff"
                                         margin="12px 0 20px 0"
@@ -101,11 +102,14 @@ const KudoBoxForm = () => {
                                         backgroundColorHover="#5454fb"
                                         borderHover="1px solid #5454fb"
                                         colorHover="#fff"
-                                        onClick={() => handleNavigateToSprintById(idSprint)}
+                                        onClick={() =>
+                                            handleNavigateToSprintById(idSprint)
+                                        }
                                     >
                                         Voltar
                                     </Button>
                                     <Button
+                                        id="submitKudoBox"
                                         backgroundColor="#fff"
                                         color="#12101a"
                                         margin="12px 0 20px 0"
