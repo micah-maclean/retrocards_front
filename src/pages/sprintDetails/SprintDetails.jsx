@@ -124,14 +124,18 @@ const SprintDetails = () => {
                     )}
                 </Container>
 
-                <Table
-                    params={
-                        filter === "Retrospectiva" ? paramsRetro : paramsKudo
-                    }
-                    list={list}
-                    path= { filter === "Retrospectiva" ? "/retrospectiva" : "/kudobox"}
-                    pathKey={ filter === "Retrospectiva" ? "idRetrospective" : "idKudoBox"}
-                />
+                <Container overflow='auto'>
+                    <Table
+                        params={
+                            filter === "Retrospectiva" ? paramsRetro : paramsKudo
+                        }
+                        minWidth='1120px'
+                        list={list}
+                        path= { filter === "Retrospectiva" ? "/retrospectiva" : "/kudobox"}
+                        pathKey={ filter === "Retrospectiva" ? "idRetrospective" : "idKudoBox"}
+                    />   
+                </Container>
+                
 
                 {
                 list.length === 0  && 

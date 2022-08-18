@@ -48,7 +48,7 @@ const Home = () => {
             alignItems="center"
             padding="30px 0"
         >
-            <Container flexDirection="column" gap="32px" color="white">
+            <Container overflow='hidden' maxWidth='1120px' width='100%' flexDirection="column" gap="32px" color="white">
                 <Container alignItems="center" justifyContent="space-between">
                     <Title textAlign="left" color="white">
                         Sprints
@@ -66,20 +66,25 @@ const Home = () => {
                         </Button>
                     )}
                 </Container>
+                
+                <Container overflow='auto'>
+                    <Table
+                        minWidth='1120px'
+                        list={list}
+                        params={params}
+                        path="/sprint"
+                        pathKey="idSprint"
+                    />  
+                    {
+                        list.length === 0 && 
+                        <Title>
+                            Nenhuma sprint criada ainda
+                        </Title>
+                    }
+                </Container>
+                
 
-                <Table
-                    list={list}
-                    params={params}
-                    path="/sprint"
-                    pathKey="idSprint"
-                />
-
-                {
-                    list.length === 0 && 
-                    <Title>
-                        Nenhuma sprint criada ainda
-                    </Title>
-                }
+                
 
                 <Pagination
                     totalCount={totalCount}

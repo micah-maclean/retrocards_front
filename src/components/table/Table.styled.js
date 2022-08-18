@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const CustomTable = styled.table`
     width: 100%;
-    overflow: scroll;
+    min-width: ${props => props.minWidth && props.minWidth};
     border-collapse: collapse;
     border-radius: 8px;
 
@@ -37,7 +37,7 @@ export const CustomTable = styled.table`
         border: 1px solid rgba(255, 255, 255, 0.1);
     }
 
-    @media (max-width: 800px) {
+    /* @media (max-width: 800px) {
         width: 100%;
         thead {
             display: none;
@@ -68,5 +68,5 @@ export const CustomTable = styled.table`
             position: relative;
             padding-top: 46px;
         }
-    }
+    } */
 `;

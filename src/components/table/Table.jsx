@@ -2,11 +2,11 @@ import { CustomTable } from "./Table.styled";
 import { useNavigate } from "react-router-dom";
 import { formatDateToRender } from "../../utils/masks";
 
-const Table = ({ list, params, path, pathKey }) => {
+const Table = ({ list, params, path, pathKey, ...other }) => {
     const navigate = useNavigate();
 
     return (
-        <CustomTable>
+        <CustomTable {...other}>
             <thead>
                 <tr>
                     {params.map((column, i) => (
