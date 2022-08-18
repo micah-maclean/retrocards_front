@@ -10,13 +10,16 @@ import { RetroContext } from "../../context/RetroContext";
 import { useNavigate, useParams } from "react-router-dom";
 import Pagination from "../../components/pagination/Pagination";
 import { Title } from "../../components/title/Title";
+import { SprintContext } from "../../context/SprintContext";
+import { AuthContext } from "../../context/AuthContext";
 
 const SprintDetails = () => {
     const { idSprint } = useParams();
     const navigate = useNavigate();
     const { getRetrospectiveBySprintId } = useContext(RetroContext);
     const { getKudoboxBySprintId } = useContext(KudosContext);
-    const [filter, setFilter] = useState("Retrospectiva");
+    const { filter, setFilter } = useContext(SprintContext);
+    const { user } = useContext(AuthContext);
     const [currentPage, setCurrentPage] = useState(0);
     const pageSize = 10;
     const [totalCount, setTotalCount] = useState(0);
@@ -56,7 +59,7 @@ const SprintDetails = () => {
     const paramsRetro = [
         { heading: "Id", key: "idRetrospective" },
         { heading: "Titulo", key: "title" },
-        { heading: "Data", key: "occurredDate" },
+        { heading: "Data da Reunião", key: "occurredDate" },
         { heading: "Status", key: "status" },
         { heading: "Quantidade de Items", key: "numberOfItens" },
     ];
@@ -95,28 +98,30 @@ const SprintDetails = () => {
                         setFilter={setFilter}
                         activeFilter={filter}
                     />
-
-                    <Button
-                        id={
-                            filter === "Retrospectiva"
-                                ? "createRetrospective"
-                                : "createKudoBox"
-                        }
-                        backgroundColor="white"
-                        color="black"
-                        padding="8px 16px"
-                        onClick={() =>
-                            navigate(
+                    {(user.role === "ROLE_FACILITATOR" ||
+                        user.role === "ROLE_ADMIN") && (
+                        <Button
+                            id={
                                 filter === "Retrospectiva"
-                                    ? retrospectiva
-                                    : kudobox
-                            )
-                        }
-                    >
-                        {filter === "Retrospectiva"
-                            ? "+ Criar Retrospectiva"
-                            : "+ Criar Kudos Box"}
-                    </Button>
+                                    ? "createRetrospective"
+                                    : "createKudoBox"
+                            }
+                            backgroundColor="white"
+                            color="black"
+                            padding="8px 16px"
+                            onClick={() =>
+                                navigate(
+                                    filter === "Retrospectiva"
+                                        ? retrospectiva
+                                        : kudobox
+                                )
+                            }
+                        >
+                            {filter === "Retrospectiva"
+                                ? "+ Criar Retrospectiva"
+                                : "+ Criar Kudos Box"}
+                        </Button>
+                    )}
                 </Container>
 
                 <Table

@@ -1,13 +1,14 @@
 import { Form, Field, ErrorMessage } from "formik";
-import { FcCalendar } from "react-icons/fc";
 import MaskedInput from "react-text-mask";
 import styled from "styled-components";
 //Import referente ao icons
+import { FcCalendar } from "react-icons/fc";
 import { IoMdArrowDropdown } from "react-icons/io";
+import { AiOutlinePlus } from "react-icons/ai";
 
 export const CustomForm = styled(Form)`
-    width: ${props => props.width ? props.width : '100%'};
-    color: ${props => props.color ? props.color : 'inherit'};
+    width: ${(props) => (props.width ? props.width : "100%")};
+    color: ${(props) => (props.color ? props.color : "inherit")};
     display: flex;
     flex-direction: column;
 
@@ -19,7 +20,7 @@ export const CustomForm = styled(Form)`
 export const Label = styled.label`
     font-size: 1.25rem;
     margin: ${(props) => (props.margin ? props.margin : "8px 0")};
-    color: ${(props) => props.color ? props.color : 'inherit'};
+    color: ${(props) => (props.color ? props.color : "inherit")};
 
     :first-of-type {
         margin-top: 0;
@@ -83,6 +84,10 @@ export const Dropdown = styled(IoMdArrowDropdown)`
     right: ${(props) => props.right && props.right};
 `;
 
+export const Plus = styled(AiOutlinePlus)`
+    color: #12101a;
+`;
+
 export const ErrorInputMessage = styled(ErrorMessage)`
     color: #b51212;
 `;
@@ -91,8 +96,7 @@ export const ErrorMessageContainer = styled.div`
     height: 32px;
 `;
 
-export const Checkbox = styled.input.attrs({ type: "checkbox" })`
-    /* overflow: hidden; */
+export const Checkbox = styled(Field)`
     all: unset;
     background-color: #3c3e44;
     display: flex;
@@ -108,7 +112,7 @@ export const Checkbox = styled.input.attrs({ type: "checkbox" })`
         color: #fff;
     }
 
-    :checked::after {
+    :checked::before {
         content: "✓";
         position: absolute;
         left: 8px;
@@ -124,6 +128,7 @@ export const SelectLabelButton = styled.div`
     padding: 16px;
     font-size: 1rem;
     border-radius: 8px;
+    margin-bottom: 5px;
     min-width: 7rem;
     font-weight: 500;
     background-color: #3c3e44;
@@ -152,6 +157,7 @@ export const DropdownStyle = styled.div`
     transition: max-height 0.2s ease;
     overflow-y: scroll;
     visibility: ${(props) => (props.isVisible ? "auto" : "hidden")};
+    z-index: 1;
 `;
 
 export const DropdownItem = styled.div`

@@ -1,58 +1,60 @@
 import styled from "styled-components";
 
 export const CustomTable = styled.table`
-    width: 1120px;
+    width: 100%;
     overflow: scroll;
     border-collapse: collapse;
     border-radius: 8px;
 
-    th{
-        text-align: left; 
+    th {
+        text-align: left;
     }
 
     thead {
         background-color: #414048;
     }
-     
+
     tbody {
-        
         tr {
             background-color: #292730;
         }
 
         tr:hover {
             cursor: pointer;
-            background-color: #5454FB;
+            background-color: #5454fb;
         }
     }
 
-    td, th{
+    td,
+    th {
         color: white;
     }
 
-    td, th{
+    td,
+    th {
         padding: 16px 24px;
         text-align: center;
         border: 1px solid rgba(255, 255, 255, 0.1);
     }
 
-   @media (max-width: 800px){
+    @media (max-width: 800px) {
         width: 100%;
-        thead{
+        thead {
             display: none;
         }
 
-        td, th, tr{
+        td,
+        th,
+        tr {
             display: block;
             width: 100%;
         }
 
-        tr{
-            
+        tr {
             margin-bottom: 10px;
         }
 
-        td::before{
+        td::before {
             content: attr(data-title);
             font-weight: bold;
             position: absolute;
@@ -61,11 +63,10 @@ export const CustomTable = styled.table`
             padding: 12px 0 0 12px;
         }
 
-
-        td{
+        td {
             text-align: left;
             position: relative;
             padding-top: 46px;
         }
-   }
-`
+    }
+`;

@@ -1,4 +1,4 @@
-import { createContext } from "react";
+import { createContext, useState } from "react";
 import { api } from "../api";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
@@ -8,14 +8,18 @@ const SprintContext = createContext();
 const SprintProvider = ({ children }) => {
     const navigate = useNavigate();
 
-    const getSprintList = async(page, pageSize) => {
+    const [filter, setFilter] = useState("Retrospectiva");
+
+    const getSprintList = async (page, pageSize) => {
         try {
-            const {data} = await api.get(`/sprint/list?page=${page}&register=${pageSize}`);
+            const { data } = await api.get(
+                `/sprint/list?page=${page}&register=${pageSize}`
+            );
             return data;
         } catch (error) {
-            toast.error(error.response.data.message)
+            toast.error(error.response.data.message);
         }
-    }
+    };
 
     const getRetroListBySprintId = async (sprintId, currentPage, pageSize) => {
         try {
@@ -40,18 +44,27 @@ const SprintProvider = ({ children }) => {
     };
 
     const handleNavigateToSprint = () => {
-        navigate('/')
-    }
+        navigate("/");
+    };
 
     const handleNavigateToSprintById = (idSprint) => {
-        navigate(`/sprint/${idSprint}`)
-    }
+        navigate(`/sprint/${idSprint}`);
+    };
 
     return (
-        <SprintContext.Provider value={{handleCreateSprint, getSprintList, getRetroListBySprintId, handleNavigateToSprint, handleNavigateToSprintById}}>
+        <SprintContext.Provider
+            value={{
+                handleCreateSprint,
+                getSprintList,
+                getRetroListBySprintId, handleNavigateToSprint,
+                handleNavigateToSprintById,
+                filter,
+                setFilter,
+            }}
+        >
             {children}
         </SprintContext.Provider>
     );
 };
 
-export {SprintContext, SprintProvider}
+export { SprintContext, SprintProvider };

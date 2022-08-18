@@ -21,6 +21,7 @@ import RetroForm from "./pages/sprintDetails/RetroForm";
 import KudoBoxForm from "./pages/sprintDetails/KudoBoxForm";
 import KudoCardForm from "./pages/kudoboxes/KudoCardForm";
 import ItemRetroForm from "./pages/retrospectives/ItemRetroForm";
+import SendEmailForm from "./pages/retrospectives/SendEmailForm";
 import KudoboxDetails from "./pages/kudoboxes/KudoboxDetails";
 import RetroDetails from "./pages/retrospectives/RetroDetails"
 
@@ -42,7 +43,8 @@ const Routers = () => {
                               <Route path="/kudo-box/cadastrar/:idSprint" element={<KudoBoxForm />}/>
                               <Route path="/kudo-card/cadastrar/:idKudoBox" element={<KudoCardForm />}/>
                               <Route path="/kudobox/:idKudobox" element={<KudoboxDetails />}/>
-                              <Route path="/retrospectiva/:idRetro" element={<RetroDetails />}/>
+                              <Route path="/retrospectiva/:idRetro" element={<RetroDetails />} />
+                              <Route path="/enviar-email" element={<SendEmailForm />} />
                           </Route>
       
                           <Route path="/login" element={<Login />} />

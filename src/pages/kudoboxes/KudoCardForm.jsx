@@ -1,7 +1,7 @@
 //Import referente a dependência Formik
 import { Formik } from "formik";
 //Import referente ao context
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 //Import referente as rotas
 import { useParams } from "react-router-dom";
 //Import referente aos componentes
@@ -15,23 +15,31 @@ import {
 } from "../../components/customForm/CustomForm";
 import CustomErrorMessage from "../../components/customForm/CustomErrorMessage";
 import { Button } from "../../components/button/Button";
-// Import referente as máscaras
-import { formatDateToDatabase } from "../../utils/masks";
+import Select from "../../components/customForm/Select";
 //Import referente as validações
-import { validationsKudoBox } from "../../utils/validations";
+import { validationsKudoCard } from "../../utils/validations";
 //Import referente ao context
 import { KudosContext } from "../../context/KudosContext";
 import { Title } from "../../components/title/Title";
+import { AuthContext } from "../../context/AuthContext";
 
 const KudoCardForm = () => {
-    const { handleCreateKudoBox } = useContext(KudosContext);
+    const { handleCreateKudoCard } = useContext(KudosContext);
+    const { getUsersEmails } = useContext(AuthContext);
     const { idKudoBox } = useParams();
+    const [userEmail, setUserEmail] = useState([]);
 
-    const [checked, setChecked] = useState(false);
+    const setup = async () => {
+        const data = await getUsersEmails();
+        if (data) {
+            setUserEmail(data);
+        }
+    };
 
-    function handleCheckboxChange() {
-        setChecked(!checked);
-    }
+    useEffect(() => {
+        setup();
+    }, []);
+
     return (
         <>
             <Container backgroundColor="#12101a" height="calc(100vh - 100px)">
@@ -47,16 +55,21 @@ const KudoCardForm = () => {
                     <Formik
                         initialValues={{
                             title: "",
-                            endDate: "",
+                            description: "",
+                            receiver: "",
+                            sender: false,
                         }}
-                        validationSchema={validationsKudoBox}
+                        validationSchema={validationsKudoCard}
                         onSubmit={(values) => {
+                            console.log(values);
                             const newValues = {
                                 idKudoBox: idKudoBox,
                                 title: values.title,
-                                endDate: formatDateToDatabase(values.endDate),
+                                sender: values.sender,
+                                receiver: values.receiver,
                             };
-                            handleCreateKudoBox(newValues, idKudoBox);
+                            console.log(newValues);
+                            // handleCreateKudoCard(newValues, idKudoBox);
                         }}
                     >
                         {(props) => (
@@ -89,34 +102,27 @@ const KudoCardForm = () => {
                                     position="relative"
                                     flexDirection="column"
                                 >
-                                    <Input
-                                        as="select"
-                                        name="receiver"
-                                        onChange={props.handleChange}
-                                        onBlur={props.handleBlur}
-                                        value={props.values.receiver}
-                                        placeholder="Digite para quem é o Kudo Card"
-                                        id="receiver"
-                                        width="100%"
-                                    >
-                                        <option value="">Qualquer coisa</option>
-                                    </Input>
+                                    <Select
+                                        label="Escolha uma pessoa"
+                                        setKey="name"
+                                        values={userEmail}
+                                        onChange={(v) =>
+                                            props.setFieldValue("receiver", v)
+                                        }
+                                    />
                                     <Dropdown top="12px" right="25px" />
                                     <CustomErrorMessage name={"receiver"} />
                                 </Container>
                                 <Container
                                     margin="8px 0 40px 0 "
                                     alignItems="center"
-                                    checked={checked}
-                                    onClick={handleCheckboxChange}
                                 >
                                     <Checkbox
-                                        name="anonymous"
-                                        id="anonymous"
-                                        checked={checked}
-                                        onClick={handleCheckboxChange}
+                                        type="checkbox"
+                                        name="sender"
+                                        id="sender"
                                     />
-                                    <Label margin="8px 0 0 0" checked={checked}>
+                                    <Label margin="8px 0 0 0">
                                         Enviar Anônimo
                                     </Label>
                                 </Container>

@@ -4,10 +4,10 @@ import {
     SelectLabelButton,
     DropdownStyle,
     DropdownItem,
-    Dropdown
+    Dropdown,
 } from "./CustomForm";
 
-const Select = ({ label, values, onChange }) => {
+const Select = ({ label, values, onChange, setKey }) => {
     const [currentValue, setCurrentValue] = useState("");
     const [open, setOpen] = useState(false);
 
@@ -23,7 +23,8 @@ const Select = ({ label, values, onChange }) => {
     const handleChange = (value) => {
         handleValueChange(value.name);
         // call method, if it exists
-        if (onChange) onChange(value.value);
+        if (onChange) onChange(setKey ? value[setKey] : value);
+
         // close, after all tasks are finished
         handleClose();
     };
@@ -31,7 +32,7 @@ const Select = ({ label, values, onChange }) => {
     return (
         <>
             <SelectContainer>
-                <SelectLabelButton onClick={handleOpen}>
+                <SelectLabelButton onClick={open ? handleClose : handleOpen}>
                     {currentValue !== "" ? currentValue : label}
                 </SelectLabelButton>
                 <Dropdown top="12px" right="25px" />
