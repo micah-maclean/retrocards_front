@@ -9,6 +9,7 @@ import { KudosContext } from "../../context/KudosContext";
 import { RetroContext } from "../../context/RetroContext";
 import { useNavigate, useParams } from "react-router-dom";
 import Pagination from "../../components/pagination/Pagination";
+import { Title } from "../../components/title/Title";
 import { SprintContext } from "../../context/SprintContext";
 import { AuthContext } from "../../context/AuthContext";
 
@@ -20,7 +21,7 @@ const SprintDetails = () => {
     const { filter, setFilter } = useContext(SprintContext);
     const { user } = useContext(AuthContext);
     const [currentPage, setCurrentPage] = useState(0);
-    const [pageSize, setPageSize] = useState(10);
+    const pageSize = 10;
     const [totalCount, setTotalCount] = useState(0);
     const [totalPages, setTotalPages] = useState(0);
     const [list, setList] = useState([]);
@@ -50,7 +51,11 @@ const SprintDetails = () => {
         setup(filter);
     }, [filter, currentPage]);
 
-    const filterList = ["Retrospectiva", "Kudo Box"];
+    const filterList = [
+        {name: "Retrospectiva", value: "Retrospectiva" },
+        {name: "Kudo Box", value: "Kudo Box"}
+    ];
+
     const paramsRetro = [
         { heading: "Id", key: "idRetrospective" },
         { heading: "Titulo", key: "title" },
@@ -74,19 +79,18 @@ const SprintDetails = () => {
         <Container
             minHeight="calc(100vh - 100px)"
             backgroundColor="#12101A"
+            color="#fff"
             flexDirection="column"
             alignItems="center"
             padding="30px 0"
         >
             <Container
                 maxWidth="1120px"
+                width='100%'
                 flexDirection="column"
-                alignItems="flex-start"
                 gap="30px"
             >
                 <Container
-                    color="white"
-                    width="100%"
                     justifyContent="space-between"
                 >
                     <Tab
@@ -125,9 +129,18 @@ const SprintDetails = () => {
                         filter === "Retrospectiva" ? paramsRetro : paramsKudo
                     }
                     list={list}
-                    path="/retrospectiva"
-                    pathKey="idRetrospective"
+                    path= { filter === "Retrospectiva" ? "/retrospectiva" : "/kudobox"}
+                    pathKey={ filter === "Retrospectiva" ? "idRetrospective" : "idKudoBox"}
                 />
+
+                {
+                list.length === 0  && 
+                <Title textAlign='center'>
+                    {filter === "Retrospectiva" 
+                        ? "Nenhuma retrospectiva"
+                        : "Nenhum kudobox"}
+                </Title>
+                }
 
                 <Pagination
                     totalCount={totalCount}

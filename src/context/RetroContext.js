@@ -18,9 +18,21 @@ const RetroProvider = ({ children }) => {
         }
     };
 
-    const getRetrospectiveBySprintId = async (sprintId, currentPage, pageSize) => {
+    const getRetrospectiveBySprintId = async (idSprint, currentPage, pageSize) => {
       try {
-        const {data} = await api.get(`/retrospective/list/sprint/${sprintId}?pagina=${currentPage}&registro=${pageSize}`);
+        const {data} = await api.get(`/retrospective/list/sprint/${idSprint}?pagina=${currentPage}&registro=${pageSize}`);
+        return data;
+      } catch (error) {
+        if(error.response.data.status === 400){
+          return;
+        }
+        toast.error(error.response.data.message)
+      }
+    }
+
+    const getRetroById = async (idRetro) => {
+      try {
+        const {data} = await api.get(`/itemretrospective/list/retrospective/${idRetro}`);
         return data;
       } catch (error) {
         if(error.response.data.status === 400){
@@ -41,7 +53,7 @@ const RetroProvider = ({ children }) => {
     }
 
     return (
-        <RetroContext.Provider value={{handleCreateRetrospective, getRetrospectiveBySprintId, handleCreateItemRetrospective}}>
+        <RetroContext.Provider value={{handleCreateRetrospective, getRetroById, getRetrospectiveBySprintId, handleCreateItemRetrospective}}>
           {children}
         </RetroContext.Provider>
     );

@@ -41,16 +41,23 @@ const KudosProvider = ({ children }) => {
         } catch (error) {
             toast.error(error.response.data.message);
         }
-    };
+    }
 
-    return (
-        <KudosContext.Provider
-            value={{
-                handleCreateKudoBox,
-                getKudoboxBySprintId,
-                handleCreateKudoCard,
-            }}
-        >
+    const getKudoboxById = async(idKudobox, page, pageSize) =>{
+        try {
+            const {data} = await api.get(`/kudocard/list/kudocards/${idKudobox}?pagina=${page}&registros=${pageSize}`);
+            return data;
+        } catch (error) {
+            if(error.response.data.status === 400){
+                return;
+            }
+
+            toast.error(error.response.data.message)
+        }
+    }
+
+    return(
+        <KudosContext.Provider value={{handleCreateKudoBox, handleCreateKudoCard, getKudoboxById, getKudoboxBySprintId}}>
             {children}
         </KudosContext.Provider>
     );
