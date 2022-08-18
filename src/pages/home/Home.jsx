@@ -73,6 +73,13 @@ const Home = () => {
                     pathKey="idSprint"
                 />
 
+                {
+                    list.length === 0 && 
+                    <Title>
+                        Nenhuma sprint criada ainda
+                    </Title>
+                }
+
                 <Pagination
                     totalCount={totalCount}
                     totalPages={totalPages}

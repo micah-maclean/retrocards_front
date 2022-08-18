@@ -17,6 +17,18 @@ const SprintProvider = ({ children }) => {
         }
     }
 
+    const getRetroListBySprintId = async (sprintId, currentPage, pageSize) => {
+        try {
+          const {data} = await api.get(`/retrospective/list/sprint/${sprintId}?pagina=${currentPage}&registro=${pageSize}`);
+          return data;
+        } catch (error) {
+          if(error.response.data.status === 400){
+            return;
+          }
+          toast.error(error.response.data.message)
+        }
+    }
+
     const handleCreateSprint = async (values) => {
         try {
             await api.post("/sprint/create", values);
@@ -36,7 +48,7 @@ const SprintProvider = ({ children }) => {
     }
 
     return (
-        <SprintContext.Provider value={{handleCreateSprint, getSprintList, handleNavigateToSprint, handleNavigateToSprintById}}>
+        <SprintContext.Provider value={{handleCreateSprint, getSprintList, getRetroListBySprintId, handleNavigateToSprint, handleNavigateToSprintById}}>
             {children}
         </SprintContext.Provider>
     );
