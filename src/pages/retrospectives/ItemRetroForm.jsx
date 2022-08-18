@@ -77,6 +77,7 @@ const ItemRetroForm = () => {
                                 >
                                     <Select
                                         label="Escolha um tipo"
+                                        setKey="value"
                                         values={tipo}
                                         onChange={(v) =>
                                             props.setFieldValue("type", v)
@@ -110,7 +111,6 @@ const ItemRetroForm = () => {
                                         id="backToRetrospectiveFromItem"
                                         backgroundColor="transparent"
                                         color="#fff"
-                                        margin="12px 0 20px 0"
                                         border="1px solid #fff"
                                         backgroundColorHover="#5454fb"
                                         borderHover="1px solid #5454fb"
@@ -122,7 +122,6 @@ const ItemRetroForm = () => {
                                         id="createItemRetrospective"
                                         backgroundColor="#fff"
                                         color="#12101a"
-                                        margin="12px 0 20px 0"
                                         border="1px solid #fff"
                                         backgroundColorHover="#5454fb"
                                         borderHover="1px solid #5454fb"

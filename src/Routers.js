@@ -21,32 +21,55 @@ import RetroForm from "./pages/sprintDetails/RetroForm";
 import KudoBoxForm from "./pages/sprintDetails/KudoBoxForm";
 import KudoCardForm from "./pages/kudoboxes/KudoCardForm";
 import ItemRetroForm from "./pages/retrospectives/ItemRetroForm";
+import SendEmailForm from "./pages/retrospectives/SendEmailForm";
 
 const Routers = () => {
     return (
         <BrowserRouter>
             <AuthProvider>
                 <SprintProvider>
-                  <RetroProvider>
-                    <KudosProvider>
-                      <ToastContainer />
-                      <Routes>
-                          <Route element={<PrivateRoute />}>
-                              <Route path="/" element={<Home />} />
-                              <Route path="/sprint/:idSprint" element={<SprintDetails />} />
-                              <Route path="/sprint/cadastrar" element={<SprintForm />}/>
-                              <Route path="/retrospectiva/cadastrar/:idSprint" element={<RetroForm />}/>
-                              <Route path="/item/cadastrar/:idRetrospective" element={<ItemRetroForm />}/>
-                              <Route path="/kudo-box/cadastrar/:idSprint" element={<KudoBoxForm />}/>
-                              <Route path="/kudo-card/cadastrar/:idKudoBox" element={<KudoCardForm />}/>
-                          </Route>
-      
-                          <Route path="/login" element={<Login />} />
-                          <Route path="/cadastrar" element={<Signup />} />
-                          <Route path="/*" element={<NotFound />} />
-                      </Routes>
-                    </KudosProvider>
-                  </RetroProvider>
+                    <RetroProvider>
+                        <KudosProvider>
+                            <ToastContainer />
+                            <Routes>
+                                <Route element={<PrivateRoute />}>
+                                    <Route path="/" element={<Home />} />
+                                    <Route
+                                        path="/sprint/:idSprint"
+                                        element={<SprintDetails />}
+                                    />
+                                    <Route
+                                        path="/sprint/cadastrar"
+                                        element={<SprintForm />}
+                                    />
+                                    <Route
+                                        path="/retrospectiva/cadastrar/:idSprint"
+                                        element={<RetroForm />}
+                                    />
+                                    <Route
+                                        path="/item/cadastrar/:idRetrospective"
+                                        element={<ItemRetroForm />}
+                                    />
+                                    <Route
+                                        path="/kudo-box/cadastrar/:idSprint"
+                                        element={<KudoBoxForm />}
+                                    />
+                                    <Route
+                                        path="/kudo-card/cadastrar/:idKudoBox"
+                                        element={<KudoCardForm />}
+                                    />
+                                    <Route
+                                        path="/enviar-email"
+                                        element={<SendEmailForm />}
+                                    />
+                                </Route>
+
+                                <Route path="/login" element={<Login />} />
+                                <Route path="/cadastrar" element={<Signup />} />
+                                <Route path="/*" element={<NotFound />} />
+                            </Routes>
+                        </KudosProvider>
+                    </RetroProvider>
                 </SprintProvider>
             </AuthProvider>
         </BrowserRouter>

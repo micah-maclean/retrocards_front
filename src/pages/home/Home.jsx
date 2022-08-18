@@ -37,7 +37,7 @@ const Home = () => {
     const params = [
         { heading: "Id", key: "idSprint" },
         { heading: "Titulo", key: "title" },
-        { heading: "data de Fim", key: "endDate" },
+        { heading: "Data de Conclusão", key: "endDate" },
     ];
 
     return (
@@ -53,7 +53,8 @@ const Home = () => {
                     <Title textAlign="left" color="white">
                         Sprints
                     </Title>
-                    {user.role === "ROLE_FACILITATOR" && (
+                    {(user.role === "ROLE_FACILITATOR" ||
+                        user.role === "ROLE_ADMIN") && (
                         <Button
                             id="createSprint"
                             backgroundColor="white"
