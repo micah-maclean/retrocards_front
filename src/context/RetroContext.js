@@ -1,7 +1,10 @@
 import { createContext } from "react";
-import { api } from "../api";
-import { toast } from "react-toastify";
+//Import router
 import { useNavigate } from "react-router-dom";
+//Import da dependencia de toast
+import { toast } from "react-toastify";
+//Import da chamada da url da api
+import { api } from "../api";
 
 const RetroContext = createContext();
 
@@ -18,43 +21,65 @@ const RetroProvider = ({ children }) => {
         }
     };
 
-    const getRetrospectiveBySprintId = async (idSprint, currentPage, pageSize) => {
-      try {
-        const {data} = await api.get(`/retrospective/list/sprint/${idSprint}?pagina=${currentPage}&registro=${pageSize}`);
-        return data;
-      } catch (error) {
-        if(error.response.data.status === 400){
-          return;
+    const getRetrospectiveBySprintId = async (
+        idSprint,
+        currentPage,
+        pageSize
+    ) => {
+        try {
+            const { data } = await api.get(
+                `/retrospective/list/sprint/${idSprint}?pagina=${currentPage}&registro=${pageSize}`
+            );
+            return data;
+        } catch (error) {
+            if (error.response.data.status === 400) {
+                return;
+            }
+            toast.error(error.response.data.message);
         }
-        toast.error(error.response.data.message)
-      }
-    }
+    };
 
     const getRetroById = async (idRetro) => {
-      try {
-        const {data} = await api.get(`/itemretrospective/list/retrospective/${idRetro}`);
-        return data;
-      } catch (error) {
-        if(error.response.data.status === 400){
-          return;
+        try {
+            const { data } = await api.get(
+                `/itemretrospective/list/retrospective/${idRetro}`
+            );
+            return data;
+        } catch (error) {
+            if (error.response.data.status === 400) {
+                return;
+            }
+            toast.error(error.response.data.message);
         }
-        toast.error(error.response.data.message)
-      }
-    }
+    };
 
-    const handleCreateItemRetrospective = async(values, idRetrospective, type) => {
-      try {
-        await api.post(`/itemretrospective/create?itemType=${type}`, values)
-        toast.success("Item de Retrospectiva criada com sucesso");
-        // navigate(`/retrospective/${idRetrospective}`)
-      } catch (error) {
-        toast.error(error.response.data.message)
-      }
-    }
+    const handleCreateItemRetrospective = async (
+        values,
+        idRetrospective,
+        type
+    ) => {
+        try {
+            await api.post(
+                `/itemretrospective/create?itemType=${type}`,
+                values
+            );
+            toast.success("Item de Retrospectiva criada com sucesso");
+            // navigate(`/retrospective/${idRetrospective}`)
+        } catch (error) {
+            toast.error(error.response.data.message);
+        }
+    };
 
     return (
-        <RetroContext.Provider value={{handleCreateRetrospective, getRetroById, getRetrospectiveBySprintId, handleCreateItemRetrospective}}>
-          {children}
+        <RetroContext.Provider
+            value={{
+                handleCreateRetrospective,
+                getRetroById,
+                getRetrospectiveBySprintId,
+                handleCreateItemRetrospective,
+            }}
+        >
+            {children}
         </RetroContext.Provider>
     );
 };

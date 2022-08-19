@@ -1,12 +1,20 @@
+//Import React
+import { useContext } from "react";
+//Import router
+import { Link } from "react-router-dom";
+//Import context
+import { AuthContext } from "../../context/AuthContext";
+//Import component
 import { Container } from "../container/Container";
-import { HeaderContainer } from "./Header.styled";
 import { Button } from "../button/Button";
+//Import styled
+import { HeaderContainer } from "./Header.styled";
+//Import referente aos icones
 import { BsMoon } from "react-icons/bs";
 import { MdOutlineLogout } from "react-icons/md";
-import { useContext } from "react";
-import { AuthContext } from "../../context/AuthContext";
+//Import de máscara
 import { nomeFinal } from "../../utils/masks";
-import { Link } from "react-router-dom";
+//Import da imagem do logo
 import logo from "../../assets/img/logo.png";
 
 const Header = () => {

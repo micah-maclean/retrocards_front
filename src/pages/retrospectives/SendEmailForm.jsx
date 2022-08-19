@@ -1,3 +1,8 @@
+//Import react
+import { useState, useEffect, useContext } from "react";
+//Import context
+import { AuthContext } from "../../context/AuthContext";
+//Import components
 import { Container } from "../../components/container/Container";
 import {
     CustomForm,
@@ -10,8 +15,6 @@ import { Button } from "../../components/button/Button";
 import CustomErrorMessage from "../../components/customForm/CustomErrorMessage";
 import Select from "../../components/customForm/Select";
 import { Formik } from "formik";
-import { AuthContext } from "../../context/AuthContext";
-import { useState, useEffect, useContext } from "react";
 import Table from "../../components/table/Table";
 
 const SendEmailForm = () => {

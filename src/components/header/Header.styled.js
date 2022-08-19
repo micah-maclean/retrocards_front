@@ -11,7 +11,7 @@ export const HeaderContainer = styled.header`
     img {
         width: 150px;
     }
-    
+
     span {
         height: 25px;
     }
@@ -25,6 +25,16 @@ export const HeaderContainer = styled.header`
             svg {
                 font-size: 16px;
                 margin-right: 8px;
+            }
+        }
+    }
+
+    @media (max-width: 800px) {
+        > div {
+            width: 600px;
+
+            div {
+                width: 50%;
             }
         }
     }

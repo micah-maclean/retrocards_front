@@ -1,12 +1,15 @@
+//Import react
+import { useEffect, useState, useContext } from "react";
+//Import router
+import { useNavigate } from "react-router-dom";
+//Import context
+import { SprintContext } from "../../context/SprintContext";
+import { AuthContext } from "../../context/AuthContext";
+//Import component
 import Table from "../../components/table/Table";
 import { Container } from "../../components/container/Container";
 import Pagination from "../../components/pagination/Pagination";
-import { useEffect, useState } from "react";
 import { Button } from "../../components/button/Button";
-import { useNavigate } from "react-router-dom";
-import { useContext } from "react";
-import { SprintContext } from "../../context/SprintContext";
-import { AuthContext } from "../../context/AuthContext";
 import { Title } from "../../components/title/Title";
 
 const Home = () => {
@@ -74,12 +77,9 @@ const Home = () => {
                     pathKey="idSprint"
                 />
 
-                {
-                    list.length === 0 && 
-                    <Title>
-                        Nenhuma sprint criada ainda
-                    </Title>
-                }
+                {list.length === 0 && (
+                    <Title>Nenhuma sprint criada ainda</Title>
+                )}
 
                 <Pagination
                     totalCount={totalCount}

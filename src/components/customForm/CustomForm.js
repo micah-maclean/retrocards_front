@@ -1,6 +1,8 @@
-import { Form, Field, ErrorMessage } from "formik";
-import MaskedInput from "react-text-mask";
 import styled from "styled-components";
+//Import referente ao Formik
+import { Form, Field, ErrorMessage } from "formik";
+//Import referente a dependencia para colocar mask no input
+import MaskedInput from "react-text-mask";
 //Import referente ao icons
 import { FcCalendar } from "react-icons/fc";
 import { IoMdArrowDropdown } from "react-icons/io";
