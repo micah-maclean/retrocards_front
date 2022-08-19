@@ -26,6 +26,8 @@ const SprintDetails = () => {
     const [totalPages, setTotalPages] = useState(0);
     const [list, setList] = useState([]);
 
+
+
     const setup = async (filter) => {
         const data =
             filter === "Retrospectiva"
