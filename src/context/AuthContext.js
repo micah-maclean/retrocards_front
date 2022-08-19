@@ -1,5 +1,5 @@
 //Import react
-import { useEffect, useState, createContext } from "react";
+import { useEffect, useState, createContext, useReducer } from "react";
 //Import router
 import { useLocation, useNavigate } from "react-router-dom";
 //Import da dependencia de toast
@@ -18,6 +18,7 @@ const AuthProvider = ({ children }) => {
     const [loading, setLoading] = useState(true);
     const [token, setToken] = useState(null);
     const [user, setUser] = useState({});
+    const [reducerValue, forceUpdate] = useReducer((x) => x + 1, 0);
 
     useEffect(() => {
         const token = localStorage.getItem("token");
@@ -104,6 +105,8 @@ const AuthProvider = ({ children }) => {
                 handleLogout,
                 handleSignup,
                 getUsersEmails,
+                reducerValue,
+                forceUpdate,
             }}
         >
             {children}

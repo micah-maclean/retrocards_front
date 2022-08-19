@@ -13,24 +13,83 @@ import { Button } from "../../components/button/Button";
 import Tab from "../../components/tab/Tab";
 //Import icons
 import { FaTrashAlt } from "react-icons/fa";
+import { confirmAlert } from "react-confirm-alert";
 
 const RetroDetails = () => {
-    const { getRetroById } = useContext(RetroContext);
-    const { user } = useContext(AuthContext);
-    const { idRetro } = useParams();
+    const { getRetroById, getRetroDetailsById, deleteRetro } =
+        useContext(RetroContext);
+    const { user, reducerValue } = useContext(AuthContext);
+    const { idRetrospective } = useParams();
     const navigate = useNavigate();
 
     const [list, setList] = useState([]);
+    const [info, setInfo] = useState({});
     const [filter, setFilter] = useState("ALL");
 
+    const handleDeleteModal = (id) => {
+        confirmAlert({
+            customUI: ({ onClose }) => {
+                return (
+                    <Container
+                        width="450px"
+                        height="180px"
+                        flexDirection="column"
+                        justifyContent="space-between"
+                        backgroundColor="#2a2831"
+                        color="#fff"
+                        padding="32px"
+                        borderRadius="8px"
+                    >
+                        <Title fontSize="1.25rem">
+                            Certeza que deseja excluir?
+                        </Title>
+                        <Container justifyContent="space-between">
+                            <Button
+                                width="30%"
+                                backgroundColor="transparent"
+                                border="1px solid #fff"
+                                backgroundColorHover="#5454fb"
+                                borderHover="1px solid #5454fb"
+                                onClick={onClose}
+                            >
+                                Cancelar
+                            </Button>
+                            <Button
+                                width="30%"
+                                backgroundColor="#fff"
+                                border="1px solid #fff"
+                                color="#12101a"
+                                backgroundColorHover="#5454fb"
+                                colorHover="#fff"
+                                borderHover="1px solid #5454fb"
+                                onClick={() => {
+                                    deleteRetro(id);
+                                    onClose();
+                                }}
+                            >
+                                Deletar
+                            </Button>
+                        </Container>
+                    </Container>
+                );
+            },
+        });
+    };
+
     const setup = async () => {
-        const data = await getRetroById(idRetro);
-        setList(data);
+        const data = await getRetroById(idRetrospective);
+        const details = await getRetroDetailsById(idRetrospective);
+        setInfo(details);
+        if (data) {
+            setList(data);
+        } else {
+            setList([]);
+        }
     };
 
     useEffect(() => {
         setup();
-    }, []);
+    }, [reducerValue]);
 
     const FILTER_MAP = {
         ALL: () => true,
@@ -61,21 +120,24 @@ const RetroDetails = () => {
                 flexDirection="column"
             >
                 <Container justifyContent="space-between" alignItems="center">
-                    <Title>Retrospective #{idRetro}</Title>
-                    {user.role === "ROLE_MEMBER" && (
-                        <Button
-                            id="createRetrocard"
-                            backgroundColor="#fff"
-                            color="black"
-                            padding="8px 16px"
-                            height="fit-content"
-                            onClick={() =>
-                                navigate(`/item/cadastrar/${idRetro}`)
-                            }
-                        >
-                            + Criar Retrocard
-                        </Button>
-                    )}
+                    <Title>{info.title}</Title>
+                    {user.role === "ROLE_MEMBER" &&
+                        info.status === "IN_PROGRESS" && (
+                            <Button
+                                id="createRetrocard"
+                                backgroundColor="#fff"
+                                color="black"
+                                padding="8px 16px"
+                                height="fit-content"
+                                onClick={() =>
+                                    navigate(
+                                        `/item/cadastrar/${idRetrospective}`
+                                    )
+                                }
+                            >
+                                + Criar Retrocard
+                            </Button>
+                        )}
                 </Container>
                 <Tab
                     filterList={filterList}
@@ -92,12 +154,19 @@ const RetroDetails = () => {
                                     margin="0 0 24px 0"
                                 >
                                     <h3>{retrocard.title}</h3>
-                                    <Button
-                                        padding="none"
-                                        backgroundColor="transparent"
-                                    >
-                                        <FaTrashAlt />
-                                    </Button>
+                                    {info.status === "IN_PROGRESS" && (
+                                        <Button
+                                            padding="none"
+                                            backgroundColor="transparent"
+                                            onClick={() =>
+                                                handleDeleteModal(
+                                                    retrocard.idItemRetrospective
+                                                )
+                                            }
+                                        >
+                                            <FaTrashAlt />
+                                        </Button>
+                                    )}
                                 </Container>
                                 <p> {retrocard.type}</p>
                                 <p>

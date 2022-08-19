@@ -62,7 +62,6 @@ const KudoCardForm = () => {
                         }}
                         validationSchema={validationsKudoCard}
                         onSubmit={(values) => {
-                            console.log(values);
                             const newValues = {
                                 idKudoBox: parseInt(idKudoBox),
                                 title: values.title,
@@ -70,7 +69,6 @@ const KudoCardForm = () => {
                                 anonymous: values.anonymous,
                                 receiver: values.receiver,
                             };
-                            console.log(newValues);
                             handleCreateKudoCard(newValues, idKudoBox);
                         }}
                     >
