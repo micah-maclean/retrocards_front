@@ -2,7 +2,6 @@ import styled from "styled-components";
 
 export const CustomTable = styled.table`
     width: 100%;
-    overflow: scroll;
     border-collapse: collapse;
     border-radius: 8px;
 

@@ -51,7 +51,7 @@ const Home = () => {
             alignItems="center"
             padding="30px 0"
         >
-            <Container flexDirection="column" gap="32px" color="white">
+            <Container maxWidth='1120px' width='100%' flexDirection="column" gap="32px" color="white">
                 <Container alignItems="center" justifyContent="space-between">
                     <Title textAlign="left" color="white">
                         Sprints
