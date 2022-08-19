@@ -1,4 +1,5 @@
 import { Container } from "../../components/container/Container";
+import * as Yup from "yup";
 import {
     CustomForm,
     Label,
@@ -26,12 +27,11 @@ const SendEmailForm = () => {
         }
     };
 
-    console.log(receivers);
     useEffect(() => {
         setup();
     }, []);
     return (
-        <Container backgroundColor="#12101a" height="calc(100vh - 100px)">
+        <Container backgroundColor="#12101a" minHeight="calc(100vh - 100px)" padding='30px 0'>
             <Container
                 flexDirection="column"
                 maxWidth="1120px"
@@ -45,10 +45,15 @@ const SendEmailForm = () => {
                     initialValues={{
                         receiver: "",
                     }}
-                    // validationSchema={}
+                    validationSchema={
+                        Yup.object({
+                            receiver: Yup.mixed()
+                            .test("Arrayvazio", "Escolha ao menos uma pessoa", () =>  receivers.length > 0)
+                        })
+                    }
                     onSubmit={() => {
                         const newValues = {
-                            receiver: [receivers.map((value) => value.email)],
+                            receiver: receivers.map((value) => value.email),
                         };
                         console.log(newValues);
                         // handleCreateKudoCard(newValues, idKudoBox);
@@ -58,7 +63,7 @@ const SendEmailForm = () => {
                         <CustomForm color="#fff">
                             <Title marginBottom="30px">Enviar Email</Title>
                             <Label htmlFor="receiver">Para</Label>
-                            <Container justifyContent="space-between">
+                            <Container gap='32px' margin='0 0 30px 0'>
                                 <Container
                                     position="relative"
                                     flexDirection="column"
@@ -66,13 +71,13 @@ const SendEmailForm = () => {
                                 >
                                     <Select
                                         label="Escolha uma pessoa"
-                                        values={userEmail}
+                                        values={userEmail.filter( user => !receivers.includes(user))}
                                         onChange={(v) =>
                                             props.setFieldValue("receiver", v)
                                         }
                                     />
                                     <Dropdown top="12px" right="25px" />
-                                    <CustomErrorMessage name={"receiver"} />
+                                    <CustomErrorMessage name="receiver" />
                                 </Container>
                                 <Button
                                     type="button"
@@ -80,11 +85,14 @@ const SendEmailForm = () => {
                                     height="55px"
                                     padding="0"
                                     onClick={() => {
-                                        setReceivers([
-                                            ...receivers,
-                                            props.getFieldProps("receiver")
-                                                .value,
-                                        ]);
+                                        if(props.getFieldProps("receiver").value !== '') {
+                                            setReceivers([
+                                                ...receivers,
+                                                props.getFieldProps("receiver")
+                                                    .value
+                                            ]);
+                                            props.setFieldValue("receiver", "")
+                                        }
                                     }}
                                 >
                                     <Plus />
