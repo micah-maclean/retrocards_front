@@ -1,7 +1,10 @@
 import { createContext, useState } from "react";
-import { api } from "../api";
-import { toast } from "react-toastify";
+//Import router
 import { useNavigate } from "react-router-dom";
+//Import da dependencia de toast
+import { toast } from "react-toastify";
+//Import da chamada da url da api
+import { api } from "../api";
 
 const SprintContext = createContext();
 
@@ -23,15 +26,17 @@ const SprintProvider = ({ children }) => {
 
     const getRetroListBySprintId = async (sprintId, currentPage, pageSize) => {
         try {
-          const {data} = await api.get(`/retrospective/list/sprint/${sprintId}?pagina=${currentPage}&registro=${pageSize}`);
-          return data;
+            const { data } = await api.get(
+                `/retrospective/list/sprint/${sprintId}?pagina=${currentPage}&registro=${pageSize}`
+            );
+            return data;
         } catch (error) {
-          if(error.response.data.status === 400){
-            return;
-          }
-          toast.error(error.response.data.message)
+            if (error.response.data.status === 400) {
+                return;
+            }
+            toast.error(error.response.data.message);
         }
-    }
+    };
 
     const handleCreateSprint = async (values) => {
         try {
@@ -56,7 +61,8 @@ const SprintProvider = ({ children }) => {
             value={{
                 handleCreateSprint,
                 getSprintList,
-                getRetroListBySprintId, handleNavigateToSprint,
+                getRetroListBySprintId,
+                handleNavigateToSprint,
                 handleNavigateToSprintById,
                 filter,
                 setFilter,

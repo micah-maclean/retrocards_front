@@ -1,5 +1,8 @@
-import { CustomTable } from "./Table.styled";
+//Import de router
 import { useNavigate } from "react-router-dom";
+//Import de styled
+import { CustomTable } from "./Table.styled";
+//Import para formatar a data
 import { formatDateToRender } from "../../utils/masks";
 
 const Table = ({ list, params, path, pathKey }) => {

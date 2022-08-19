@@ -1,7 +1,11 @@
+//Import do react
 import { createContext } from "react";
-import { api } from "../api";
-import { toast } from "react-toastify";
+//Import router
 import { useNavigate } from "react-router-dom";
+//Import da dependencia de toast
+import { toast } from "react-toastify";
+//Import da chamada da url da api
+import { api } from "../api";
 
 const KudosContext = createContext();
 
@@ -41,23 +45,41 @@ const KudosProvider = ({ children }) => {
         } catch (error) {
             toast.error(error.response.data.message);
         }
-    }
+    };
 
-    const getKudoboxById = async(idKudobox, page, pageSize) =>{
+    const getKudoboxById = async (idKudobox, page, pageSize) => {
         try {
-            const {data} = await api.get(`/kudocard/list/kudocards/${idKudobox}?pagina=${page}&registros=${pageSize}`);
+            const { data } = await api.get(
+                `/kudocard/list/kudocards/${idKudobox}?pagina=${page}&registros=${pageSize}`
+            );
             return data;
         } catch (error) {
-            if(error.response.data.status === 400){
+            if (error.response.data.status === 400) {
                 return;
             }
 
-            toast.error(error.response.data.message)
+            toast.error(error.response.data.message);
         }
-    }
+    };
 
-    return(
-        <KudosContext.Provider value={{handleCreateKudoBox, handleCreateKudoCard, getKudoboxById, getKudoboxBySprintId}}>
+    const deleteKudoCard = async (idKudoCard) => {
+        try {
+            await api.delete(`/kudocard/delete/${idKudoCard}`);
+        } catch (error) {
+            toast.error(error.response.data.message);
+        }
+    };
+
+    return (
+        <KudosContext.Provider
+            value={{
+                handleCreateKudoBox,
+                handleCreateKudoCard,
+                getKudoboxById,
+                getKudoboxBySprintId,
+                deleteKudoCard,
+            }}
+        >
             {children}
         </KudosContext.Provider>
     );

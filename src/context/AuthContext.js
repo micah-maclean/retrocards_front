@@ -1,9 +1,12 @@
-import { useEffect } from "react";
-import { useState } from "react";
-import { createContext } from "react";
+//Import react
+import { useEffect, useState, createContext } from "react";
+//Import router
 import { useLocation, useNavigate } from "react-router-dom";
+//Import da dependencia de toast
 import { toast } from "react-toastify";
+//Import da chamada da url da api
 import { api } from "../api";
+//Import dos components
 import { Loading } from "../components/loading/Loading";
 import { Container } from "../components/container/Container";
 
@@ -55,6 +58,7 @@ const AuthProvider = ({ children }) => {
     const handleSignup = async (values) => {
         try {
             await api.post("/user/create", values);
+            navigate("/login");
         } catch (error) {
             toast.error(error.response.data.message);
         }

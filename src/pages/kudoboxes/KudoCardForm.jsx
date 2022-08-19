@@ -3,7 +3,7 @@ import { Formik } from "formik";
 //Import referente ao context
 import { useContext, useEffect, useState } from "react";
 //Import referente as rotas
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 //Import referente aos componentes
 import { Container } from "../../components/container/Container";
 import {
@@ -16,11 +16,11 @@ import {
 import CustomErrorMessage from "../../components/customForm/CustomErrorMessage";
 import { Button } from "../../components/button/Button";
 import Select from "../../components/customForm/Select";
+import { Title } from "../../components/title/Title";
 //Import referente as validações
 import { validationsKudoCard } from "../../utils/validations";
 //Import referente ao context
 import { KudosContext } from "../../context/KudosContext";
-import { Title } from "../../components/title/Title";
 import { AuthContext } from "../../context/AuthContext";
 
 const KudoCardForm = () => {
@@ -28,6 +28,7 @@ const KudoCardForm = () => {
     const { getUsersEmails } = useContext(AuthContext);
     const { idKudoBox } = useParams();
     const [userEmail, setUserEmail] = useState([]);
+    const navigate = useNavigate();
 
     const setup = async () => {
         const data = await getUsersEmails();
@@ -57,19 +58,20 @@ const KudoCardForm = () => {
                             title: "",
                             description: "",
                             receiver: "",
-                            sender: false,
+                            anonymous: false,
                         }}
                         validationSchema={validationsKudoCard}
                         onSubmit={(values) => {
                             console.log(values);
                             const newValues = {
-                                idKudoBox: idKudoBox,
+                                idKudoBox: parseInt(idKudoBox),
                                 title: values.title,
-                                sender: values.sender,
+                                description: values.description,
+                                anonymous: values.anonymous,
                                 receiver: values.receiver,
                             };
                             console.log(newValues);
-                            // handleCreateKudoCard(newValues, idKudoBox);
+                            handleCreateKudoCard(newValues, idKudoBox);
                         }}
                     >
                         {(props) => (
@@ -119,8 +121,8 @@ const KudoCardForm = () => {
                                 >
                                     <Checkbox
                                         type="checkbox"
-                                        name="sender"
-                                        id="sender"
+                                        name="anonymous"
+                                        id="anonymous"
                                     />
                                     <Label margin="8px 0 0 0">
                                         Enviar Anônimo
@@ -136,6 +138,9 @@ const KudoCardForm = () => {
                                         backgroundColorHover="#5454fb"
                                         borderHover="1px solid #5454fb"
                                         colorHover="#fff"
+                                        onClick={() =>
+                                            navigate(`/kudobox/${idKudoBox}`)
+                                        }
                                     >
                                         Voltar
                                     </Button>

@@ -3,7 +3,7 @@ import { Formik } from "formik";
 //Import referente ao context
 import { useContext } from "react";
 //Import referente as rotas
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 //Import referente aos componentes
 import { Container } from "../../components/container/Container";
 import {
@@ -24,6 +24,7 @@ import { Title } from "../../components/title/Title";
 const ItemRetroForm = () => {
     const { handleCreateItemRetrospective } = useContext(RetroContext);
     const { idRetrospective } = useParams();
+    const navigate = useNavigate();
     const tipo = [
         { name: "O que pode melhorar", value: "IMPROVE" },
         { name: "O que funcionou bem", value: "WORKED" },
@@ -115,6 +116,11 @@ const ItemRetroForm = () => {
                                         backgroundColorHover="#5454fb"
                                         borderHover="1px solid #5454fb"
                                         colorHover="#fff"
+                                        onClick={() =>
+                                            navigate(
+                                                `/retrospectiva/${idRetrospective}`
+                                            )
+                                        }
                                     >
                                         Voltar
                                     </Button>

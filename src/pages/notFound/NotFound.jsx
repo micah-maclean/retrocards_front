@@ -1,8 +1,12 @@
-import { Container } from "../../components/container/Container";
-import Astronauta from "../../assets/img/astronauta.png";
-import { ContainerText } from "./NotFount.styled";
-import { Button } from "../../components/button/Button";
+//Import router
 import { useNavigate } from "react-router-dom";
+//Import component
+import { Container } from "../../components/container/Container";
+import { Button } from "../../components/button/Button";
+//Import styled
+import { ContainerText } from "./NotFount.styled";
+//Import imagem
+import Astronauta from "../../assets/img/astronauta.png";
 
 const NotFound = () => {
     const navigate = useNavigate();
