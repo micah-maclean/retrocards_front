@@ -42,15 +42,17 @@ const SendEmailForm = () => {
             backgroundColor="#12101a"
             minHeight="calc(100vh - 100px)"
             padding="30px"
+            justifyContent="center"
+            alignItems="center"
         >
             <Container
                 flexDirection="column"
                 maxWidth="1120px"
                 width="100%"
-                margin="auto"
                 backgroundColor="#292730"
-                borderRadius="5px"
+                borderRadius="8px"
                 padding="24px 64px"
+                paddingQuery="24px 32px"
             >
                 <Formik
                     initialValues={{

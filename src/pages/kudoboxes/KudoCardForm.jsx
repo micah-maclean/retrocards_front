@@ -43,15 +43,21 @@ const KudoCardForm = () => {
 
     return (
         <>
-            <Container backgroundColor="#12101a" height="calc(100vh - 100px)">
+            <Container
+                backgroundColor="#12101a"
+                height="calc(100vh - 100px)"
+                padding="30px"
+                justifyContent="center"
+                alignItems="center"
+            >
                 <Container
                     flexDirection="column"
                     maxWidth="1120px"
                     width="100%"
-                    margin="auto"
                     backgroundColor="#292730"
-                    borderRadius="5px"
+                    borderRadius="8px"
                     padding="24px 64px"
+                    paddingQuery="24px 32px"
                 >
                     <Formik
                         initialValues={{
@@ -122,7 +128,10 @@ const KudoCardForm = () => {
                                         name="anonymous"
                                         id="anonymous"
                                     />
-                                    <Label margin="8px 0 0 0">
+                                    <Label
+                                        htmlFor="anonymous"
+                                        margin="8px 0 0 0"
+                                    >
                                         Enviar Anônimo
                                     </Label>
                                 </Container>
