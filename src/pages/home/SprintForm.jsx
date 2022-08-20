@@ -26,15 +26,21 @@ const SprintForm = () => {
         useContext(SprintContext);
     return (
         <>
-            <Container backgroundColor="#12101a" height="calc(100vh - 100px)">
+            <Container
+                backgroundColor="#12101a"
+                height="calc(100vh - 100px)"
+                padding="30px"
+                justifyContent="center"
+                alignItems="center"
+            >
                 <Container
                     flexDirection="column"
                     maxWidth="1120px"
                     width="100%"
-                    margin="auto"
                     backgroundColor="#292730"
-                    borderRadius="5px"
+                    borderRadius="8px"
                     padding="24px 64px"
+                    paddingQuery="24px 32px"
                 >
                     <Formik
                         initialValues={{
@@ -67,10 +73,14 @@ const SprintForm = () => {
                                     id="title"
                                 />
                                 <CustomErrorMessage name={"title"} />
-                                <Container justifyContent="space-between">
+                                <Container
+                                    justifyContent="space-between"
+                                    flexDirectionQuery="column"
+                                >
                                     <Container
                                         flexDirection="column"
                                         width="45%"
+                                        widthQuery="100%"
                                         position="relative"
                                     >
                                         <Label htmlFor="initialDate">
@@ -94,6 +104,7 @@ const SprintForm = () => {
                                     <Container
                                         flexDirection="column"
                                         width="45%"
+                                        widthQuery="100%"
                                         position="relative"
                                     >
                                         <Label htmlFor="endDate">

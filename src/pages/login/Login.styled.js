@@ -28,10 +28,12 @@ export const Paragraph = styled.p`
 export const HalfCircle = styled(Container)`
     bottom: ${(props) => props.bottom};
     left: ${(props) => props.left};
-    /* shape-outside: circle(50% at 30%);
-    clip-path: circle(50% at 0%); */
     width: ${(props) => props.width};
     height: ${(props) => props.height};
     border-radius: ${(props) => props.borderRadius};
     transform: rotate(270deg);
+
+    @media (max-width: 1024px) {
+        display: none;
+    }
 `;
