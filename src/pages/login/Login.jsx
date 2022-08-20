@@ -16,7 +16,7 @@ import { Container } from "../../components/container/Container";
 import { Button } from "../../components/button/Button";
 import CustomErrorMessage from "../../components/customForm/CustomErrorMessage";
 //Import referente ao styled components
-import { Bar, HalfCircle } from "./Login.styled";
+import { HalfCircle } from "./Login.styled";
 //Import referente as validações
 import { validationsLogin } from "../../utils/validations";
 import { Title } from "../../components/title/Title";
@@ -26,35 +26,51 @@ const Login = () => {
     const { handleLogin } = useContext(AuthContext);
     return (
         <Container width="100%" height="100vh" position="relative">
-            <Container backgroundColor="#12101a" width="50%" height='100%' color='#fff'>
+            <Container
+                backgroundColor="#12101a"
+                width="50%"
+                height="100%"
+                color="#fff"
+                displayQuery="none"
+            >
                 <Container
                     flexDirection="column"
                     margin="auto"
                     alignItems="center"
-                    padding='0 32px'
-                    justifyContent='center'
+                    padding="0 32px"
+                    justifyContent="center"
                     gap="96px"
                 >
-                   <Container maxWidth='500px' flexDirection='column'>
-                        <Title marginBottom="56px" textDecoration="underline 8px">
+                    <Container maxWidth="500px" flexDirection="column">
+                        <Title
+                            marginBottom="56px"
+                            textDecoration="underline 8px"
+                            lineHeight="64px"
+                        >
                             Bem Vindo ao Retrocard
                         </Title>
                         <Paragraph textAlign="justify">
                             Lorem, ipsum dolor sit amet consectetur adipisicing
-                            elit. Eos esse repellat aperiam animi alias, provident
-                            temporibus, deleniti consequatur ad, nisi mollitia vitae
-                            eius omnis voluptas. At repudiandae vero fugit harum!
-                            Sit quidem repudiandae dignissimos delectus, a iure
-                            adipisci iste, repellendus minus ipsam illum ipsa,
-                            doloremque cupiditate reiciendis tempore? Quo explicabo
-                            reiciendis debitis a. Voluptates commodi praesentium,
-                            hic consequuntur vitae culpa.
+                            elit. Eos esse repellat aperiam animi alias,
+                            provident temporibus, deleniti consequatur ad, nisi
+                            mollitia vitae eius omnis voluptas. At repudiandae
+                            vero fugit harum! Sit quidem repudiandae dignissimos
+                            delectus, a iure adipisci iste, repellendus minus
+                            ipsam illum ipsa, doloremque cupiditate reiciendis
+                            tempore? Quo explicabo reiciendis debitis a.
+                            Voluptates commodi praesentium, hic consequuntur
+                            vitae culpa.
                         </Paragraph>
-                   </Container>
-                   
+                    </Container>
                 </Container>
             </Container>
-            <Container width="50%" alignItems='center' justifyContent='center' padding='0 30px'>
+            <Container
+                width="50%"
+                alignItems="center"
+                justifyContent="center"
+                padding="0 30px"
+                widthQuery="100%"
+            >
                 <Formik
                     initialValues={{
                         email: "",
@@ -65,9 +81,16 @@ const Login = () => {
                         handleLogin(values);
                     }}
                 >
-                    <CustomForm maxWidth='500px'> 
-                        <Title textAlign='left' marginBottom="56px" textDecoration="underline 8px">Faça seu Login</Title>
-                        
+                    <CustomForm maxwidth="500px">
+                        <Title
+                            textAlign="left"
+                            marginBottom="56px"
+                            textDecoration="underline 8px"
+                            lineHeight="64px"
+                        >
+                            Faça seu Login
+                        </Title>
+
                         <Label htmlFor="email">Email</Label>
                         <Input
                             background="#fff"
@@ -117,7 +140,7 @@ const Login = () => {
                 backgroundColor="#fff"
                 width="256px"
                 height="156px"
-                borderRadius="206px 206px 0 0"
+                borderRadius="156px 156px 0 0"
                 bottom="65px"
                 left="calc(50% - 206px)"
             />

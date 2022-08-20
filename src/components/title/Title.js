@@ -8,4 +8,5 @@ export const Title = styled.h1`
         props.marginBottom ? props.marginBottom : "0"};
     text-decoration: ${(props) => props.textDecoration && props.textDecoration};
     text-underline-offset: 12px;
+    line-height: ${(props) => props.lineHeight && props.lineHeight};
 `;

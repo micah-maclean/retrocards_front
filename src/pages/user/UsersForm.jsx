@@ -1,5 +1,4 @@
-//Import react
-import { useState, useEffect, useContext } from "react";
+import { useContext } from "react";
 //Import context
 import { AuthContext } from "../../context/AuthContext";
 //Import components
@@ -17,26 +16,18 @@ import CustomErrorMessage from "../../components/customForm/CustomErrorMessage";
 import Select from "../../components/customForm/Select";
 import { Formik } from "formik";
 import Table from "../../components/table/Table";
-import { RetroContext } from "../../context/RetroContext";
 import { useParams } from "react-router-dom";
+import { validationsRole } from "../../utils/validations";
 
-const SendEmailForm = () => {
-    const { getUsersEmails } = useContext(AuthContext);
-    const { sendEmail } = useContext(RetroContext);
-    const { idRetrospective, idSprint } = useParams();
-    const [userEmail, setUserEmail] = useState([]);
-    const [receivers, setReceivers] = useState([]);
+const UsersForm = () => {
+    const { idUser } = useParams();
+    const { handleUpdateRole } = useContext(AuthContext);
 
-    const setup = async () => {
-        const data = await getUsersEmails();
-        if (data) {
-            setUserEmail(data);
-        }
-    };
+    const roles = [
+        { name: "Facilitador", value: "FACILITATOR" },
+        { name: "Membro", value: "MEMBER" },
+    ];
 
-    useEffect(() => {
-        setup();
-    }, []);
     return (
         <Container
             backgroundColor="#12101a"
@@ -56,75 +47,35 @@ const SendEmailForm = () => {
             >
                 <Formik
                     initialValues={{
-                        receiver: "",
+                        role: "",
                     }}
-                    validationSchema={Yup.object({
-                        receiver: Yup.mixed().test(
-                            "Arrayvazio",
-                            "Escolha ao menos uma pessoa",
-                            () => receivers.length > 0
-                        ),
-                    })}
-                    onSubmit={() => {
-                        const newValues = {
-                            receiver: receivers.map((value) => value.email),
-                        };
-                        sendEmail(newValues, idRetrospective, idSprint);
+                    validationSchema={validationsRole}
+                    onSubmit={(values) => {
+                        handleUpdateRole(values.role, idUser);
                     }}
                 >
                     {(props) => (
                         <CustomForm color="#fff">
-                            <Title marginBottom="30px">Enviar Email</Title>
-                            <Label htmlFor="receiver">Para</Label>
+                            <Title marginBottom="30px">Alterar Cargo</Title>
+                            <Label htmlFor="role">Cargo</Label>
                             <Container gap="32px" margin="0 0 30px 0">
                                 <Container
                                     position="relative"
                                     flexDirection="column"
-                                    width="90%"
+                                    width="100%"
                                 >
                                     <Select
-                                        label="Escolha uma pessoa"
-                                        values={userEmail.filter(
-                                            (user) =>
-                                                !receivers.includes(user) &&
-                                                user.email !== "admin@gmail.com"
-                                        )}
+                                        label="Escolha um cargo"
+                                        setKey="value"
+                                        values={roles}
                                         onChange={(v) =>
-                                            props.setFieldValue("receiver", v)
+                                            props.setFieldValue("role", v)
                                         }
                                     />
                                     <Dropdown top="12px" right="25px" />
-                                    <CustomErrorMessage name="receiver" />
+                                    <CustomErrorMessage name="role" />
                                 </Container>
-                                <Button
-                                    type="button"
-                                    width="55px"
-                                    height="55px"
-                                    padding="0"
-                                    onClick={() => {
-                                        if (
-                                            props.getFieldProps("receiver")
-                                                .value !== ""
-                                        ) {
-                                            setReceivers([
-                                                ...receivers,
-                                                props.getFieldProps("receiver")
-                                                    .value,
-                                            ]);
-                                            props.setFieldValue("receiver", "");
-                                        }
-                                    }}
-                                >
-                                    <Plus />
-                                </Button>
                             </Container>
-                            <Table
-                                list={receivers}
-                                params={[
-                                    { heading: "Nome", key: "name" },
-                                    { heading: "Email", key: "email" },
-                                ]}
-                            />
                             <Container
                                 justifyContent="space-around"
                                 margin="32px 0 0 0 "
@@ -150,7 +101,7 @@ const SendEmailForm = () => {
                                     colorHover="#fff"
                                     type="submit"
                                 >
-                                    Cadastrar
+                                    Alterar
                                 </Button>
                             </Container>
                         </CustomForm>
@@ -160,4 +111,4 @@ const SendEmailForm = () => {
         </Container>
     );
 };
-export default SendEmailForm;
+export default UsersForm;

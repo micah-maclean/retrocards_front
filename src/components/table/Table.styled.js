@@ -26,7 +26,7 @@ export const CustomTable = styled.table`
 
     td,
     th {
-        color: white;
+        color: #fff;
     }
 
     td,

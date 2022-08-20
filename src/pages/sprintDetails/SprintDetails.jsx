@@ -26,8 +26,6 @@ const SprintDetails = () => {
     const [totalPages, setTotalPages] = useState(0);
     const [list, setList] = useState([]);
 
-
-
     const setup = async (filter) => {
         const data =
             filter === "Retrospectiva"
@@ -54,8 +52,8 @@ const SprintDetails = () => {
     }, [filter, currentPage]);
 
     const filterList = [
-        {name: "Retrospectiva", value: "Retrospectiva" },
-        {name: "Kudo Box", value: "Kudo Box"}
+        { name: "Retrospectiva", value: "Retrospectiva" },
+        { name: "Kudo Box", value: "Kudo Box" },
     ];
 
     const paramsRetro = [
@@ -88,14 +86,11 @@ const SprintDetails = () => {
         >
             <Container
                 maxWidth="1120px"
-                width='100%'
+                width="100%"
                 flexDirection="column"
                 gap="30px"
             >
-                <Container
-                    justifyContent="space-between"
-                    gap='30px'
-                >
+                <Container justifyContent="space-between" gap="30px">
                     <Tab
                         filterList={filterList}
                         setFilter={setFilter}
@@ -109,8 +104,8 @@ const SprintDetails = () => {
                                     ? "createRetrospective"
                                     : "createKudoBox"
                             }
-                            backgroundColor="white"
-                            color="black"
+                            backgroundColor="#fff"
+                            color="#12101a"
                             padding="8px 16px"
                             onClick={() =>
                                 navigate(
@@ -132,19 +127,26 @@ const SprintDetails = () => {
                         filter === "Retrospectiva" ? paramsRetro : paramsKudo
                     }
                     list={list}
-                    actions='Hello'
-                    path= { filter === "Retrospectiva" ? "/retrospectiva" : "/kudobox"}
-                    pathKey={ filter === "Retrospectiva" ? "idRetrospective" : "idKudoBox"}
+                    actions="Hello"
+                    path={
+                        filter === "Retrospectiva"
+                            ? "/retrospectiva"
+                            : "/kudobox"
+                    }
+                    pathKey={
+                        filter === "Retrospectiva"
+                            ? "idRetrospective"
+                            : "idKudoBox"
+                    }
                 />
 
-                {
-                list.length === 0  && 
-                <Title textAlign='center'>
-                    {filter === "Retrospectiva" 
-                        ? "Nenhuma retrospectiva"
-                        : "Nenhum kudobox"}
-                </Title>
-                }
+                {list.length === 0 && (
+                    <Title textAlign="center">
+                        {filter === "Retrospectiva"
+                            ? "Nenhuma retrospectiva"
+                            : "Nenhum kudobox"}
+                    </Title>
+                )}
 
                 <Pagination
                     totalCount={totalCount}

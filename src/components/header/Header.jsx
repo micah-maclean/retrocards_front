@@ -1,7 +1,7 @@
 //Import React
 import { useContext } from "react";
 //Import router
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 //Import context
 import { AuthContext } from "../../context/AuthContext";
 //Import component
@@ -18,6 +18,8 @@ import logo from "../../assets/img/logo.png";
 
 const Header = () => {
     const { handleLogout, user } = useContext(AuthContext);
+    const navigate = useNavigate();
+    console.log(user);
     return (
         <HeaderContainer>
             <Container
@@ -34,11 +36,23 @@ const Header = () => {
 
                 <Container
                     color="#fff"
-                    alignItems="baseline"
+                    alignItems="center"
                     justifyContent="space-between"
                     gap="50px"
                 >
                     <span>Bem vindo {user.name && nomeFinal(user.name)}</span>
+                    {user.role === "ROLE_ADMIN" && (
+                        <Button
+                            id="logout"
+                            backgroundColor="transparent"
+                            border="1px solid #fff"
+                            width="100px"
+                            padding="10px 0"
+                            onClick={() => navigate("/users")}
+                        >
+                            Usuários
+                        </Button>
+                    )}
                     <Button
                         id="logout"
                         backgroundColor="transparent"
