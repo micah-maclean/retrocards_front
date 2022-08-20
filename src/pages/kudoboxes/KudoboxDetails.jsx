@@ -111,14 +111,14 @@ const KudoboxDetails = () => {
                 maxWidth="1120px"
                 width="100%"
                 flexDirection="column"
-                padding="30px 0"
+                padding="30px"
+                gap='30px'
             >
                 <Container
                     justifyContent="space-between"
                     alignItems="center"
-                    margin="0px 0px 30px 0"
                 >
-                    <Title>{infoKudoBox.title}</Title>
+                    <Title textAlign='left'>{infoKudoBox.title}</Title>
                     {user.role === "ROLE_MEMBER" &&
                         infoKudoBox.status === "IN_PROGRESS" && (
                             <Button

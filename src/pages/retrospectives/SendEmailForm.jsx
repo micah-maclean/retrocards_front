@@ -40,7 +40,7 @@ const SendEmailForm = () => {
     return (
         <Container
             backgroundColor="#12101a"
-            height="calc(100vh - 100px)"
+            minHeight="calc(100vh - 100px)"
             padding="30px"
             justifyContent="center"
             alignItems="center"

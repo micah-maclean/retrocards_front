@@ -84,7 +84,7 @@ const SprintDetails = () => {
             color="#fff"
             flexDirection="column"
             alignItems="center"
-            padding="30px 0"
+            padding="30px"
         >
             <Container
                 maxWidth="1120px"
@@ -94,6 +94,7 @@ const SprintDetails = () => {
             >
                 <Container
                     justifyContent="space-between"
+                    gap='30px'
                 >
                     <Tab
                         filterList={filterList}
@@ -131,6 +132,7 @@ const SprintDetails = () => {
                         filter === "Retrospectiva" ? paramsRetro : paramsKudo
                     }
                     list={list}
+                    actions='Hello'
                     path= { filter === "Retrospectiva" ? "/retrospectiva" : "/kudobox"}
                     pathKey={ filter === "Retrospectiva" ? "idRetrospective" : "idKudoBox"}
                 />

@@ -35,4 +35,8 @@ export const Button = styled.button`
     @media (max-width: 576px) {
         padding: ${(props) => (props.padding ? props.padding : "16px 32px")};
     }
+
+    @media (max-width: 576px) {
+        padding: ${(props) => props.padding ? props.padding : '16px 32px'};
+    }
 `;

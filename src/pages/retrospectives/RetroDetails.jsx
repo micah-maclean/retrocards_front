@@ -115,12 +115,12 @@ const RetroDetails = () => {
             <Container
                 maxWidth="1120px"
                 width="100%"
-                padding="30px 0"
+                padding="30px"
                 gap="30px"
                 flexDirection="column"
             >
-                <Container justifyContent="space-between" alignItems="center">
-                    <Title>{info.title}</Title>
+                <Container justifyContent="space-between" alignItems="center" gap='30px'>
+                    <Title textAlign='left'>{info.title}</Title>
                     {user.role === "ROLE_MEMBER" &&
                         info.status === "IN_PROGRESS" && (
                             <Button
@@ -177,8 +177,7 @@ const RetroDetails = () => {
                         ))}
                 </Board>
 
-                {list.length === 0 &&
-                    list.filter(FILTER_MAP[filter]).length === 0 && (
+                    {list.filter(FILTER_MAP[filter]).length === 0 && (
                         <Title textAlign="center">
                             Ainda não existe nenhum retrocard desse tipo
                         </Title>

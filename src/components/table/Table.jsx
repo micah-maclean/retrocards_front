@@ -5,8 +5,14 @@ import { CustomTable } from "./Table.styled";
 //Import para formatar a data
 import { formatDateToRender } from "../../utils/masks";
 
-const Table = ({ list, params, path, pathKey }) => {
+const Table = ({ list, params, actions, path, pathKey }) => {
     const navigate = useNavigate();
+
+    const Status ={
+        CREATE: <span style={{color:'green'}}>Criado</span>,
+        IN_PROGRESS: <span style={{color:'blue'}}>Em Andamento</span>,
+        FINISHED: <span style={{color:'blue'}}>Concluido</span> 
+    }
 
     return (
         <CustomTable>
@@ -15,7 +21,9 @@ const Table = ({ list, params, path, pathKey }) => {
                     {params.map((column, i) => (
                         <th key={i}>{column.heading}</th>
                     ))}
+
                 </tr>
+                
             </thead>
             <tbody>
                 {list.map((row, i) => (
@@ -28,10 +36,8 @@ const Table = ({ list, params, path, pathKey }) => {
                                 {
                                     column.key.includes("Date")
                                         ? formatDateToRender(row[column.key])
+                                        : column.key === 'status' ? Status[row[column.key]]
                                         : row[column.key]
-                                    /* {
-                                    column.key === 'status' && row[column.key] === 'CREATE' ? 'criado' : row[column.key] === 'IN_PROGRESS' ? 'em andamento' : 'concluido'
-                                  } */
                                 }
                             </td>
                         ))}

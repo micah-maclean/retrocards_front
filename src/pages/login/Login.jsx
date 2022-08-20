@@ -16,120 +16,101 @@ import { Container } from "../../components/container/Container";
 import { Button } from "../../components/button/Button";
 import CustomErrorMessage from "../../components/customForm/CustomErrorMessage";
 //Import referente ao styled components
-import { Bar, Paragraph, Title, HalfCircle } from "./Login.styled";
+import { Bar, HalfCircle } from "./Login.styled";
 //Import referente as validações
 import { validationsLogin } from "../../utils/validations";
+import { Title } from "../../components/title/Title";
+import { Paragraph } from "../../components/paragraph/Paragraph";
 
 const Login = () => {
     const { handleLogin } = useContext(AuthContext);
     return (
         <Container width="100%" height="100vh" position="relative">
-            <Container backgroundColor="#12101a" width="50%">
+            <Container backgroundColor="#12101a" width="50%" height='100%' color='#fff'>
                 <Container
                     flexDirection="column"
-                    width="500px"
                     margin="auto"
                     alignItems="center"
-                    height="400px"
+                    padding='0 32px'
+                    justifyContent='center'
                     gap="96px"
-                    color="#fff"
                 >
-                    <Container
-                        flexDirection="column"
-                        alignItems="center"
-                        color="#fff"
-                    >
-                        <Title>Bem Vindo ao Retrocard</Title>
-                        <Bar
-                            height="10px"
-                            width="300px"
-                            backgroundColor="#fff"
-                        />
-                    </Container>
-                    <Paragraph textAlign="justify">
-                        Lorem, ipsum dolor sit amet consectetur adipisicing
-                        elit. Eos esse repellat aperiam animi alias, provident
-                        temporibus, deleniti consequatur ad, nisi mollitia vitae
-                        eius omnis voluptas. At repudiandae vero fugit harum!
-                        Sit quidem repudiandae dignissimos delectus, a iure
-                        adipisci iste, repellendus minus ipsam illum ipsa,
-                        doloremque cupiditate reiciendis tempore? Quo explicabo
-                        reiciendis debitis a. Voluptates commodi praesentium,
-                        hic consequuntur vitae culpa.
-                    </Paragraph>
+                   <Container maxWidth='500px' flexDirection='column'>
+                        <Title marginBottom="56px" textDecoration="underline 8px">
+                            Bem Vindo ao Retrocard
+                        </Title>
+                        <Paragraph textAlign="justify">
+                            Lorem, ipsum dolor sit amet consectetur adipisicing
+                            elit. Eos esse repellat aperiam animi alias, provident
+                            temporibus, deleniti consequatur ad, nisi mollitia vitae
+                            eius omnis voluptas. At repudiandae vero fugit harum!
+                            Sit quidem repudiandae dignissimos delectus, a iure
+                            adipisci iste, repellendus minus ipsam illum ipsa,
+                            doloremque cupiditate reiciendis tempore? Quo explicabo
+                            reiciendis debitis a. Voluptates commodi praesentium,
+                            hic consequuntur vitae culpa.
+                        </Paragraph>
+                   </Container>
+                   
                 </Container>
             </Container>
-            <Container width="50%">
-                <Container
-                    flexDirection="column"
-                    width="500px"
-                    margin="auto"
-                    height="400px"
-                    gap="96px"
+            <Container width="50%" alignItems='center' justifyContent='center' padding='0 30px'>
+                <Formik
+                    initialValues={{
+                        email: "",
+                        password: "",
+                    }}
+                    validationSchema={validationsLogin}
+                    onSubmit={(values) => {
+                        handleLogin(values);
+                    }}
                 >
-                    <Container flexDirection="column">
-                        <Title>Faça seu Login</Title>
-                        <Bar
-                            height="10px"
-                            width="300px"
-                            backgroundColor="#12101a"
+                    <CustomForm maxWidth='500px'> 
+                        <Title textAlign='left' marginBottom="56px" textDecoration="underline 8px">Faça seu Login</Title>
+                        
+                        <Label htmlFor="email">Email</Label>
+                        <Input
+                            background="#fff"
+                            color="#000"
+                            border="1px solid #000"
+                            outline="#000 solid 1px"
+                            name="email"
+                            placeholder="Email"
+                            id="email"
                         />
-                    </Container>
-                    <Formik
-                        initialValues={{
-                            email: "",
-                            password: "",
-                        }}
-                        validationSchema={validationsLogin}
-                        onSubmit={(values) => {
-                            handleLogin(values);
-                        }}
-                    >
-                        <CustomForm>
-                            <Label htmlFor="email">Email</Label>
-                            <Input
-                                background="#fff"
-                                color="#000"
-                                border="1px solid #000"
-                                outline="#000 solid 1px"
-                                name="email"
-                                placeholder="Email"
-                                id="email"
-                            />
-                            <CustomErrorMessage name={"email"} />
-                            <Label htmlFor="password">Senha</Label>
-                            <Input
-                                background="#fff"
-                                color="#000"
-                                border="1px solid #000"
-                                outline="#000 solid 1px"
-                                name="password"
-                                placeholder="Senha"
-                                type="password"
-                                id="password"
-                            />
-                            <CustomErrorMessage name={"password"} />
-                            <Button
-                                id="login"
-                                width="100%"
-                                backgroundColor="#12101a"
-                                border="1px solid #12101a"
-                                color="#fff"
-                                margin="12px 0 20px 0"
-                                backgroundColorHover="#5454fb"
-                                borderHover="1px solid #5454fb"
-                                type="submit"
-                            >
-                                Login
-                            </Button>
+                        <CustomErrorMessage name={"email"} />
+                        <Label htmlFor="password">Senha</Label>
+                        <Input
+                            background="#fff"
+                            color="#000"
+                            border="1px solid #000"
+                            outline="#000 solid 1px"
+                            name="password"
+                            placeholder="Senha"
+                            type="password"
+                            id="password"
+                        />
+                        <CustomErrorMessage name={"password"} />
+                        <Button
+                            id="login"
+                            width="100%"
+                            backgroundColor="#12101a"
+                            border="1px solid #12101a"
+                            color="#fff"
+                            margin="12px 0 20px 0"
+                            backgroundColorHover="#5454fb"
+                            borderHover="1px solid #5454fb"
+                            type="submit"
+                        >
+                            Login
+                        </Button>
 
-                            <Paragraph alignSelf="center">
-                                Não possui login?{" "}
-                                <Link to="/cadastrar">Cadastre-se aqui</Link>
-                            </Paragraph>
-                        </CustomForm>
-                    </Formik>
-                </Container>
+                        <Paragraph alignSelf="center">
+                            Não possui login?{" "}
+                            <Link to="/cadastrar">Cadastre-se aqui</Link>
+                        </Paragraph>
+                    </CustomForm>
+                </Formik>
             </Container>
             <HalfCircle
                 position="absolute"
