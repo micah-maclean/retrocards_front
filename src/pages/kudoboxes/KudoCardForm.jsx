@@ -25,7 +25,7 @@ import { AuthContext } from "../../context/AuthContext";
 
 const KudoCardForm = () => {
     const { handleCreateKudoCard } = useContext(KudosContext);
-    const { getUsersEmails } = useContext(AuthContext);
+    const { getUsersEmails, user } = useContext(AuthContext);
     const { idKudoBox } = useParams();
     const [userEmail, setUserEmail] = useState([]);
     const navigate = useNavigate();
@@ -111,7 +111,12 @@ const KudoCardForm = () => {
                                     <Select
                                         label="Escolha uma pessoa"
                                         setKey="name"
-                                        values={userEmail}
+                                        values={userEmail.filter(
+                                            (receiver) =>
+                                                receiver.email !== user.email &&
+                                                receiver.email !==
+                                                    "admin@gmail.com"
+                                        )}
                                         onChange={(v) =>
                                             props.setFieldValue("receiver", v)
                                         }

@@ -72,3 +72,7 @@ export const validationsKudoCard = Yup.object({
     description: validationsText(144, 3, "descrição"),
     receiver: Yup.string().required("Campo Obrigatório"),
 });
+
+export const validationsRole = Yup.object({
+    role: Yup.string().required("Campo Obrigatório"),
+});

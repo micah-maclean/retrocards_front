@@ -19,7 +19,10 @@ export const formatDateToDatabase = (values) => {
 
 export const formatDateToRender = (values) => {
     return moment(values).format("DD/MM/YYYY");
-    // return values;
+};
+
+export const formatDateToRenderWithHour = (values) => {
+    return moment(values).format("DD/MM/YYYY - HH:mm");
 };
 export const nomeFinal = (value) => {
     return value

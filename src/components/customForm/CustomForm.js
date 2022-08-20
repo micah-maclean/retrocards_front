@@ -9,7 +9,7 @@ import { IoMdArrowDropdown } from "react-icons/io";
 import { AiOutlinePlus } from "react-icons/ai";
 
 export const CustomForm = styled(Form)`
-    max-width: ${props => props.maxWidth && props.maxWidth};
+    max-width: ${(props) => props.maxwidth && props.maxwidth};
     width: ${(props) => (props.width ? props.width : "100%")};
     color: ${(props) => (props.color ? props.color : "inherit")};
     display: flex;

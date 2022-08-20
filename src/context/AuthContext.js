@@ -59,6 +59,7 @@ const AuthProvider = ({ children }) => {
     const handleSignup = async (values) => {
         try {
             await api.post("/user/create", values);
+            toast.success("Cadastro realizado com sucesso");
             navigate("/login");
         } catch (error) {
             toast.error(error.response.data.message);
@@ -83,6 +84,27 @@ const AuthProvider = ({ children }) => {
         }
     };
 
+    const getUsersList = async (page, pageSize) => {
+        try {
+            const { data } = await api.get(
+                `/user/list?page=${page}&quantityPerPage=${pageSize}`
+            );
+            return data;
+        } catch (error) {
+            toast.error(error.response.data.message);
+        }
+    };
+
+    const handleUpdateRole = async (role, idUser) => {
+        try {
+            await api.put(`/user/change-role/${idUser}?userType=${role}`);
+            toast.success("Cargo alterado com sucesso");
+            navigate(`/users`);
+        } catch (error) {
+            toast.error(error.response.data.message);
+        }
+    };
+
     if (loading) {
         return (
             <Container
@@ -104,9 +126,11 @@ const AuthProvider = ({ children }) => {
                 handleLogin,
                 handleLogout,
                 handleSignup,
+                getUsersList,
                 getUsersEmails,
                 reducerValue,
                 forceUpdate,
+                handleUpdateRole,
             }}
         >
             {children}

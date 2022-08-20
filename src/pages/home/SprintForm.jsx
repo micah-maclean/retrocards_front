@@ -61,7 +61,7 @@ const SprintForm = () => {
                         }}
                     >
                         {(props) => (
-                            <CustomForm color="white">
+                            <CustomForm color="#fff">
                                 <Title marginBottom="30px">Criar Sprint</Title>
                                 <Label htmlFor="title">Título</Label>
                                 <Input
@@ -74,14 +74,13 @@ const SprintForm = () => {
                                 />
                                 <CustomErrorMessage name={"title"} />
                                 <Container
-                                    justifyContent="space-between"
                                     flexDirectionQuery="column"
+                                    gap="0 30px"
                                 >
                                     <Container
                                         flexDirection="column"
-                                        width="45%"
-                                        widthQuery="100%"
                                         position="relative"
+                                        width="100%"
                                     >
                                         <Label htmlFor="initialDate">
                                             Data de Início
@@ -103,9 +102,8 @@ const SprintForm = () => {
                                     </Container>
                                     <Container
                                         flexDirection="column"
-                                        width="45%"
-                                        widthQuery="100%"
                                         position="relative"
+                                        width="100%"
                                     >
                                         <Label htmlFor="endDate">
                                             Data de Final
