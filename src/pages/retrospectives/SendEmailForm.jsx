@@ -41,7 +41,7 @@ const SendEmailForm = () => {
         <Container
             backgroundColor="#12101a"
             minHeight="calc(100vh - 100px)"
-            padding="30px 0"
+            padding="30px"
         >
             <Container
                 flexDirection="column"

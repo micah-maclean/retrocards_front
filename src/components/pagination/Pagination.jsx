@@ -1,6 +1,7 @@
 //Import de component
 import { Button } from "../button/Button";
 import { Container } from "../container/Container";
+import { Paragraph } from "../paragraph/Paragraph";
 
 const Pagination = ({
     totalCount,
@@ -10,7 +11,7 @@ const Pagination = ({
     onPageChange,
 }) => {
     return (
-        <Container justifyContent="space-between" color="white" width="100%">
+        <Container justifyContent="space-between" color="white" width="100%" gap='30px'>
             <Button
                 id="previous"
                 visibility={currentPage === 0 ? "hidden" : "visible"}
@@ -23,13 +24,13 @@ const Pagination = ({
             </Button>
 
             {totalCount > 0 && (
-                <p>
+                <Paragraph textAlign='center'>
                     Mostrando do {currentPage * pageSize + 1} ao{" "}
                     {pageSize * (currentPage + 1) > totalCount
                         ? totalCount
                         : pageSize * (currentPage + 1)}{" "}
                     de {totalCount} itens
-                </p>
+                </Paragraph>
             )}
 
             <Button

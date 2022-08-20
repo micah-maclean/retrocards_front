@@ -31,4 +31,8 @@ export const Button = styled.button`
         color: ${(props) => (props.colorHover && props.colorHover)};
         border: ${(props) => (props.borderHover && props.borderHover)};
     }
+
+    @media (max-width: 576px) {
+        padding: ${(props) => props.padding ? props.padding : '16px 32px'};
+    }
 `;
