@@ -13,7 +13,7 @@ import { Paragraph } from "../../components/paragraph/Paragraph";
 import { Title } from "../../components/title/Title";
 import { AuthContext } from "../../context/AuthContext";
 import { validationSignup } from "../../utils/validations";
-import { Bar } from "../login/Login.styled";
+import { HalfCircle } from "../login/Login.styled";
 
 const Signup = () => {
     const { handleSignup } = useContext(AuthContext);
@@ -25,10 +25,11 @@ const Signup = () => {
                 alignItems="center"
                 color="#12101a"
                 width="50%"
-                justifyContent='center'
-                padding='0 30px'
+                justifyContent="center"
+                padding="0 30px"
+                displayQuery="none"
             >
-                <Container flexDirection='column' maxWidth='500px'>
+                <Container flexDirection="column" maxWidth="500px">
                     <Title textDecoration="underline 8px" marginBottom="96px">
                         Bem Vindo a Retrocard
                     </Title>
@@ -42,7 +43,7 @@ const Signup = () => {
                         doloremque cupiditate reiciendis tempore? Quo explicabo
                         reiciendis debitis a. Voluptates commodi praesentium,
                         hic consequuntur vitae culpa.
-                    </Paragraph>  
+                    </Paragraph>
                 </Container>
             </Container>
             <Container
@@ -52,7 +53,8 @@ const Signup = () => {
                 padding="0 32px"
                 flexDirection="column"
                 justifyContent="center"
-                alignItems='center'
+                alignItems="center"
+                widthQuery="100%"
             >
                 <Formik
                     initialValues={{
@@ -65,8 +67,14 @@ const Signup = () => {
                         handleSignup(values);
                     }}
                 >
-                    <CustomForm maxWidth='500px'>
-                        <Title textAlign='left' marginBottom="56px" textDecoration="underline 8px">Faça seu Cadastro</Title>
+                    <CustomForm maxwidth="500px">
+                        <Title
+                            textAlign="left"
+                            marginBottom="56px"
+                            textDecoration="underline 8px"
+                        >
+                            Faça seu Cadastro
+                        </Title>
 
                         <Label htmlFor="name">Nome*:</Label>
                         <Input name="name" placeholder="Nome" />
@@ -86,11 +94,15 @@ const Signup = () => {
 
                         <Button
                             id="createLogin"
-                            backgroundColor="white"
-                            color="black"
+                            backgroundColor="#fff"
+                            color="#12101a"
+                            border="1px solid #fff"
+                            backgroundColorHover="#5454fb"
+                            borderHover="1px solid #5454fb"
+                            colorHover="#fff"
                             width="100%"
                             type="submit"
-                            margin='0 0 30px 0'
+                            margin="0 0 30px 0"
                         >
                             Registrar
                         </Button>
@@ -102,6 +114,24 @@ const Signup = () => {
                     </CustomForm>
                 </Formik>
             </Container>
+            <HalfCircle
+                position="absolute"
+                backgroundColor="#12101a"
+                width="256px"
+                height="156px"
+                borderRadius="156px 156px 0 0"
+                bottom="65px"
+                left="calc(50% - 206px)"
+            />
+            <HalfCircle
+                backgroundColor="#fff"
+                position="absolute"
+                width="128px"
+                height="78px"
+                borderRadius="78px 78px 0 0"
+                bottom="98px"
+                left="calc(50% - 102px)"
+            />
         </Container>
     );
 };

@@ -16,6 +16,7 @@ import { FaTrashAlt } from "react-icons/fa";
 import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
 import "../../components/modal/Modal.css";
+import { formatDateToRenderWithHour } from "../../utils/masks";
 
 const KudoboxDetails = () => {
     const { getKudoboxById, deleteKudoCard, getKudoBoxDetailsById } =
@@ -112,19 +113,16 @@ const KudoboxDetails = () => {
                 width="100%"
                 flexDirection="column"
                 padding="30px"
-                gap='30px'
+                gap="30px"
             >
-                <Container
-                    justifyContent="space-between"
-                    alignItems="center"
-                >
-                    <Title textAlign='left'>{infoKudoBox.title}</Title>
+                <Container justifyContent="space-between" alignItems="center">
+                    <Title textAlign="left">{infoKudoBox.title}</Title>
                     {user.role === "ROLE_MEMBER" &&
                         infoKudoBox.status === "IN_PROGRESS" && (
                             <Button
                                 id="createKudocard"
                                 backgroundColor="#fff"
-                                color="black"
+                                color="#12101a"
                                 padding="8px 16px"
                                 height="fit-content"
                                 onClick={() =>
@@ -163,7 +161,11 @@ const KudoboxDetails = () => {
                                             </Button>
                                         )}
                                 </Container>
-                                <p>{kudocard.createDate}</p>
+                                <p>
+                                    {formatDateToRenderWithHour(
+                                        kudocard.createDate
+                                    )}
+                                </p>
                                 <p>
                                     <span>De:</span> {kudocard.sender}
                                 </p>

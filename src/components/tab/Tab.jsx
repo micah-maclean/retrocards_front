@@ -7,7 +7,7 @@ const Tab = ({ filterList, setFilter, activeFilter }) => {
         <Container>
             {filterList.map((filter, i) => (
                 <TabButton
-                    backgroundColor="black"
+                    backgroundColor="transparent"
                     isActive={filter.value === activeFilter}
                     onClick={() => setFilter(filter.value)}
                     key={i}

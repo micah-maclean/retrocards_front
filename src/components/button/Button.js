@@ -20,7 +20,7 @@ export const Button = styled.button`
 
     background-color: ${(props) =>
         props.backgroundColor && props.backgroundColor};
-    color: ${(props) => (props.color ? props.color : "white")};
+    color: ${(props) => (props.color ? props.color : "#fff")};
 
     width: ${(props) => props.width && props.width};
     height: ${(props) => props.height && props.height};
@@ -37,6 +37,6 @@ export const Button = styled.button`
     }
 
     @media (max-width: 576px) {
-        padding: ${(props) => props.padding ? props.padding : '16px 32px'};
+        padding: ${(props) => (props.padding ? props.padding : "16px 32px")};
     }
 `;

@@ -28,10 +28,11 @@ export const Container = styled.div`
 
     @media (max-width: 768px) {
         padding: ${(props) => props.paddingQuery && props.paddingQuery};
+        width: ${(props) => props.widthQuery && props.widthQuery};
+        display: ${(props) => props.displayQuery && props.displayQuery};
     }
 
     @media (max-width: 576px) {
-        width: ${(props) => props.widthQuery && props.widthQuery};
         flex-direction: ${(props) =>
             props.flexDirectionQuery && props.flexDirectionQuery};
     }

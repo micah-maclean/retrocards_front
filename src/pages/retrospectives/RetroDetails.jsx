@@ -105,6 +105,12 @@ const RetroDetails = () => {
         { name: "Há Melhorar", value: "IMPROVE" },
     ];
 
+    const Type = {
+        WORKED: "Funcionou",
+        NEXT: "Próxima Sprint",
+        IMPROVE: "Há melhorar",
+    };
+
     return (
         <Container
             minHeight="calc(100vh - 100px)"
@@ -119,8 +125,12 @@ const RetroDetails = () => {
                 gap="30px"
                 flexDirection="column"
             >
-                <Container justifyContent="space-between" alignItems="center" gap='30px'>
-                    <Title textAlign='left'>{info.title}</Title>
+                <Container
+                    justifyContent="space-between"
+                    alignItems="center"
+                    gap="30px"
+                >
+                    <Title textAlign="left">{info.title}</Title>
                     {user.role === "ROLE_MEMBER" &&
                         info.status === "IN_PROGRESS" && (
                             <Button
@@ -168,7 +178,7 @@ const RetroDetails = () => {
                                         </Button>
                                     )}
                                 </Container>
-                                <p> {retrocard.type}</p>
+                                <p>{Type[retrocard.type]}</p>
                                 <p>
                                     <span>Descrição:</span>{" "}
                                     {retrocard.description}
@@ -177,11 +187,11 @@ const RetroDetails = () => {
                         ))}
                 </Board>
 
-                    {list.filter(FILTER_MAP[filter]).length === 0 && (
-                        <Title textAlign="center">
-                            Ainda não existe nenhum retrocard desse tipo
-                        </Title>
-                    )}
+                {list.filter(FILTER_MAP[filter]).length === 0 && (
+                    <Title textAlign="center">
+                        Ainda não existe nenhum retrocard desse tipo
+                    </Title>
+                )}
             </Container>
         </Container>
     );

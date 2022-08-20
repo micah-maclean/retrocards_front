@@ -24,6 +24,9 @@ import ItemRetroForm from "./pages/retrospectives/ItemRetroForm";
 import SendEmailForm from "./pages/retrospectives/SendEmailForm";
 import KudoboxDetails from "./pages/kudoboxes/KudoboxDetails";
 import RetroDetails from "./pages/retrospectives/RetroDetails";
+import Users from "./pages/user/Users";
+import UsersForm from "./pages/user/UsersForm";
+import GlobalStyles from "./styles/global";
 
 const Routers = () => {
     return (
@@ -72,6 +75,11 @@ const Routers = () => {
                                         path="/enviar-email/:idRetrospective/:idSprint"
                                         element={<SendEmailForm />}
                                     />
+                                    <Route path="/users" element={<Users />} />
+                                    <Route
+                                        path="/users/:idUser"
+                                        element={<UsersForm />}
+                                    />
                                 </Route>
 
                                 <Route path="/login" element={<Login />} />
@@ -82,6 +90,7 @@ const Routers = () => {
                     </RetroProvider>
                 </SprintProvider>
             </AuthProvider>
+            <GlobalStyles />
         </BrowserRouter>
     );
 };
