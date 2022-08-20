@@ -13,13 +13,14 @@ import { Button } from "../../components/button/Button";
 import Pagination from "../../components/pagination/Pagination";
 //Import icons
 import { FaTrashAlt } from "react-icons/fa";
-import { confirmAlert } from "react-confirm-alert"; // Import
+import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
 import "../../components/modal/Modal.css";
 
 const KudoboxDetails = () => {
-    const { getKudoboxById, deleteKudoCard } = useContext(KudosContext);
-    const { user } = useContext(AuthContext);
+    const { getKudoboxById, deleteKudoCard, getKudoBoxDetailsById } =
+        useContext(KudosContext);
+    const { user, reducerValue } = useContext(AuthContext);
     const { idKudobox } = useParams();
     const navigate = useNavigate();
 
@@ -27,6 +28,7 @@ const KudoboxDetails = () => {
     const [totalCount, setTotalCount] = useState(0);
     const [totalPages, setTotalPages] = useState(0);
     const [list, setList] = useState([]);
+    const [infoKudoBox, setInfoKudoBox] = useState({});
     const pageSize = 10;
 
     const handleDeleteModal = (id) => {
@@ -81,16 +83,22 @@ const KudoboxDetails = () => {
 
     const setup = async () => {
         const data = await getKudoboxById(idKudobox, currentPage, pageSize);
+        const info = await getKudoBoxDetailsById(idKudobox);
+        setInfoKudoBox(info);
         if (data) {
             setTotalCount(data.totalElements);
             setTotalPages(data.totalPages);
             setList(data.content);
+        } else {
+            setTotalCount(0);
+            setTotalPages(0);
+            setList([]);
         }
     };
 
     useEffect(() => {
         setup();
-    }, [currentPage]);
+    }, [currentPage, reducerValue]);
 
     return (
         <Container
@@ -110,21 +118,24 @@ const KudoboxDetails = () => {
                     alignItems="center"
                     margin="0px 0px 30px 0"
                 >
-                    <Title>Kudobox #{idKudobox}</Title>
-                    {user.role === "ROLE_MEMBER" && (
-                        <Button
-                            id="createKudocard"
-                            backgroundColor="#fff"
-                            color="black"
-                            padding="8px 16px"
-                            height="fit-content"
-                            onClick={() =>
-                                navigate(`/kudo-card/cadastrar/${idKudobox}`)
-                            }
-                        >
-                            + Criar Kudocard
-                        </Button>
-                    )}
+                    <Title>{infoKudoBox.title}</Title>
+                    {user.role === "ROLE_MEMBER" &&
+                        infoKudoBox.status === "IN_PROGRESS" && (
+                            <Button
+                                id="createKudocard"
+                                backgroundColor="#fff"
+                                color="black"
+                                padding="8px 16px"
+                                height="fit-content"
+                                onClick={() =>
+                                    navigate(
+                                        `/kudo-card/cadastrar/${idKudobox}`
+                                    )
+                                }
+                            >
+                                + Criar Kudocard
+                            </Button>
+                        )}
                 </Container>
                 <Board>
                     {list.length > 0 &&
@@ -136,19 +147,21 @@ const KudoboxDetails = () => {
                                     margin="0 0 24px 0"
                                 >
                                     <h3>{kudocard.title}</h3>
-                                    {user.idUser === kudocard.idCreator && (
-                                        <Button
-                                            padding="none"
-                                            backgroundColor="transparent"
-                                            onClick={() =>
-                                                handleDeleteModal(
-                                                    kudocard.idKudoCard
-                                                )
-                                            }
-                                        >
-                                            <FaTrashAlt />
-                                        </Button>
-                                    )}
+                                    {user.idUser === kudocard.idCreator &&
+                                        infoKudoBox.status ===
+                                            "IN_PROGRESS" && (
+                                            <Button
+                                                padding="none"
+                                                backgroundColor="transparent"
+                                                onClick={() =>
+                                                    handleDeleteModal(
+                                                        kudocard.idKudoCard
+                                                    )
+                                                }
+                                            >
+                                                <FaTrashAlt />
+                                            </Button>
+                                        )}
                                 </Container>
                                 <p>{kudocard.createDate}</p>
                                 <p>

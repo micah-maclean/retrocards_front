@@ -17,9 +17,13 @@ import CustomErrorMessage from "../../components/customForm/CustomErrorMessage";
 import Select from "../../components/customForm/Select";
 import { Formik } from "formik";
 import Table from "../../components/table/Table";
+import { RetroContext } from "../../context/RetroContext";
+import { useParams } from "react-router-dom";
 
 const SendEmailForm = () => {
     const { getUsersEmails } = useContext(AuthContext);
+    const { sendEmail } = useContext(RetroContext);
+    const { idRetrospective, idSprint } = useParams();
     const [userEmail, setUserEmail] = useState([]);
     const [receivers, setReceivers] = useState([]);
 
@@ -34,7 +38,11 @@ const SendEmailForm = () => {
         setup();
     }, []);
     return (
-        <Container backgroundColor="#12101a" minHeight="calc(100vh - 100px)" padding='30px 0'>
+        <Container
+            backgroundColor="#12101a"
+            minHeight="calc(100vh - 100px)"
+            padding="30px 0"
+        >
             <Container
                 flexDirection="column"
                 maxWidth="1120px"
@@ -48,25 +56,25 @@ const SendEmailForm = () => {
                     initialValues={{
                         receiver: "",
                     }}
-                    validationSchema={
-                        Yup.object({
-                            receiver: Yup.mixed()
-                            .test("Arrayvazio", "Escolha ao menos uma pessoa", () =>  receivers.length > 0)
-                        })
-                    }
+                    validationSchema={Yup.object({
+                        receiver: Yup.mixed().test(
+                            "Arrayvazio",
+                            "Escolha ao menos uma pessoa",
+                            () => receivers.length > 0
+                        ),
+                    })}
                     onSubmit={() => {
                         const newValues = {
                             receiver: receivers.map((value) => value.email),
                         };
-                        console.log(newValues);
-                        // handleCreateKudoCard(newValues, idKudoBox);
+                        sendEmail(newValues, idRetrospective, idSprint);
                     }}
                 >
                     {(props) => (
                         <CustomForm color="#fff">
                             <Title marginBottom="30px">Enviar Email</Title>
                             <Label htmlFor="receiver">Para</Label>
-                            <Container gap='32px' margin='0 0 30px 0'>
+                            <Container gap="32px" margin="0 0 30px 0">
                                 <Container
                                     position="relative"
                                     flexDirection="column"
@@ -74,7 +82,9 @@ const SendEmailForm = () => {
                                 >
                                     <Select
                                         label="Escolha uma pessoa"
-                                        values={userEmail.filter( user => !receivers.includes(user))}
+                                        values={userEmail.filter(
+                                            (user) => !receivers.includes(user)
+                                        )}
                                         onChange={(v) =>
                                             props.setFieldValue("receiver", v)
                                         }
@@ -88,13 +98,16 @@ const SendEmailForm = () => {
                                     height="55px"
                                     padding="0"
                                     onClick={() => {
-                                        if(props.getFieldProps("receiver").value !== '') {
+                                        if (
+                                            props.getFieldProps("receiver")
+                                                .value !== ""
+                                        ) {
                                             setReceivers([
                                                 ...receivers,
                                                 props.getFieldProps("receiver")
-                                                    .value
+                                                    .value,
                                             ]);
-                                            props.setFieldValue("receiver", "")
+                                            props.setFieldValue("receiver", "");
                                         }
                                     }}
                                 >

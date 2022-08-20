@@ -16,7 +16,7 @@ const SprintProvider = ({ children }) => {
     const getSprintList = async (page, pageSize) => {
         try {
             const { data } = await api.get(
-                `/sprint/list?page=${page}&register=${pageSize}`
+                `/sprint/list?page=${page}&quantityPerPage=${pageSize}`
             );
             return data;
         } catch (error) {
@@ -27,7 +27,7 @@ const SprintProvider = ({ children }) => {
     const getRetroListBySprintId = async (sprintId, currentPage, pageSize) => {
         try {
             const { data } = await api.get(
-                `/retrospective/list/sprint/${sprintId}?pagina=${currentPage}&registro=${pageSize}`
+                `/retrospective/list/sprint/${sprintId}?page=${currentPage}&quantityPerPage=${pageSize}`
             );
             return data;
         } catch (error) {

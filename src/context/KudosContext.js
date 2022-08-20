@@ -1,16 +1,18 @@
 //Import do react
-import { createContext } from "react";
+import { createContext, useContext } from "react";
 //Import router
 import { useNavigate } from "react-router-dom";
 //Import da dependencia de toast
 import { toast } from "react-toastify";
 //Import da chamada da url da api
 import { api } from "../api";
+import { AuthContext } from "./AuthContext";
 
 const KudosContext = createContext();
 
 const KudosProvider = ({ children }) => {
     const navigate = useNavigate();
+    const { forceUpdate } = useContext(AuthContext);
 
     const handleCreateKudoBox = async (values, idSprint) => {
         try {
@@ -25,7 +27,7 @@ const KudosProvider = ({ children }) => {
     const getKudoboxBySprintId = async (sprintId, currentPage, pageSize) => {
         try {
             const { data } = await api.get(
-                `/kudobox/list/sprint/${sprintId}?pagina=${currentPage}&registros=${pageSize}`
+                `/kudobox/list/sprint/${sprintId}?page=${currentPage}&quantityPerPage=${pageSize}`
             );
             return data;
         } catch (error) {
@@ -50,7 +52,7 @@ const KudosProvider = ({ children }) => {
     const getKudoboxById = async (idKudobox, page, pageSize) => {
         try {
             const { data } = await api.get(
-                `/kudocard/list/kudocards/${idKudobox}?pagina=${page}&registros=${pageSize}`
+                `/kudocard/list/kudocards/${idKudobox}?page=${page}&quantityPerPage=${pageSize}`
             );
             return data;
         } catch (error) {
@@ -65,7 +67,21 @@ const KudosProvider = ({ children }) => {
     const deleteKudoCard = async (idKudoCard) => {
         try {
             await api.delete(`/kudocard/delete/${idKudoCard}`);
+            forceUpdate();
         } catch (error) {
+            toast.error(error.response.data.message);
+        }
+    };
+
+    const getKudoBoxDetailsById = async (idKudoBox) => {
+        try {
+            const { data } = await api.get(`/kudobox/list/${idKudoBox}`);
+            return data;
+        } catch (error) {
+            if (error.response.data.status === 400) {
+                return;
+            }
+
             toast.error(error.response.data.message);
         }
     };
@@ -78,6 +94,7 @@ const KudosProvider = ({ children }) => {
                 getKudoboxById,
                 getKudoboxBySprintId,
                 deleteKudoCard,
+                getKudoBoxDetailsById,
             }}
         >
             {children}
