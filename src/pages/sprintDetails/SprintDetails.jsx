@@ -51,6 +51,14 @@ const SprintDetails = () => {
         setup(filter);
     }, [filter, currentPage]);
 
+    const consola = (param) => {
+        console.log(param)
+    }
+
+    const Actions = [
+        { function: consola, param: 'idRetrospective'}
+    ];
+
     const filterList = [
         { name: "Retrospectiva", value: "Retrospectiva" },
         { name: "Kudo Box", value: "Kudo Box" },
@@ -126,18 +134,10 @@ const SprintDetails = () => {
                     params={
                         filter === "Retrospectiva" ? paramsRetro : paramsKudo
                     }
+                    actions={Actions}
                     list={list}
-                    actions="Hello"
-                    path={
-                        filter === "Retrospectiva"
-                            ? "/retrospectiva"
-                            : "/kudobox"
-                    }
-                    pathKey={
-                        filter === "Retrospectiva"
-                            ? "idRetrospective"
-                            : "idKudoBox"
-                    }
+                    path= { filter === "Retrospectiva" ? "/retrospectiva" : "/kudobox"}
+                    pathKey={ filter === "Retrospectiva" ? "idRetrospective" : "idKudoBox"}
                 />
 
                 {list.length === 0 && (
