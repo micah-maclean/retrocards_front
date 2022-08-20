@@ -3,10 +3,12 @@ import styled from "styled-components";
 export const HeaderContainer = styled.header`
     display: flex;
     align-items: center;
+    justify-content: center;
     background-color: #12101a;
     border-bottom: 1px solid rgba(255, 255, 255, 0.15);
     width: 100%;
     height: 100px;
+    padding: 0 30px;
 
     img {
         width: 150px;
@@ -29,13 +31,9 @@ export const HeaderContainer = styled.header`
         }
     }
 
-    @media (max-width: 800px) {
-        > div {
-            width: 600px;
-
-            div {
-                width: 50%;
-            }
+    @media (max-width: 576px) {
+        span {
+            display: none;
         }
     }
 `;

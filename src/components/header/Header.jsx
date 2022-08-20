@@ -10,7 +10,6 @@ import { Button } from "../button/Button";
 //Import styled
 import { HeaderContainer } from "./Header.styled";
 //Import referente aos icones
-import { BsMoon } from "react-icons/bs";
 import { MdOutlineLogout } from "react-icons/md";
 //Import de máscara
 import { nomeFinal } from "../../utils/masks";
@@ -26,7 +25,6 @@ const Header = () => {
                 width="100%"
                 color="#fff"
                 margin="auto"
-                padding="10px 0"
                 alignItems="center"
                 justifyContent="space-between"
             >
@@ -38,10 +36,9 @@ const Header = () => {
                     color="#fff"
                     alignItems="baseline"
                     justifyContent="space-between"
-                    width="30%"
+                    gap="50px"
                 >
                     <span>Bem vindo {user.name && nomeFinal(user.name)}</span>
-                    <BsMoon />
                     <Button
                         id="logout"
                         backgroundColor="transparent"
