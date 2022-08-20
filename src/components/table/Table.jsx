@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { CustomTable } from "./Table.styled";
 //Import para formatar a data
 import { formatDateToRender } from "../../utils/masks";
+import { Button } from "../button/Button";
 
 const Table = ({ list, params, actions, path, pathKey }) => {
     const navigate = useNavigate();
@@ -21,7 +22,11 @@ const Table = ({ list, params, actions, path, pathKey }) => {
                     {params.map((column, i) => (
                         <th key={i}>{column.heading}</th>
                     ))}
-
+                    {
+                        actions && <th>
+                            Ações
+                        </th>
+                    }
                 </tr>
                 
             </thead>
@@ -29,18 +34,28 @@ const Table = ({ list, params, actions, path, pathKey }) => {
                 {list.map((row, i) => (
                     <tr
                         key={i}
-                        onClick={() => navigate(`${path}/${row[pathKey]}`)}
+                        
                     >
                         {params.map((column, j) => (
-                            <td data-title={column.heading} key={j}>
-                                {
-                                    column.key.includes("Date")
-                                        ? formatDateToRender(row[column.key])
-                                        : column.key === 'status' ? Status[row[column.key]]
-                                        : row[column.key]
-                                }
-                            </td>
-                        ))}
+                            <>
+                                <td data-title={column.heading} key={j} onClick={() => navigate(`${path}/${row[pathKey]}`)}>
+                                    {
+                                        column.key.includes("Date")
+                                            ? formatDateToRender(row[column.key])
+                                            : column.key === 'status' ? Status[row[column.key]]
+                                            : row[column.key]
+                                    }
+                                </td>
+                                
+                            </>))}
+                                <td>
+                                    { actions.map( button => (
+                                        <Button onClick={() => button.function(row[button.param])}>
+                                            {button.icon}
+                                        </Button>
+                                        ))
+                                    }
+                                </td>
                     </tr>
                 ))}
             </tbody>
