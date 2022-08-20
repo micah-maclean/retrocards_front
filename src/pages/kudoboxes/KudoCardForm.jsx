@@ -128,7 +128,10 @@ const KudoCardForm = () => {
                                         name="anonymous"
                                         id="anonymous"
                                     />
-                                    <Label margin="8px 0 0 0">
+                                    <Label
+                                        htmlFor="anonymous"
+                                        margin="8px 0 0 0"
+                                    >
                                         Enviar Anônimo
                                     </Label>
                                 </Container>
