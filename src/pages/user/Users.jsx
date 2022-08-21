@@ -9,10 +9,10 @@ import Table from "../../components/table/Table";
 import { Container } from "../../components/container/Container";
 import Pagination from "../../components/pagination/Pagination";
 import { Title } from "../../components/title/Title";
+import { paramsUsers } from "../../utils/variables";
 
 const Users = () => {
     const { getUsersList } = useContext(AuthContext);
-    const navigate = useNavigate();
     const [currentPage, setCurrentPage] = useState(0);
     const [pageSize, setPageSize] = useState(10);
     const [totalCount, setTotalCount] = useState(0);
@@ -29,12 +29,6 @@ const Users = () => {
             setList([]);
         }
     };
-
-    const params = [
-        { heading: "Id", key: "idUser" },
-        { heading: "Nome", key: "name" },
-        { heading: "Cargo", key: "role" },
-    ];
 
     useEffect(() => {
         setup();
@@ -62,7 +56,7 @@ const Users = () => {
                 </Container>
                 <Table
                     list={list}
-                    params={params}
+                    params={paramsUsers}
                     path="/users"
                     pathKey="idUser"
                 />

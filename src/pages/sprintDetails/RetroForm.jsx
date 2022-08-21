@@ -34,21 +34,24 @@ const RetroForm = () => {
         getRetroDetailsById,
         handleUpdateRetrospective,
     } = useContext(RetroContext);
-    const { handleNavigateToSprintById } = useContext(SprintContext);
+    const { handleNavigateToSprintById, getSprintById } =
+        useContext(SprintContext);
     const { idSprint, idRetrospective } = useParams();
     const [isUpdate, setIsUpdate] = useState(false);
     const [info, setInfo] = useState();
+    const [sprintDetail, setSprintDetail] = useState();
 
     const setup = async () => {
-        const data = await getRetroDetailsById(idRetrospective);
-        setInfo(data);
-    };
-
-    useEffect(() => {
+        const detail = await getSprintById(idSprint);
+        setSprintDetail(detail);
         if (idRetrospective) {
+            const data = await getRetroDetailsById(idRetrospective);
+            setInfo(data);
             setIsUpdate(true);
-            setup();
         }
+    };
+    useEffect(() => {
+        setup();
     }, []);
     return (
         <>
@@ -74,6 +77,9 @@ const RetroForm = () => {
                             occurredDate: info
                                 ? formatDateToRender(info.occurredDate)
                                 : "",
+                            startDateSprint:
+                                sprintDetail && sprintDetail.startDate,
+                            endDateSprint: sprintDetail && sprintDetail.endDate,
                         }}
                         enableReinitialize
                         validationSchema={validationsRetrospective}

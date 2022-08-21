@@ -1,15 +1,17 @@
-import { createContext, useState } from "react";
+import { createContext, useContext, useState } from "react";
 //Import router
 import { useNavigate } from "react-router-dom";
 //Import da dependencia de toast
 import { toast } from "react-toastify";
 //Import da chamada da url da api
 import { api } from "../api";
+import { AuthContext } from "./AuthContext";
 
 const SprintContext = createContext();
 
 const SprintProvider = ({ children }) => {
     const navigate = useNavigate();
+    const { forceUpdate } = useContext(AuthContext);
 
     const [filter, setFilter] = useState("Retrospectiva");
 
@@ -81,6 +83,7 @@ const SprintProvider = ({ children }) => {
         try {
             await api.delete(`/sprint/delete/${idSprint}`);
             toast.success("Sprint deletado com sucesso");
+            forceUpdate();
         } catch (error) {
             toast.error(error.response.data.message);
         }

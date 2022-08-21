@@ -20,6 +20,7 @@ import {
     FaPlayCircle,
     FaStopCircle,
 } from "react-icons/fa";
+import { sprintFilter } from "../../utils/variables";
 
 const SprintDetails = () => {
     const { idSprint } = useParams();
@@ -125,11 +126,6 @@ const SprintDetails = () => {
         navigate(`/kudo-box/editar/${idSprint}/${idKudoBox}`);
     };
 
-    const filterList = [
-        { name: "Retrospectiva", value: "Retrospectiva" },
-        { name: "Kudo Box", value: "Kudo Box" },
-    ];
-
     const paramSprint = {
         Retrospectiva: {
             param: [
@@ -208,16 +204,18 @@ const SprintDetails = () => {
             create: `/kudo-box/cadastrar/${idSprint}`,
             actions: [
                 {
-                    function: deleteKudoBoxModal,
-                    param: "idKudoBox",
-                    status: "IN_PROGRESS",
-                    icon: "delete",
-                },
-                {
                     function: navigateToUpdateKudoBox,
                     param: "idKudoBox",
                     status: "IN_PROGRESS",
-                    icon: "edit",
+                    icon: <FaEdit />,
+                    iconColor: "#ffee51",
+                },
+                {
+                    function: deleteKudoBoxModal,
+                    param: "idKudoBox",
+                    status: "IN_PROGRESS",
+                    icon: <FaTrashAlt />,
+                    iconColor: "#ff3232",
                 },
             ],
         },
@@ -240,7 +238,7 @@ const SprintDetails = () => {
             >
                 <Container justifyContent="space-between" gap="30px">
                     <Tab
-                        filterList={filterList}
+                        filterList={sprintFilter}
                         setFilter={setFilter}
                         activeFilter={filter}
                     />

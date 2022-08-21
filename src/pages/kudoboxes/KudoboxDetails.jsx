@@ -13,10 +13,9 @@ import { Button } from "../../components/button/Button";
 import Pagination from "../../components/pagination/Pagination";
 //Import icons
 import { FaTrashAlt } from "react-icons/fa";
-import { confirmAlert } from "react-confirm-alert";
-import "react-confirm-alert/src/react-confirm-alert.css";
-import "../../components/modal/Modal.css";
 import { formatDateToRenderWithHour } from "../../utils/masks";
+import { Modal } from "../../components/modal/Modal";
+import { Loading } from "../../components/loading/Loading";
 
 const KudoboxDetails = () => {
     const { getKudoboxById, deleteKudoCard, getKudoBoxDetailsById } =
@@ -32,53 +31,18 @@ const KudoboxDetails = () => {
     const [infoKudoBox, setInfoKudoBox] = useState({});
     const pageSize = 10;
 
-    const handleDeleteModal = (id) => {
-        confirmAlert({
-            customUI: ({ onClose }) => {
-                return (
-                    <Container
-                        width="450px"
-                        height="180px"
-                        flexDirection="column"
-                        justifyContent="space-between"
-                        backgroundColor="#2a2831"
-                        color="#fff"
-                        padding="32px"
-                        borderRadius="8px"
-                    >
-                        <Title fontSize="1.25rem">
-                            Certeza que deseja excluir?
-                        </Title>
-                        <Container justifyContent="space-between">
-                            <Button
-                                width="30%"
-                                backgroundColor="transparent"
-                                border="1px solid #fff"
-                                backgroundColorHover="#5454fb"
-                                borderHover="1px solid #5454fb"
-                                onClick={onClose}
-                            >
-                                Cancelar
-                            </Button>
-                            <Button
-                                width="30%"
-                                backgroundColor="#fff"
-                                border="1px solid #fff"
-                                color="#12101a"
-                                backgroundColorHover="#5454fb"
-                                colorHover="#fff"
-                                borderHover="1px solid #5454fb"
-                                onClick={() => {
-                                    deleteKudoCard(id);
-                                    onClose();
-                                }}
-                            >
-                                Deletar
-                            </Button>
-                        </Container>
-                    </Container>
-                );
-            },
+    const paramModal = {
+        delete: {
+            function: deleteKudoCard,
+            message: "Certeza que deseja deletar o Kudo Card?",
+            confirmText: "Deletar",
+        },
+    };
+
+    const deleteKudoCardModal = (idKudoCard) => {
+        Modal({
+            ...paramModal.delete,
+            values: [idKudoCard],
         });
     };
 
@@ -97,9 +61,14 @@ const KudoboxDetails = () => {
         }
     };
 
+    console.log(user);
     useEffect(() => {
         setup();
     }, [currentPage, reducerValue]);
+
+    if (user.idUser === undefined) {
+        <Loading />;
+    }
 
     return (
         <Container
@@ -107,12 +76,12 @@ const KudoboxDetails = () => {
             backgroundColor="#12101A"
             justifyContent="center"
             color="#fff"
+            padding="30px"
         >
             <Container
                 maxWidth="1120px"
                 width="100%"
                 flexDirection="column"
-                padding="30px"
                 gap="30px"
             >
                 <Container justifyContent="space-between" alignItems="center">
@@ -152,7 +121,7 @@ const KudoboxDetails = () => {
                                                 padding="none"
                                                 backgroundColor="transparent"
                                                 onClick={() =>
-                                                    handleDeleteModal(
+                                                    deleteKudoCardModal(
                                                         kudocard.idKudoCard
                                                     )
                                                 }

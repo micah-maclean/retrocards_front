@@ -15,9 +15,10 @@ import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
 import "../../components/modal/Modal.css";
 import { FaEdit, FaTrashAlt } from "react-icons/fa";
+import { Modal } from "../../components/modal/Modal";
 
 const Home = () => {
-    const { user } = useContext(AuthContext);
+    const { user, reducerValue } = useContext(AuthContext);
     const { getSprintList, handleDeleteSprint } = useContext(SprintContext);
     const navigate = useNavigate();
     const [currentPage, setCurrentPage] = useState(0);
@@ -39,56 +40,14 @@ const Home = () => {
 
     useEffect(() => {
         setup();
-    }, [currentPage]);
+    }, [currentPage, reducerValue]);
 
-    const handleDeleteSprintModal = (id) => {
-        confirmAlert({
-            customUI: ({ onClose }) => {
-                return (
-                    <Container
-                        width="450px"
-                        height="180px"
-                        flexDirection="column"
-                        justifyContent="space-between"
-                        backgroundColor="#2a2831"
-                        color="#fff"
-                        padding="32px"
-                        borderRadius="8px"
-                    >
-                        <Title fontSize="1.25rem">
-                            Certeza que deseja deletar a sprint?
-                        </Title>
-                        <Container justifyContent="space-between">
-                            <Button
-                                width="30%"
-                                backgroundColor="transparent"
-                                border="1px solid #fff"
-                                backgroundColorHover="#5454fb"
-                                borderHover="1px solid #5454fb"
-                                onClick={onClose}
-                            >
-                                Cancelar
-                            </Button>
-                            <Button
-                                width="30%"
-                                backgroundColor="#fff"
-                                border="1px solid #fff"
-                                color="#12101a"
-                                backgroundColorHover="#5454fb"
-                                colorHover="#fff"
-                                borderHover="1px solid #5454fb"
-                                onClick={() => {
-                                    handleDeleteSprint(id);
-                                    onClose();
-                                }}
-                            >
-                                Deletar
-                            </Button>
-                        </Container>
-                    </Container>
-                );
-            },
-        });
+    const paramModal = {
+        delete: {
+            function: handleDeleteSprint,
+            message: "Certeza que deseja deletar a sprint?",
+            confirmText: "Deletar",
+        },
     };
 
     const updateSprint = (idSprint) => {
@@ -96,7 +55,10 @@ const Home = () => {
     };
 
     const deleteSprint = (idSprint) => {
-        handleDeleteSprintModal(idSprint);
+        Modal({
+            ...paramModal.delete,
+            values: [idSprint],
+        });
     };
 
     const paramsTables = {
@@ -109,12 +71,14 @@ const Home = () => {
             {
                 function: updateSprint,
                 param: "idSprint",
+                status: "IN_PROGRESS",
                 icon: <FaEdit />,
                 iconColor: "#ffee51",
             },
             {
                 function: deleteSprint,
                 param: "idSprint",
+                status: "IN_PROGRESS",
                 icon: <FaTrashAlt />,
                 iconColor: "#ff3232",
             },

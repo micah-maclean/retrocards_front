@@ -86,9 +86,7 @@ const SendEmailForm = () => {
                                     <Select
                                         label="Escolha uma pessoa"
                                         values={userEmail.filter(
-                                            (user) =>
-                                                !receivers.includes(user) &&
-                                                user.email !== "admin@gmail.com"
+                                            (user) => !receivers.includes(user)
                                         )}
                                         onChange={(v) =>
                                             props.setFieldValue("receiver", v)
