@@ -18,7 +18,7 @@ import Select from "../../components/customForm/Select";
 import { Formik } from "formik";
 import Table from "../../components/table/Table";
 import { RetroContext } from "../../context/RetroContext";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 const SendEmailForm = () => {
     const { getUsersEmails } = useContext(AuthContext);
@@ -26,6 +26,7 @@ const SendEmailForm = () => {
     const { idRetrospective, idSprint } = useParams();
     const [userEmail, setUserEmail] = useState([]);
     const [receivers, setReceivers] = useState([]);
+    const navigate = useNavigate();
 
     const setup = async () => {
         const data = await getUsersEmails();
@@ -137,6 +138,9 @@ const SendEmailForm = () => {
                                     backgroundColorHover="#5454fb"
                                     borderHover="1px solid #5454fb"
                                     colorHover="#fff"
+                                    onClick={() =>
+                                        navigate(`/sprint/${idSprint}`)
+                                    }
                                 >
                                     Voltar
                                 </Button>
