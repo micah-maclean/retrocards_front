@@ -19,7 +19,6 @@ import logo from "../../assets/img/logo.png";
 const Header = () => {
     const { handleLogout, user } = useContext(AuthContext);
     const navigate = useNavigate();
-    console.log(user);
     return (
         <HeaderContainer>
             <Container

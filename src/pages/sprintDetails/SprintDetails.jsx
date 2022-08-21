@@ -12,11 +12,18 @@ import Pagination from "../../components/pagination/Pagination";
 import { Title } from "../../components/title/Title";
 import { SprintContext } from "../../context/SprintContext";
 import { AuthContext } from "../../context/AuthContext";
+import { confirmAlert } from "react-confirm-alert";
+import "react-confirm-alert/src/react-confirm-alert.css";
+import "../../components/modal/Modal.css";
 
 const SprintDetails = () => {
     const { idSprint } = useParams();
     const navigate = useNavigate();
-    const { getRetrospectiveBySprintId } = useContext(RetroContext);
+    const {
+        getRetrospectiveBySprintId,
+        updateStatusRetrospective,
+        getDetailsById,
+    } = useContext(RetroContext);
     const { getKudoboxBySprintId } = useContext(KudosContext);
     const { filter, setFilter } = useContext(SprintContext);
     const { user } = useContext(AuthContext);
@@ -47,41 +54,112 @@ const SprintDetails = () => {
         }
     };
 
+    const handleChangeStatusModal = (id, status) => {
+        confirmAlert({
+            customUI: ({ onClose }) => {
+                return (
+                    <Container
+                        width="450px"
+                        height="180px"
+                        flexDirection="column"
+                        justifyContent="space-between"
+                        backgroundColor="#2a2831"
+                        color="#fff"
+                        padding="32px"
+                        borderRadius="8px"
+                    >
+                        <Title fontSize="1.25rem">
+                            Certeza que deseja alterar o status?
+                        </Title>
+                        <Container justifyContent="space-between">
+                            <Button
+                                width="30%"
+                                backgroundColor="transparent"
+                                border="1px solid #fff"
+                                backgroundColorHover="#5454fb"
+                                borderHover="1px solid #5454fb"
+                                onClick={onClose}
+                            >
+                                Cancelar
+                            </Button>
+                            <Button
+                                width="30%"
+                                backgroundColor="#fff"
+                                border="1px solid #fff"
+                                color="#12101a"
+                                backgroundColorHover="#5454fb"
+                                colorHover="#fff"
+                                borderHover="1px solid #5454fb"
+                                onClick={() => {
+                                    updateStatusRetrospective(id, status);
+                                    onClose();
+                                }}
+                            >
+                                Alterar
+                            </Button>
+                        </Container>
+                    </Container>
+                );
+            },
+        });
+    };
+
     useEffect(() => {
         setup(filter);
     }, [filter, currentPage]);
 
-    const consola = (param) => {
-        console.log(param)
+
+    const navigateToSendEmail = (idRetrospective) => {
+        navigate(`/enviar-email/${idRetrospective}/${idSprint}`);
+    };
+
+    const updateStatusToInProgress = (idRetrospective) => {
+        handleChangeStatusModal(idRetrospective, "IN_PROGRESS");
+        console.log("In progress => ", idRetrospective)
     }
 
-    const Actions = [
-        { function: consola, param: 'idRetrospective'}
-    ];
+    const  updateStatusToFinished= (idRetrospective) => {
+        handleChangeStatusModal(idRetrospective, "FINISHED");
+        console.log("Finished => ", idRetrospective)
+    }
 
     const filterList = [
         { name: "Retrospectiva", value: "Retrospectiva" },
         { name: "Kudo Box", value: "Kudo Box" },
     ];
 
-    const paramsRetro = [
-        { heading: "Id", key: "idRetrospective" },
-        { heading: "Titulo", key: "title" },
-        { heading: "Data da Reunião", key: "occurredDate" },
-        { heading: "Status", key: "status" },
-        { heading: "Quantidade de Items", key: "numberOfItens" },
-    ];
+    const paramSprint = {
+        Retrospectiva: {
+            param : [
+                { heading: "Id", key: "idRetrospective" },
+                { heading: "Titulo", key: "title" },
+                { heading: "Data da Reunião", key: "occurredDate" },
+                { heading: "Status", key: "status" },
+                { heading: "Quantidade de Items", key: "numberOfItens" },
+            ],
+            path: "/retrospectiva",
+            pathKey: "idRetrospective",
+            create : `/retrospectiva/cadastrar/${idSprint}`,
+            actions: [
+                { function: updateStatusToFinished, param: 'idRetrospective', status: 'IN_PROGRESS', icon: '||'},
+                { function: updateStatusToInProgress, param: 'idRetrospective', status: 'CREATE', icon: 'Play'},
+                { function: navigateToSendEmail, param: 'idRetrospective', status: 'FINISHED', icon: 'X'},
+            ]
+        },
 
-    const paramsKudo = [
-        { heading: "Id", key: "idKudoBox" },
-        { heading: "Titulo", key: "title" },
-        { heading: "Data de encerramento", key: "endDate" },
-        { heading: "Status", key: "status" },
-        { heading: "Quantidade de Items", key: "numberOfItens" },
-    ];
-
-    const retrospectiva = `/retrospectiva/cadastrar/${idSprint}`;
-    const kudobox = `/kudo-box/cadastrar/${idSprint}`;
+        'Kudo Box': {
+            param: [
+                { heading: "Id", key: "idKudoBox" },
+                { heading: "Titulo", key: "title" },
+                { heading: "Data de encerramento", key: "endDate" },
+                { heading: "Status", key: "status" },
+                { heading: "Quantidade de Items", key: "numberOfItens" },
+            ],
+            path: "/kudobox",
+            pathKey: "idKudobox",
+            create: `/kudo-box/cadastrar/${idSprint}`
+        }
+    }
 
     return (
         <Container
@@ -104,8 +182,7 @@ const SprintDetails = () => {
                         setFilter={setFilter}
                         activeFilter={filter}
                     />
-                    {(user.role === "ROLE_FACILITATOR" ||
-                        user.role === "ROLE_ADMIN") && (
+                    {(user.role !== "ROLE_MEMBER") && (
                         <Button
                             id={
                                 filter === "Retrospectiva"
@@ -117,9 +194,7 @@ const SprintDetails = () => {
                             padding="8px 16px"
                             onClick={() =>
                                 navigate(
-                                    filter === "Retrospectiva"
-                                        ? retrospectiva
-                                        : kudobox
+                                    paramSprint[filter].create
                                 )
                             }
                         >
@@ -132,12 +207,16 @@ const SprintDetails = () => {
 
                 <Table
                     params={
-                        filter === "Retrospectiva" ? paramsRetro : paramsKudo
+                       paramSprint[filter].param
                     }
-                    actions={Actions}
+                    actions={paramSprint[filter].actions}
                     list={list}
-                    path= { filter === "Retrospectiva" ? "/retrospectiva" : "/kudobox"}
-                    pathKey={ filter === "Retrospectiva" ? "idRetrospective" : "idKudoBox"}
+                    path={
+                        paramSprint[filter].path
+                    }
+                    pathKey={
+                        paramSprint[filter].pathKey
+                    }
                 />
 
                 {list.length === 0 && (
