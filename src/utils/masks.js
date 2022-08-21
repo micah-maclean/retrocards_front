@@ -51,3 +51,16 @@ export const ehDataFinalValida = (startDate, endDate) => {
 
     return true;
 };
+
+export const ehDataValidaDuranteSprint = (startDate, endDate, date) => {
+    if (date?.length === 8) {
+        const start = moment(startDate).startOf("day");
+        const end = moment(endDate).startOf("day");
+        return (
+            moment(date, "DDMMYYYY").diff(start, "days") >= 0 &&
+            moment(date, "DDMMYYYY").diff(end, "days") <= 0
+        );
+    }
+
+    return true;
+};

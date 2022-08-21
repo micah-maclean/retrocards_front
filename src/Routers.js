@@ -64,6 +64,10 @@ const Routers = () => {
                                         element={<ItemRetroForm />}
                                     />
                                     <Route
+                                        path="/item/editar/:idRetrospective/:idItemRetrospective"
+                                        element={<ItemRetroForm />}
+                                    />
+                                    <Route
                                         path="/kudo-box/cadastrar/:idSprint"
                                         element={<KudoBoxForm />}
                                     />

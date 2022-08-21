@@ -1,5 +1,10 @@
 import * as Yup from "yup";
-import { ehDataAnterior, ehDataFinalValida, ehDataValida } from "./masks";
+import {
+    ehDataAnterior,
+    ehDataFinalValida,
+    ehDataValida,
+    ehDataValidaDuranteSprint,
+} from "./masks";
 
 export const validationsText = (qtdMax, qtdMin, type) => {
     return Yup.string()
@@ -55,7 +60,21 @@ export const validationsSprint = Yup.object({
 
 export const validationsRetrospective = Yup.object({
     title: validationsText(60, 3, "título"),
-    occurredDate: validationsDate(),
+    occurredDate: validationsDate().test(
+        "Datavalidadurantesprint",
+        "Data não pode ser antes ou depois da sprint",
+        function () {
+            const { startDateSprint, endDateSprint, occurredDate } =
+                this.parent;
+            return ehDataValidaDuranteSprint(
+                startDateSprint,
+                endDateSprint,
+                occurredDate
+            );
+        }
+    ),
+    startDateSprint: Yup.string(),
+    endDateSprint: Yup.string(),
 });
 
 export const validationsItem = Yup.object({
@@ -66,7 +85,20 @@ export const validationsItem = Yup.object({
 
 export const validationsKudoBox = Yup.object({
     title: validationsText(60, 3, "título"),
-    endDate: validationsDate(),
+    endDate: validationsDate().test(
+        "Datavalidadurantesprint",
+        "Data não pode ser antes ou depois da sprint",
+        function () {
+            const { startDateSprint, endDateSprint, endDate } = this.parent;
+            return ehDataValidaDuranteSprint(
+                startDateSprint,
+                endDateSprint,
+                endDate
+            );
+        }
+    ),
+    startDateSprint: Yup.string(),
+    endDateSprint: Yup.string(),
 });
 
 export const validationsKudoCard = Yup.object({

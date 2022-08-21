@@ -8,22 +8,11 @@ import { Button } from "../button/Button";
 import { useContext } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import { Container } from "../container/Container";
+import { Status, Role } from "../../utils/variables";
 
 const Table = ({ list, params, actions, path, pathKey }) => {
     const navigate = useNavigate();
     const { user } = useContext(AuthContext);
-
-    const Status = {
-        CREATE: "Criado",
-        IN_PROGRESS: "Em Andamento",
-        FINISHED: "Concluido",
-    };
-
-    const Role = {
-        ROLE_ADMIN: "Admin",
-        ROLE_FACILITATOR: "Facilitador",
-        ROLE_MEMBER: "Membro",
-    };
 
     return (
         <CustomTable>

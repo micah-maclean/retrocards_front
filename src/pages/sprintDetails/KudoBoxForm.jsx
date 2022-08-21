@@ -30,21 +30,25 @@ import { Title } from "../../components/title/Title";
 const KudoBoxForm = () => {
     const { handleCreateKudoBox, getKudoBoxDetailsById, handleUpdateKudoBox } =
         useContext(KudosContext);
-    const { handleNavigateToSprintById } = useContext(SprintContext);
+    const { handleNavigateToSprintById, getSprintById } =
+        useContext(SprintContext);
     const { idSprint, idKudoBox } = useParams();
     const [isUpdate, setIsUpdate] = useState(false);
     const [info, setInfo] = useState();
+    const [sprintDetail, setSprintDetail] = useState();
 
     const setup = async () => {
-        const data = await getKudoBoxDetailsById(idKudoBox);
-        setInfo(data);
+        const detail = await getSprintById(idSprint);
+        setSprintDetail(detail);
+        if (idKudoBox) {
+            setIsUpdate(true);
+            const data = await getKudoBoxDetailsById(idKudoBox);
+            setInfo(data);
+        }
     };
 
     useEffect(() => {
-        if (idKudoBox) {
-            setIsUpdate(true);
-            setup();
-        }
+        setup();
     }, []);
 
     return (
@@ -71,6 +75,9 @@ const KudoBoxForm = () => {
                             endDate: info
                                 ? formatDateToRender(info.endDate)
                                 : "",
+                            startDateSprint:
+                                sprintDetail && sprintDetail.startDate,
+                            endDateSprint: sprintDetail && sprintDetail.endDate,
                         }}
                         validationSchema={validationsKudoBox}
                         enableReinitialize
@@ -80,7 +87,6 @@ const KudoBoxForm = () => {
                                 title: values.title,
                                 endDate: formatDateToDatabase(values.endDate),
                             };
-
                             isUpdate
                                 ? handleUpdateKudoBox(
                                       idKudoBox,

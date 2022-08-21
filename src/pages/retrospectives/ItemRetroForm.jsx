@@ -20,19 +20,12 @@ import { validationsItem } from "../../utils/validations";
 //Import referente ao context
 import { RetroContext } from "../../context/RetroContext";
 import { Title } from "../../components/title/Title";
+import { Tipo } from "../../utils/variables";
 
 const ItemRetroForm = () => {
     const { handleCreateItemRetrospective } = useContext(RetroContext);
     const { idRetrospective } = useParams();
     const navigate = useNavigate();
-    const tipo = [
-        { name: "O que pode melhorar", value: "IMPROVE" },
-        { name: "O que funcionou bem", value: "WORKED" },
-        {
-            name: "O que faremos na próxima sprint para melhorar",
-            value: "NEXT",
-        },
-    ];
 
     return (
         <>
@@ -85,7 +78,7 @@ const ItemRetroForm = () => {
                                     <Select
                                         label="Escolha um tipo"
                                         setKey="value"
-                                        values={tipo}
+                                        values={Tipo}
                                         onChange={(v) =>
                                             props.setFieldValue("type", v)
                                         }

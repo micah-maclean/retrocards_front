@@ -114,6 +114,7 @@ const RetroProvider = ({ children }) => {
                 `/retrospective/update-status/${idRetrospective}?status=${status}`
             );
             toast.success("Status alterado com sucesso!");
+            forceUpdate();
         } catch (error) {
             toast.error(error.response.data.message);
         }
@@ -137,6 +138,7 @@ const RetroProvider = ({ children }) => {
         try {
             await api.delete(`/retrospective/delete/${idRetrospective}`);
             toast.success("Retrospectiva deletada com sucesso");
+            forceUpdate();
         } catch (error) {
             toast.error(error.response.data.message);
         }

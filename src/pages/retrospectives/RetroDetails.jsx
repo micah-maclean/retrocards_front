@@ -12,7 +12,7 @@ import { Container } from "../../components/container/Container";
 import { Button } from "../../components/button/Button";
 import Tab from "../../components/tab/Tab";
 //Import icons
-import { FaTrashAlt } from "react-icons/fa";
+import { FaTrashAlt, FaEdit } from "react-icons/fa";
 import { confirmAlert } from "react-confirm-alert";
 
 const RetroDetails = () => {
@@ -117,11 +117,11 @@ const RetroDetails = () => {
             backgroundColor="#12101A"
             justifyContent="center"
             color="#fff"
+            padding="30px"
         >
             <Container
                 maxWidth="1120px"
                 width="100%"
-                padding="30px"
                 gap="30px"
                 flexDirection="column"
             >
@@ -161,28 +161,41 @@ const RetroDetails = () => {
                                 <Container
                                     alignItems="center"
                                     justifyContent="space-between"
-                                    margin="0 0 24px 0"
+                                    gap="16px"
                                 >
                                     <h3>{retrocard.title}</h3>
                                     {info.status === "IN_PROGRESS" && (
-                                        <Button
-                                            padding="none"
-                                            backgroundColor="transparent"
-                                            onClick={() =>
-                                                handleDeleteModal(
-                                                    retrocard.idItemRetrospective
-                                                )
-                                            }
-                                        >
-                                            <FaTrashAlt />
-                                        </Button>
+                                        <>
+                                            <Button
+                                                padding="none"
+                                                backgroundColor="transparent"
+                                                color="#ffee51"
+                                                onClick={() =>
+                                                    navigate(
+                                                        `/item/editar/${idRetrospective}/${retrocard.idItemRetrospective}`
+                                                    )
+                                                }
+                                            >
+                                                <FaEdit />
+                                            </Button>
+                                            <Button
+                                                padding="none"
+                                                backgroundColor="transparent"
+                                                color="#ff3232"
+                                                onClick={() =>
+                                                    handleDeleteModal(
+                                                        retrocard.idItemRetrospective
+                                                    )
+                                                }
+                                            >
+                                                <FaTrashAlt />
+                                            </Button>
+                                        </>
                                     )}
                                 </Container>
                                 <p>{Type[retrocard.type]}</p>
-                                <p>
-                                    <span>Descrição:</span>{" "}
-                                    {retrocard.description}
-                                </p>
+                                <h4>Descrição:</h4>
+                                <p>{retrocard.description}</p>
                             </li>
                         ))}
                 </Board>
