@@ -12,11 +12,18 @@ import Pagination from "../../components/pagination/Pagination";
 import { Title } from "../../components/title/Title";
 import { SprintContext } from "../../context/SprintContext";
 import { AuthContext } from "../../context/AuthContext";
+import { confirmAlert } from "react-confirm-alert";
+import "react-confirm-alert/src/react-confirm-alert.css";
+import "../../components/modal/Modal.css";
 
 const SprintDetails = () => {
     const { idSprint } = useParams();
     const navigate = useNavigate();
-    const { getRetrospectiveBySprintId } = useContext(RetroContext);
+    const {
+        getRetrospectiveBySprintId,
+        updateStatusRetrospective,
+        getDetailsById,
+    } = useContext(RetroContext);
     const { getKudoboxBySprintId } = useContext(KudosContext);
     const { filter, setFilter } = useContext(SprintContext);
     const { user } = useContext(AuthContext);
@@ -47,16 +54,78 @@ const SprintDetails = () => {
         }
     };
 
+    const handleChangeStatusModal = (id, status) => {
+        confirmAlert({
+            customUI: ({ onClose }) => {
+                return (
+                    <Container
+                        width="450px"
+                        height="180px"
+                        flexDirection="column"
+                        justifyContent="space-between"
+                        backgroundColor="#2a2831"
+                        color="#fff"
+                        padding="32px"
+                        borderRadius="8px"
+                    >
+                        <Title fontSize="1.25rem">
+                            Certeza que deseja alterar o status?
+                        </Title>
+                        <Container justifyContent="space-between">
+                            <Button
+                                width="30%"
+                                backgroundColor="transparent"
+                                border="1px solid #fff"
+                                backgroundColorHover="#5454fb"
+                                borderHover="1px solid #5454fb"
+                                onClick={onClose}
+                            >
+                                Cancelar
+                            </Button>
+                            <Button
+                                width="30%"
+                                backgroundColor="#fff"
+                                border="1px solid #fff"
+                                color="#12101a"
+                                backgroundColorHover="#5454fb"
+                                colorHover="#fff"
+                                borderHover="1px solid #5454fb"
+                                onClick={() => {
+                                    updateStatusRetrospective(id, status);
+                                    onClose();
+                                }}
+                            >
+                                Alterar
+                            </Button>
+                        </Container>
+                    </Container>
+                );
+            },
+        });
+    };
+
     useEffect(() => {
         setup(filter);
     }, [filter, currentPage]);
 
-    const consola = (param) => {
-        console.log(param)
-    }
+    const consola = (param, status) => {
+        if (status === "CREATE") {
+            handleChangeStatusModal(param, "IN_PROGRESS");
+        } else if (status === "IN_PROGRESS") {
+            handleChangeStatusModal(param, "FINISHED");
+        }
+    };
+
+    const navigateToSendEmail = (id) => {
+        navigate(`/enviar-email/${id}/${idSprint}`);
+    };
 
     const Actions = [
-        { function: consola, param: 'idRetrospective'}
+        {
+            function: consola,
+            param: "idRetrospective",
+            navigate: navigateToSendEmail,
+        },
     ];
 
     const filterList = [
@@ -136,8 +205,16 @@ const SprintDetails = () => {
                     }
                     actions={Actions}
                     list={list}
-                    path= { filter === "Retrospectiva" ? "/retrospectiva" : "/kudobox"}
-                    pathKey={ filter === "Retrospectiva" ? "idRetrospective" : "idKudoBox"}
+                    path={
+                        filter === "Retrospectiva"
+                            ? "/retrospectiva"
+                            : "/kudobox"
+                    }
+                    pathKey={
+                        filter === "Retrospectiva"
+                            ? "idRetrospective"
+                            : "idKudoBox"
+                    }
                 />
 
                 {list.length === 0 && (

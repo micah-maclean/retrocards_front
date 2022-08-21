@@ -1,4 +1,4 @@
-import { createContext, useContext } from "react";
+import { createContext, useContext, useState } from "react";
 //Import router
 import { useNavigate } from "react-router-dom";
 //Import da dependencia de toast
@@ -12,6 +12,7 @@ const RetroContext = createContext();
 const RetroProvider = ({ children }) => {
     const navigate = useNavigate();
     const { forceUpdate } = useContext(AuthContext);
+    const [idRetrospective, setIdRetrospective] = useState(0);
 
     const handleCreateRetrospective = async (values, idSprint) => {
         try {
@@ -108,6 +109,17 @@ const RetroProvider = ({ children }) => {
         }
     };
 
+    const updateStatusRetrospective = async (idRetrospective, status) => {
+        try {
+            await api.put(
+                `/retrospective/update-status/${idRetrospective}?status=${status}`
+            );
+            toast.success("Status alterado com sucesso!");
+        } catch (error) {
+            toast.error(error.response.data.message);
+        }
+    };
+
     return (
         <RetroContext.Provider
             value={{
@@ -118,6 +130,9 @@ const RetroProvider = ({ children }) => {
                 sendEmail,
                 getRetroDetailsById,
                 deleteRetro,
+                updateStatusRetrospective,
+                idRetrospective,
+                setIdRetrospective,
             }}
         >
             {children}
