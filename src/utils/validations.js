@@ -29,7 +29,9 @@ export const validationsLogin = Yup.object({
 });
 
 export const validationSignup = Yup.object({
-    name: Yup.string().required("Campo Obrigatório"),
+    name: Yup.string()
+        .required("Campo Obrigatório")
+        .min(3, "O nome precisa de pelo menos 3 caracteres"),
     email: Yup.string()
         .email("Insira um email válido")
         .required("Campo Obrigatório"),

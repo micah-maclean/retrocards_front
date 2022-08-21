@@ -1,7 +1,7 @@
 //Import referente a dependência Formik
 import { Formik } from "formik";
 //Import referente ao react
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 //Import referente ao context
 import { SprintContext } from "../../context/SprintContext";
 //Import referente aos componentes
@@ -16,14 +16,39 @@ import {
 import CustomErrorMessage from "../../components/customForm/CustomErrorMessage";
 import { Button } from "../../components/button/Button";
 // Import referente as máscaras
-import { dataMask, formatDateToDatabase } from "../../utils/masks";
+import {
+    dataMask,
+    formatDateToDatabase,
+    formatDateToRender,
+} from "../../utils/masks";
 //Import referente as validações
 import { validationsSprint } from "../../utils/validations";
 import { Title } from "../../components/title/Title";
+import { useParams } from "react-router-dom";
 
 const SprintForm = () => {
-    const { handleCreateSprint, handleNavigateToSprint } =
-        useContext(SprintContext);
+    const {
+        handleCreateSprint,
+        handleNavigateToSprint,
+        handleUpdateSprint,
+        getSprintById,
+    } = useContext(SprintContext);
+    const { idSprint } = useParams();
+    const [isUpdate, setIsUpdate] = useState(false);
+    const [info, setInfo] = useState();
+
+    const setup = async () => {
+        const data = await getSprintById(idSprint);
+        setInfo(data);
+    };
+
+    console.log(info);
+    useEffect(() => {
+        if (idSprint) {
+            setIsUpdate(true);
+            setup();
+        }
+    }, []);
     return (
         <>
             <Container
@@ -44,11 +69,16 @@ const SprintForm = () => {
                 >
                     <Formik
                         initialValues={{
-                            title: "",
-                            startDate: "",
-                            endDate: "",
+                            title: info ? info.title : "",
+                            startDate: info
+                                ? formatDateToRender(info.startDate)
+                                : "",
+                            endDate: info
+                                ? formatDateToRender(info.endDate)
+                                : "",
                         }}
                         validationSchema={validationsSprint}
+                        enableReinitialize
                         onSubmit={(values) => {
                             const newValues = {
                                 title: values.title,
@@ -57,12 +87,18 @@ const SprintForm = () => {
                                 ),
                                 endDate: formatDateToDatabase(values.endDate),
                             };
-                            handleCreateSprint(newValues);
+                            isUpdate
+                                ? handleUpdateSprint(idSprint, newValues)
+                                : handleCreateSprint(newValues);
                         }}
                     >
                         {(props) => (
                             <CustomForm color="#fff">
-                                <Title marginBottom="30px">Criar Sprint</Title>
+                                <Title marginBottom="30px">
+                                    {isUpdate
+                                        ? "Editar Sprint"
+                                        : "Cadastrar Sprint"}
+                                </Title>
                                 <Label htmlFor="title">Título</Label>
                                 <Input
                                     name="title"
@@ -145,7 +181,7 @@ const SprintForm = () => {
                                         colorHover="#fff"
                                         type="submit"
                                     >
-                                        Cadastrar
+                                        {isUpdate ? "Editar" : "Cadastrar"}
                                     </Button>
                                 </Container>
                             </CustomForm>

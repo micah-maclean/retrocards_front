@@ -154,7 +154,7 @@ const SendEmailForm = () => {
                                     colorHover="#fff"
                                     type="submit"
                                 >
-                                    Cadastrar
+                                    Enviar
                                 </Button>
                             </Container>
                         </CustomForm>

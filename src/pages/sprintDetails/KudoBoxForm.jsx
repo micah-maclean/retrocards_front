@@ -1,7 +1,7 @@
 //Import referente a dependência Formik
 import { Formik } from "formik";
 //Import referente ao context
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 //Import referente as rotas
 import { useParams } from "react-router-dom";
 //Import referente aos componentes
@@ -16,7 +16,11 @@ import {
 import CustomErrorMessage from "../../components/customForm/CustomErrorMessage";
 import { Button } from "../../components/button/Button";
 // Import referente as máscaras
-import { dataMask, formatDateToDatabase } from "../../utils/masks";
+import {
+    dataMask,
+    formatDateToDatabase,
+    formatDateToRender,
+} from "../../utils/masks";
 //Import referente as validações
 import { validationsKudoBox } from "../../utils/validations";
 import { KudosContext } from "../../context/KudosContext";
@@ -24,9 +28,24 @@ import { SprintContext } from "../../context/SprintContext";
 import { Title } from "../../components/title/Title";
 
 const KudoBoxForm = () => {
-    const { handleCreateKudoBox } = useContext(KudosContext);
+    const { handleCreateKudoBox, getKudoBoxDetailsById, handleUpdateKudoBox } =
+        useContext(KudosContext);
     const { handleNavigateToSprintById } = useContext(SprintContext);
-    const { idSprint } = useParams();
+    const { idSprint, idKudoBox } = useParams();
+    const [isUpdate, setIsUpdate] = useState(false);
+    const [info, setInfo] = useState();
+
+    const setup = async () => {
+        const data = await getKudoBoxDetailsById(idKudoBox);
+        setInfo(data);
+    };
+
+    useEffect(() => {
+        if (idKudoBox) {
+            setIsUpdate(true);
+            setup();
+        }
+    }, []);
 
     return (
         <>
@@ -48,10 +67,13 @@ const KudoBoxForm = () => {
                 >
                     <Formik
                         initialValues={{
-                            title: "",
-                            endDate: "",
+                            title: info ? info.title : "",
+                            endDate: info
+                                ? formatDateToRender(info.endDate)
+                                : "",
                         }}
                         validationSchema={validationsKudoBox}
+                        enableReinitialize
                         onSubmit={(values) => {
                             const newValues = {
                                 idSprint: idSprint,
@@ -59,13 +81,21 @@ const KudoBoxForm = () => {
                                 endDate: formatDateToDatabase(values.endDate),
                             };
 
-                            handleCreateKudoBox(newValues, idSprint);
+                            isUpdate
+                                ? handleUpdateKudoBox(
+                                      idKudoBox,
+                                      idSprint,
+                                      newValues
+                                  )
+                                : handleCreateKudoBox(newValues, idSprint);
                         }}
                     >
                         {(props) => (
                             <CustomForm color="#fff">
                                 <Title marginBottom="30px">
-                                    Criar Kudo Box
+                                    {isUpdate
+                                        ? "Editar Kudo Box"
+                                        : "Criar Kudo Box"}
                                 </Title>
                                 <Label htmlFor="title">Título</Label>
                                 <Input
@@ -123,7 +153,7 @@ const KudoBoxForm = () => {
                                         colorHover="#fff"
                                         type="submit"
                                     >
-                                        Cadastrar
+                                        {isUpdate ? "Editar" : "Cadastrar"}
                                     </Button>
                                 </Container>
                             </CustomForm>

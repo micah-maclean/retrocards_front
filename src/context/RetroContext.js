@@ -12,7 +12,6 @@ const RetroContext = createContext();
 const RetroProvider = ({ children }) => {
     const navigate = useNavigate();
     const { forceUpdate } = useContext(AuthContext);
-    const [idRetrospective, setIdRetrospective] = useState(0);
 
     const handleCreateRetrospective = async (values, idSprint) => {
         try {
@@ -120,6 +119,29 @@ const RetroProvider = ({ children }) => {
         }
     };
 
+    const handleUpdateRetrospective = async (
+        idRetrospective,
+        idSprint,
+        values
+    ) => {
+        try {
+            await api.put(`/retrospective/update/${idRetrospective}`, values);
+            toast.success("Retrospectiva alterada com sucesso");
+            navigate(`/sprint/${idSprint}`);
+        } catch (error) {
+            toast.error(error.response.data.message);
+        }
+    };
+
+    const deleteRetrospective = async (idRetrospective) => {
+        try {
+            await api.delete(`/retrospective/delete/${idRetrospective}`);
+            toast.success("Retrospectiva deletada com sucesso");
+        } catch (error) {
+            toast.error(error.response.data.message);
+        }
+    };
+
     return (
         <RetroContext.Provider
             value={{
@@ -131,8 +153,8 @@ const RetroProvider = ({ children }) => {
                 getRetroDetailsById,
                 deleteRetro,
                 updateStatusRetrospective,
-                idRetrospective,
-                setIdRetrospective,
+                deleteRetrospective,
+                handleUpdateRetrospective,
             }}
         >
             {children}

@@ -7,15 +7,16 @@ import { formatDateToRender } from "../../utils/masks";
 import { Button } from "../button/Button";
 import { useContext } from "react";
 import { AuthContext } from "../../context/AuthContext";
+import { Container } from "../container/Container";
 
 const Table = ({ list, params, actions, path, pathKey }) => {
     const navigate = useNavigate();
     const { user } = useContext(AuthContext);
 
     const Status = {
-        CREATE: <span style={{ color: "green" }}>Criado</span>,
-        IN_PROGRESS: <span style={{ color: "blue" }}>Em Andamento</span>,
-        FINISHED: <span style={{ color: "white" }}>Concluido</span>,
+        CREATE: "Criado",
+        IN_PROGRESS: "Em Andamento",
+        FINISHED: "Concluido",
     };
 
     const Role = {
@@ -31,7 +32,7 @@ const Table = ({ list, params, actions, path, pathKey }) => {
                     {params.map((column, i) => (
                         <th key={i}>{column.heading}</th>
                     ))}
-                    {actions && user.role !== 'ROLE_MEMBER'  && <th>Ações</th>}
+                    {actions && user.role !== "ROLE_MEMBER" && <th>Ações</th>}
                 </tr>
             </thead>
             <tbody>
@@ -56,28 +57,35 @@ const Table = ({ list, params, actions, path, pathKey }) => {
                                 </td>
                             </>
                         ))}
-                        {actions && user.role !== 'ROLE_MEMBER'  && (
+                        {actions && user.role !== "ROLE_MEMBER" && (
                             <>
                                 <td>
-                                {actions.map((button, i) => (
-                                    <>
-                                        {row.status === button.status && (
-                                            <Button
-                                                backgroundColor="transparent"
-                                                color="#fff"
-                                                onClick={() =>
-                                                    button.function(
-                                                        row[button.param],
-                                                        row.status
-                                                    )
-                                                }
-                                            >
-                                                {button.icon}
-                                            </Button>
-                                        )}
-                                    </>
-                                ))}
-                                    </td>
+                                    <Container justifyContent="space-between">
+                                        {actions.map((button, i) => (
+                                            <>
+                                                {row.status ===
+                                                    button.status && (
+                                                    <Button
+                                                        backgroundColor="transparent"
+                                                        color={button.iconColor}
+                                                        padding="4px"
+                                                        fontSize="20px"
+                                                        onClick={() =>
+                                                            button.function(
+                                                                row[
+                                                                    button.param
+                                                                ],
+                                                                row.status
+                                                            )
+                                                        }
+                                                    >
+                                                        {button.icon}
+                                                    </Button>
+                                                )}
+                                            </>
+                                        ))}
+                                    </Container>
+                                </td>
                             </>
                         )}
                     </tr>
@@ -88,8 +96,8 @@ const Table = ({ list, params, actions, path, pathKey }) => {
 };
 export default Table;
 
-
- {/* {row.status === "CREATE" && (
+{
+    /* {row.status === "CREATE" && (
                                             <Button
                                                 backgroundColor="transparent"
                                                 color="#fff"
@@ -115,4 +123,5 @@ export default Table;
                                             >
                                                 X
                                             </Button>
-                                        )} */}
+                                        )} */
+}

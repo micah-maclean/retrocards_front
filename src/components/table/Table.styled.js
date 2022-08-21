@@ -20,7 +20,7 @@ export const CustomTable = styled.table`
 
         tr:hover {
             cursor: pointer;
-            background-color: #5454fb;
+            background-color: #414048;
         }
     }
 

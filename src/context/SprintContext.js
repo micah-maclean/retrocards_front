@@ -56,6 +56,36 @@ const SprintProvider = ({ children }) => {
         navigate(`/sprint/${idSprint}`);
     };
 
+    const getSprintById = async (idSprint) => {
+        try {
+            const { data } = await api.get(
+                `/sprint/check-progress/${idSprint}`
+            );
+            return data;
+        } catch (error) {
+            toast.error(error.response.data.message);
+        }
+    };
+
+    const handleUpdateSprint = async (idSprint, values) => {
+        try {
+            await api.put(`/sprint/update/${idSprint}`, values);
+            toast.success("Sprint editado com sucesso");
+            navigate("/");
+        } catch (error) {
+            toast.error(error.response.data.message);
+        }
+    };
+
+    const handleDeleteSprint = async (idSprint) => {
+        try {
+            await api.delete(`/sprint/delete/${idSprint}`);
+            toast.success("Sprint deletado com sucesso");
+        } catch (error) {
+            toast.error(error.response.data.message);
+        }
+    };
+
     return (
         <SprintContext.Provider
             value={{
@@ -66,6 +96,9 @@ const SprintProvider = ({ children }) => {
                 handleNavigateToSprintById,
                 filter,
                 setFilter,
+                getSprintById,
+                handleUpdateSprint,
+                handleDeleteSprint,
             }}
         >
             {children}

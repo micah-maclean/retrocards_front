@@ -1,7 +1,7 @@
 //Import referente a dependência Formik
 import { Formik } from "formik";
 //Import referente ao react
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 //Import referente as rotas
 import { useParams } from "react-router-dom";
 //Import referente ao context
@@ -18,16 +18,38 @@ import {
 import CustomErrorMessage from "../../components/customForm/CustomErrorMessage";
 import { Button } from "../../components/button/Button";
 // Import referente as máscaras
-import { dataMask, formatDateToDatabase } from "../../utils/masks";
+import {
+    dataMask,
+    formatDateToDatabase,
+    formatDateToRender,
+} from "../../utils/masks";
 //Import referente as validações
 import { validationsRetrospective } from "../../utils/validations";
 import { SprintContext } from "../../context/SprintContext";
 import { Title } from "../../components/title/Title";
 
 const RetroForm = () => {
-    const { handleCreateRetrospective } = useContext(RetroContext);
+    const {
+        handleCreateRetrospective,
+        getRetroDetailsById,
+        handleUpdateRetrospective,
+    } = useContext(RetroContext);
     const { handleNavigateToSprintById } = useContext(SprintContext);
-    const { idSprint } = useParams();
+    const { idSprint, idRetrospective } = useParams();
+    const [isUpdate, setIsUpdate] = useState(false);
+    const [info, setInfo] = useState();
+
+    const setup = async () => {
+        const data = await getRetroDetailsById(idRetrospective);
+        setInfo(data);
+    };
+
+    useEffect(() => {
+        if (idRetrospective) {
+            setIsUpdate(true);
+            setup();
+        }
+    }, []);
     return (
         <>
             <Container
@@ -48,9 +70,12 @@ const RetroForm = () => {
                 >
                     <Formik
                         initialValues={{
-                            title: "",
-                            occurredDate: "",
+                            title: info ? info.title : "",
+                            occurredDate: info
+                                ? formatDateToRender(info.occurredDate)
+                                : "",
                         }}
+                        enableReinitialize
                         validationSchema={validationsRetrospective}
                         onSubmit={(values) => {
                             const newValues = {
@@ -60,13 +85,24 @@ const RetroForm = () => {
                                     values.occurredDate
                                 ),
                             };
-                            handleCreateRetrospective(newValues, idSprint);
+                            isUpdate
+                                ? handleUpdateRetrospective(
+                                      idRetrospective,
+                                      idSprint,
+                                      newValues
+                                  )
+                                : handleCreateRetrospective(
+                                      newValues,
+                                      idSprint
+                                  );
                         }}
                     >
                         {(props) => (
                             <CustomForm color="#fff">
                                 <Title marginBottom="30px">
-                                    Criar Retrospectiva
+                                    {isUpdate
+                                        ? "Editar Retrospectiva"
+                                        : "Criar Retrospectiva"}
                                 </Title>
                                 <Label htmlFor="title">Título</Label>
                                 <Input
@@ -124,7 +160,7 @@ const RetroForm = () => {
                                         colorHover="#fff"
                                         type="submit"
                                     >
-                                        Cadastrar
+                                        {isUpdate ? "Editar" : "Cadastrar"}
                                     </Button>
                                 </Container>
                             </CustomForm>

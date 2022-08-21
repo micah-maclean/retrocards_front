@@ -12,9 +12,14 @@ import Pagination from "../../components/pagination/Pagination";
 import { Title } from "../../components/title/Title";
 import { SprintContext } from "../../context/SprintContext";
 import { AuthContext } from "../../context/AuthContext";
-import { confirmAlert } from "react-confirm-alert";
-import "react-confirm-alert/src/react-confirm-alert.css";
-import "../../components/modal/Modal.css";
+import { Modal } from "../../components/modal/Modal";
+import {
+    FaEdit,
+    FaTrashAlt,
+    FaEnvelope,
+    FaPlayCircle,
+    FaStopCircle,
+} from "react-icons/fa";
 
 const SprintDetails = () => {
     const { idSprint } = useParams();
@@ -22,11 +27,11 @@ const SprintDetails = () => {
     const {
         getRetrospectiveBySprintId,
         updateStatusRetrospective,
-        getDetailsById,
+        deleteRetrospective,
     } = useContext(RetroContext);
-    const { getKudoboxBySprintId } = useContext(KudosContext);
+    const { getKudoboxBySprintId, deleteKudoBox } = useContext(KudosContext);
     const { filter, setFilter } = useContext(SprintContext);
-    const { user } = useContext(AuthContext);
+    const { user, reducerValue } = useContext(AuthContext);
     const [currentPage, setCurrentPage] = useState(0);
     const pageSize = 10;
     const [totalCount, setTotalCount] = useState(0);
@@ -54,72 +59,70 @@ const SprintDetails = () => {
         }
     };
 
-    const handleChangeStatusModal = (id, status) => {
-        confirmAlert({
-            customUI: ({ onClose }) => {
-                return (
-                    <Container
-                        width="450px"
-                        height="180px"
-                        flexDirection="column"
-                        justifyContent="space-between"
-                        backgroundColor="#2a2831"
-                        color="#fff"
-                        padding="32px"
-                        borderRadius="8px"
-                    >
-                        <Title fontSize="1.25rem">
-                            Certeza que deseja alterar o status?
-                        </Title>
-                        <Container justifyContent="space-between">
-                            <Button
-                                width="30%"
-                                backgroundColor="transparent"
-                                border="1px solid #fff"
-                                backgroundColorHover="#5454fb"
-                                borderHover="1px solid #5454fb"
-                                onClick={onClose}
-                            >
-                                Cancelar
-                            </Button>
-                            <Button
-                                width="30%"
-                                backgroundColor="#fff"
-                                border="1px solid #fff"
-                                color="#12101a"
-                                backgroundColorHover="#5454fb"
-                                colorHover="#fff"
-                                borderHover="1px solid #5454fb"
-                                onClick={() => {
-                                    updateStatusRetrospective(id, status);
-                                    onClose();
-                                }}
-                            >
-                                Alterar
-                            </Button>
-                        </Container>
-                    </Container>
-                );
-            },
-        });
-    };
-
     useEffect(() => {
         setup(filter);
-    }, [filter, currentPage]);
+    }, [filter, currentPage, reducerValue]);
+
+    const paramModal = {
+        Retrospectiva: {
+            edit: {
+                function: updateStatusRetrospective,
+                message: "Certeza que deseja alterar o status?",
+                confirmText: "Alterar",
+            },
+            delete: {
+                function: deleteRetrospective,
+                message: "Certeza que deseja deletar a retrospectiva?",
+                confirmText: "Deletar",
+            },
+        },
+        "Kudo Box": {
+            delete: {
+                function: deleteKudoBox,
+                message: "Certeza que deseja deletar o KudoBox?",
+                confirmText: "Deletar",
+            },
+        },
+    };
 
     const navigateToSendEmail = (idRetrospective) => {
         navigate(`/enviar-email/${idRetrospective}/${idSprint}`);
     };
 
     const updateStatusToInProgress = (idRetrospective) => {
-        handleChangeStatusModal(idRetrospective, "IN_PROGRESS");
-        console.log("In progress => ", idRetrospective);
+        Modal({
+            ...paramModal.Retrospectiva.edit,
+            values: [idRetrospective, "IN_PROGRESS"],
+        });
     };
 
     const updateStatusToFinished = (idRetrospective) => {
-        handleChangeStatusModal(idRetrospective, "FINISHED");
-        console.log("Finished => ", idRetrospective);
+        Modal({
+            ...paramModal.Retrospectiva.edit,
+            values: [idRetrospective, "FINISHED"],
+        });
+    };
+
+    const updateRetrospective = (idRetrospective) => {
+        navigate(`/retrospectiva/editar/${idSprint}/${idRetrospective}`);
+    };
+
+    const deleteRetrospectiveModal = (idRetrospective) => {
+        Modal({
+            ...paramModal.Retrospectiva.delete,
+            values: [idRetrospective],
+        });
+    };
+
+    const deleteKudoBoxModal = (idKudoBox) => {
+        Modal({
+            ...paramModal["Kudo Box"].delete,
+            values: [idKudoBox],
+        });
+    };
+
+    const navigateToUpdateKudoBox = (idKudoBox) => {
+        navigate(`/kudo-box/editar/${idSprint}/${idKudoBox}`);
     };
 
     const filterList = [
@@ -144,19 +147,50 @@ const SprintDetails = () => {
                     function: updateStatusToFinished,
                     param: "idRetrospective",
                     status: "IN_PROGRESS",
-                    icon: "||",
+                    icon: <FaStopCircle />,
+                    iconColor: "#0B69F5",
                 },
                 {
                     function: updateStatusToInProgress,
                     param: "idRetrospective",
                     status: "CREATE",
-                    icon: "Play",
+                    icon: <FaPlayCircle />,
+                    iconColor: "#51be51",
                 },
                 {
                     function: navigateToSendEmail,
                     param: "idRetrospective",
                     status: "FINISHED",
-                    icon: "X",
+                    icon: <FaEnvelope />,
+                    iconColor: "#4faaff",
+                },
+                {
+                    function: updateRetrospective,
+                    param: "idRetrospective",
+                    status: "IN_PROGRESS",
+                    icon: <FaEdit />,
+                    iconColor: "#ffee51",
+                },
+                {
+                    function: deleteRetrospectiveModal,
+                    param: "idRetrospective",
+                    status: "IN_PROGRESS",
+                    icon: <FaTrashAlt />,
+                    iconColor: "#ff3232",
+                },
+                {
+                    function: updateRetrospective,
+                    param: "idRetrospective",
+                    status: "CREATE",
+                    icon: <FaEdit />,
+                    iconColor: "#ffee51",
+                },
+                {
+                    function: deleteRetrospectiveModal,
+                    param: "idRetrospective",
+                    status: "CREATE",
+                    icon: <FaTrashAlt />,
+                    iconColor: "#ff3232",
                 },
             ],
         },
@@ -172,6 +206,20 @@ const SprintDetails = () => {
             path: "/kudobox",
             pathKey: "idKudoBox",
             create: `/kudo-box/cadastrar/${idSprint}`,
+            actions: [
+                {
+                    function: deleteKudoBoxModal,
+                    param: "idKudoBox",
+                    status: "IN_PROGRESS",
+                    icon: "delete",
+                },
+                {
+                    function: navigateToUpdateKudoBox,
+                    param: "idKudoBox",
+                    status: "IN_PROGRESS",
+                    icon: "edit",
+                },
+            ],
         },
     };
 

@@ -11,10 +11,14 @@ import { Container } from "../../components/container/Container";
 import Pagination from "../../components/pagination/Pagination";
 import { Button } from "../../components/button/Button";
 import { Title } from "../../components/title/Title";
+import { confirmAlert } from "react-confirm-alert";
+import "react-confirm-alert/src/react-confirm-alert.css";
+import "../../components/modal/Modal.css";
+import { FaEdit, FaTrashAlt } from "react-icons/fa";
 
 const Home = () => {
     const { user } = useContext(AuthContext);
-    const { getSprintList } = useContext(SprintContext);
+    const { getSprintList, handleDeleteSprint } = useContext(SprintContext);
     const navigate = useNavigate();
     const [currentPage, setCurrentPage] = useState(0);
     const [pageSize, setPageSize] = useState(10);
@@ -37,11 +41,87 @@ const Home = () => {
         setup();
     }, [currentPage]);
 
-    const params = [
-        { heading: "Id", key: "idSprint" },
-        { heading: "Titulo", key: "title" },
-        { heading: "Data de Conclusão", key: "endDate" },
-    ];
+    const handleDeleteSprintModal = (id) => {
+        confirmAlert({
+            customUI: ({ onClose }) => {
+                return (
+                    <Container
+                        width="450px"
+                        height="180px"
+                        flexDirection="column"
+                        justifyContent="space-between"
+                        backgroundColor="#2a2831"
+                        color="#fff"
+                        padding="32px"
+                        borderRadius="8px"
+                    >
+                        <Title fontSize="1.25rem">
+                            Certeza que deseja deletar a sprint?
+                        </Title>
+                        <Container justifyContent="space-between">
+                            <Button
+                                width="30%"
+                                backgroundColor="transparent"
+                                border="1px solid #fff"
+                                backgroundColorHover="#5454fb"
+                                borderHover="1px solid #5454fb"
+                                onClick={onClose}
+                            >
+                                Cancelar
+                            </Button>
+                            <Button
+                                width="30%"
+                                backgroundColor="#fff"
+                                border="1px solid #fff"
+                                color="#12101a"
+                                backgroundColorHover="#5454fb"
+                                colorHover="#fff"
+                                borderHover="1px solid #5454fb"
+                                onClick={() => {
+                                    handleDeleteSprint(id);
+                                    onClose();
+                                }}
+                            >
+                                Deletar
+                            </Button>
+                        </Container>
+                    </Container>
+                );
+            },
+        });
+    };
+
+    const updateSprint = (idSprint) => {
+        navigate(`/sprint/editar/${idSprint}`);
+    };
+
+    const deleteSprint = (idSprint) => {
+        handleDeleteSprintModal(idSprint);
+    };
+
+    const paramsTables = {
+        params: [
+            { heading: "Id", key: "idSprint" },
+            { heading: "Titulo", key: "title" },
+            { heading: "Data de Conclusão", key: "endDate" },
+        ],
+        actions: [
+            {
+                function: updateSprint,
+                param: "idSprint",
+                icon: <FaEdit />,
+                iconColor: "#ffee51",
+            },
+            {
+                function: deleteSprint,
+                param: "idSprint",
+                icon: <FaTrashAlt />,
+                iconColor: "#ff3232",
+            },
+        ],
+        path: "/sprint",
+        pathKey: "idSprint",
+    };
 
     return (
         <Container
@@ -78,9 +158,10 @@ const Home = () => {
 
                 <Table
                     list={list}
-                    params={params}
-                    path="/sprint"
-                    pathKey="idSprint"
+                    params={paramsTables.params}
+                    path={paramsTables.path}
+                    pathKey={paramsTables.pathKey}
+                    actions={paramsTables.actions}
                 />
 
                 {list.length === 0 && (

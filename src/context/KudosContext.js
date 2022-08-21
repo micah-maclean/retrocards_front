@@ -59,7 +59,6 @@ const KudosProvider = ({ children }) => {
             if (error.response.data.status === 400) {
                 return;
             }
-
             toast.error(error.response.data.message);
         }
     };
@@ -81,7 +80,26 @@ const KudosProvider = ({ children }) => {
             if (error.response.data.status === 400) {
                 return;
             }
+            toast.error(error.response.data.message);
+        }
+    };
 
+    const deleteKudoBox = async (idKudoBox) => {
+        try {
+            await api.delete(`/kudobox/delete/${idKudoBox}`);
+            toast.success("KudoBox deletado com sucesso");
+            forceUpdate();
+        } catch (error) {
+            toast.error(error.response.data.message);
+        }
+    };
+
+    const handleUpdateKudoBox = async (idKudoBox, idSprint, values) => {
+        try {
+            await api.put(`/kudobox/update/${idKudoBox}`, values);
+            toast.success("KudoBox deletado com sucesso");
+            navigate(`/sprint/${idSprint}`);
+        } catch (error) {
             toast.error(error.response.data.message);
         }
     };
@@ -95,6 +113,8 @@ const KudosProvider = ({ children }) => {
                 getKudoboxBySprintId,
                 deleteKudoCard,
                 getKudoBoxDetailsById,
+                deleteKudoBox,
+                handleUpdateKudoBox,
             }}
         >
             {children}
