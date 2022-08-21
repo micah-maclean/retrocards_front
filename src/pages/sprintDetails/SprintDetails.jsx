@@ -108,49 +108,58 @@ const SprintDetails = () => {
         setup(filter);
     }, [filter, currentPage]);
 
-    const consola = (param, status) => {
-        if (status === "CREATE") {
-            handleChangeStatusModal(param, "IN_PROGRESS");
-        } else if (status === "IN_PROGRESS") {
-            handleChangeStatusModal(param, "FINISHED");
-        }
+
+    const navigateToSendEmail = (idRetrospective) => {
+        navigate(`/enviar-email/${idRetrospective}/${idSprint}`);
     };
 
-    const navigateToSendEmail = (id) => {
-        navigate(`/enviar-email/${id}/${idSprint}`);
-    };
+    const updateStatusToInProgress = (idRetrospective) => {
+        handleChangeStatusModal(idRetrospective, "IN_PROGRESS");
+        console.log("In progress => ", idRetrospective)
+    }
 
-    const Actions = [
-        {
-            function: consola,
-            param: "idRetrospective",
-            navigate: navigateToSendEmail,
-        },
-    ];
+    const  updateStatusToFinished= (idRetrospective) => {
+        handleChangeStatusModal(idRetrospective, "FINISHED");
+        console.log("Finished => ", idRetrospective)
+    }
 
     const filterList = [
         { name: "Retrospectiva", value: "Retrospectiva" },
         { name: "Kudo Box", value: "Kudo Box" },
     ];
 
-    const paramsRetro = [
-        { heading: "Id", key: "idRetrospective" },
-        { heading: "Titulo", key: "title" },
-        { heading: "Data da Reunião", key: "occurredDate" },
-        { heading: "Status", key: "status" },
-        { heading: "Quantidade de Items", key: "numberOfItens" },
-    ];
+    const paramSprint = {
+        Retrospectiva: {
+            param : [
+                { heading: "Id", key: "idRetrospective" },
+                { heading: "Titulo", key: "title" },
+                { heading: "Data da Reunião", key: "occurredDate" },
+                { heading: "Status", key: "status" },
+                { heading: "Quantidade de Items", key: "numberOfItens" },
+            ],
+            path: "/retrospectiva",
+            pathKey: "idRetrospective",
+            create : `/retrospectiva/cadastrar/${idSprint}`,
+            actions: [
+                { function: updateStatusToFinished, param: 'idRetrospective', status: 'IN_PROGRESS', icon: '||'},
+                { function: updateStatusToInProgress, param: 'idRetrospective', status: 'CREATE', icon: 'Play'},
+                { function: navigateToSendEmail, param: 'idRetrospective', status: 'FINISHED', icon: 'X'},
+            ]
+        },
 
-    const paramsKudo = [
-        { heading: "Id", key: "idKudoBox" },
-        { heading: "Titulo", key: "title" },
-        { heading: "Data de encerramento", key: "endDate" },
-        { heading: "Status", key: "status" },
-        { heading: "Quantidade de Items", key: "numberOfItens" },
-    ];
-
-    const retrospectiva = `/retrospectiva/cadastrar/${idSprint}`;
-    const kudobox = `/kudo-box/cadastrar/${idSprint}`;
+        'Kudo Box': {
+            param: [
+                { heading: "Id", key: "idKudoBox" },
+                { heading: "Titulo", key: "title" },
+                { heading: "Data de encerramento", key: "endDate" },
+                { heading: "Status", key: "status" },
+                { heading: "Quantidade de Items", key: "numberOfItens" },
+            ],
+            path: "/kudobox",
+            pathKey: "idKudobox",
+            create: `/kudo-box/cadastrar/${idSprint}`
+        }
+    }
 
     return (
         <Container
@@ -173,8 +182,7 @@ const SprintDetails = () => {
                         setFilter={setFilter}
                         activeFilter={filter}
                     />
-                    {(user.role === "ROLE_FACILITATOR" ||
-                        user.role === "ROLE_ADMIN") && (
+                    {(user.role !== "ROLE_MEMBER") && (
                         <Button
                             id={
                                 filter === "Retrospectiva"
@@ -186,9 +194,7 @@ const SprintDetails = () => {
                             padding="8px 16px"
                             onClick={() =>
                                 navigate(
-                                    filter === "Retrospectiva"
-                                        ? retrospectiva
-                                        : kudobox
+                                    paramSprint[filter].create
                                 )
                             }
                         >
@@ -201,19 +207,15 @@ const SprintDetails = () => {
 
                 <Table
                     params={
-                        filter === "Retrospectiva" ? paramsRetro : paramsKudo
+                       paramSprint[filter].param
                     }
-                    actions={Actions}
+                    actions={paramSprint[filter].actions}
                     list={list}
                     path={
-                        filter === "Retrospectiva"
-                            ? "/retrospectiva"
-                            : "/kudobox"
+                        paramSprint[filter].path
                     }
                     pathKey={
-                        filter === "Retrospectiva"
-                            ? "idRetrospective"
-                            : "idKudoBox"
+                        paramSprint[filter].pathKey
                     }
                 />
 

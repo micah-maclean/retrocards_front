@@ -5,9 +5,12 @@ import { CustomTable } from "./Table.styled";
 //Import para formatar a data
 import { formatDateToRender } from "../../utils/masks";
 import { Button } from "../button/Button";
+import { useContext } from "react";
+import { AuthContext } from "../../context/AuthContext";
 
 const Table = ({ list, params, actions, path, pathKey }) => {
     const navigate = useNavigate();
+    const { user } = useContext(AuthContext);
 
     const Status = {
         CREATE: <span style={{ color: "green" }}>Criado</span>,
@@ -28,7 +31,7 @@ const Table = ({ list, params, actions, path, pathKey }) => {
                     {params.map((column, i) => (
                         <th key={i}>{column.heading}</th>
                     ))}
-                    {actions && <th>Ações</th>}
+                    {actions && user.role !== 'ROLE_MEMBER'  && <th>Ações</th>}
                 </tr>
             </thead>
             <tbody>
@@ -53,11 +56,12 @@ const Table = ({ list, params, actions, path, pathKey }) => {
                                 </td>
                             </>
                         ))}
-                        {actions && (
+                        {actions && user.role !== 'ROLE_MEMBER'  && (
                             <>
+                                <td>
                                 {actions.map((button, i) => (
-                                    <td key={i}>
-                                        {row.status === "IN_PROGRESS" && (
+                                    <>
+                                        {row.status === button.status && (
                                             <Button
                                                 backgroundColor="transparent"
                                                 color="#fff"
@@ -68,10 +72,24 @@ const Table = ({ list, params, actions, path, pathKey }) => {
                                                     )
                                                 }
                                             >
-                                                ||
+                                                {button.icon}
                                             </Button>
                                         )}
-                                        {row.status === "CREATE" && (
+                                    </>
+                                ))}
+                                    </td>
+                            </>
+                        )}
+                    </tr>
+                ))}
+            </tbody>
+        </CustomTable>
+    );
+};
+export default Table;
+
+
+ {/* {row.status === "CREATE" && (
                                             <Button
                                                 backgroundColor="transparent"
                                                 color="#fff"
@@ -97,15 +115,4 @@ const Table = ({ list, params, actions, path, pathKey }) => {
                                             >
                                                 X
                                             </Button>
-                                        )}
-                                    </td>
-                                ))}
-                            </>
-                        )}
-                    </tr>
-                ))}
-            </tbody>
-        </CustomTable>
-    );
-};
-export default Table;
+                                        )} */}
