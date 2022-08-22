@@ -41,16 +41,16 @@ const SprintForm = () => {
 
     const setup = async () => {
         setLoading(true);
-        const data = await getSprintById(idSprint);
-        setInfo(data);
+        if (idSprint) {
+            const data = await getSprintById(idSprint);
+            setInfo(data);
+            setIsUpdate(true);
+        }
         setLoading(false);
     };
 
     useEffect(() => {
-        if (idSprint) {
-            setIsUpdate(true);
-            setup();
-        }
+            setup();        
     }, []);
 
     if(loading){
@@ -66,6 +66,7 @@ const SprintForm = () => {
             borderRadius="8px"
             padding="24px 64px"
             paddingQuery="24px 32px"
+            margin='auto 0'
         >
             <Formik
                 initialValues={{

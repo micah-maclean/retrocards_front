@@ -59,16 +59,7 @@ const RetroForm = () => {
     }, []);
 
     if (loading) {
-        return (
-            <Container
-                alignItems="center"
-                justifyContent="center"
-                backgroundColor="#12101a"
-                height="100vh"
-            >
-                <Loading />
-            </Container>
-        );
+        return <Loading />
     }
 
     return (
@@ -80,6 +71,7 @@ const RetroForm = () => {
             borderRadius="8px"
             padding="24px 64px"
             paddingQuery="24px 32px"
+            margin='auto 0'
         >
             <Formik
                 initialValues={{

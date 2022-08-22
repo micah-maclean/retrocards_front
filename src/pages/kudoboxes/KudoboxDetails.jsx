@@ -70,14 +70,7 @@ const KudoboxDetails = () => {
 
     if (loading) {
         return (
-            <Container
-                alignItems="center"
-                justifyContent="center"
-                backgroundColor="#12101a"
-                height="100vh"
-            >
-                <Loading />
-            </Container>
+            <Loading/>
         );
     }
 

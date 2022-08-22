@@ -57,6 +57,7 @@ const ItemRetroForm = () => {
             borderRadius="8px"
             padding="24px 64px"
             paddingQuery="24px 32px"
+            margin='auto 0'
         >
             <Formik
                 initialValues={{

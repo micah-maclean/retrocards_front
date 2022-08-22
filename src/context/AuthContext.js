@@ -7,8 +7,8 @@ import { toast } from "react-toastify";
 //Import da chamada da url da api
 import { api } from "../api";
 //Import dos components
-import { Loading } from "../components/loading/Loading";
 import { Container } from "../components/container/Container";
+import { Spinner } from "../components/loading/Spinner";
 
 const AuthContext = createContext();
 
@@ -34,7 +34,6 @@ const AuthProvider = ({ children }) => {
 
 
     const handleLogin = async (values) => {
-        setLoading(true);
         const from = location.state?.from?.pathname || "/";
         try {
             const { data } = await api.post("/user/login", values);
@@ -46,7 +45,6 @@ const AuthProvider = ({ children }) => {
         } catch (error) {
             toast.error(error.response.data.message);
         }
-        setLoading(false);
     };
 
     const handleLogout = () => {
@@ -110,14 +108,15 @@ const AuthProvider = ({ children }) => {
     if (loading) {
         return (
             <Container
-                alignItems="center"
-                justifyContent="center"
-                backgroundColor="#12101a"
-                height="100vh"
-            >
-                <Loading />
-            </Container>
-        );
+            alignItems="center"
+            justifyContent="center"
+            backgroundColor="#12101a"
+            height='100vh'
+        >
+            <Spinner />
+        </Container>
+        )
+        
     }
 
     return (
