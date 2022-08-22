@@ -22,7 +22,7 @@ const Header = () => {
     return (
         <HeaderContainer>
             <Container
-                maxWidth="1120px"
+                maxWidth="var(--max-width)"
                 width="100%"
                 color="#fff"
                 margin="auto"

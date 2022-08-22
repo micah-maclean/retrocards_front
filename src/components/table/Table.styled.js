@@ -15,7 +15,7 @@ export const CustomTable = styled.table`
 
     tbody {
         tr {
-            background-color: #292730;
+            background-color: var(--dark-grey);
         }
 
         tr:hover {

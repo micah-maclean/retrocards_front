@@ -72,7 +72,7 @@ const KudoboxDetails = () => {
 
     return (
         <Container
-            maxWidth="1120px"
+            maxWidth="var(--max-width)"
             width="100%"
             flexDirection="column"
             gap="30px"

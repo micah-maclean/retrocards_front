@@ -86,7 +86,7 @@ const Home = () => {
 
     return (
         <Container
-            maxWidth="1120px"
+            maxWidth="var(--max-width)"
             width="100%"
             flexDirection="column"
             gap="32px"

@@ -16,10 +16,10 @@ export const Board = styled.ul`
         display: flex;
         flex-direction: column;
         aspect-ratio: 1;
-        color: #fff;
+        color: inherit;
         padding: 20px;
-        border-radius: 8px;
-        background-color: rgba(255, 255, 255, 0.1);
+        border-radius: var(--border-radius);
+        background-color: var(--light-grey);
         gap: 5px;
 
         p {

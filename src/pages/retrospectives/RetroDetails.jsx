@@ -113,7 +113,7 @@ const RetroDetails = () => {
 
     return (
             <Container
-                maxWidth="1120px"
+                maxWidth="var(--max-width)"
                 width="100%"
                 gap="30px"
                 flexDirection="column"

@@ -30,9 +30,9 @@ const ItemRetroForm = () => {
     return (
         <Container
             flexDirection="column"
-            maxWidth="1120px"
+            maxWidth="var(--max-width)"
             width="100%"
-            backgroundColor="#292730"
+            backgroundColor="var(--dark-grey)"
             borderRadius="8px"
             padding="24px 64px"
             paddingQuery="24px 32px"

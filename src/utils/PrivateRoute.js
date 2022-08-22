@@ -15,9 +15,9 @@ const PrivateRoute = () => {
                     <> 
                         <Header/>
                         <Container
-                            minHeight="calc(100vh - 100px)"
-                            backgroundColor="#12101A"
-                            color="#fff"
+                            minHeight="var(--screen-size)"
+                            backgroundColor="var(--primary-color)"
+                            color="var(--secondary-color)"
                             flexDirection="column"
                             alignItems="center"
                             padding="30px"

@@ -132,49 +132,49 @@ const SprintDetails = () => {
                     param: "idRetrospective",
                     status: "IN_PROGRESS",
                     icon: <FaStopCircle />,
-                    iconColor: "#0B69F5",
+                    iconColor: "var(--dark-blue)",
                 },
                 {
                     function: updateStatusToInProgress,
                     param: "idRetrospective",
                     status: "CREATE",
                     icon: <FaPlayCircle />,
-                    iconColor: "#51be51",
+                    iconColor: "var(--green)",
                 },
                 {
                     function: navigateToSendEmail,
                     param: "idRetrospective",
                     status: "FINISHED",
                     icon: <FaEnvelope />,
-                    iconColor: "#4faaff",
+                    iconColor: "var(--light-blue)",
                 },
                 {
                     function: updateRetrospective,
                     param: "idRetrospective",
                     status: "IN_PROGRESS",
                     icon: <FaEdit />,
-                    iconColor: "#ffee51",
+                    iconColor: "var(--yellow)",
                 },
                 {
                     function: deleteRetrospectiveModal,
                     param: "idRetrospective",
                     status: "IN_PROGRESS",
                     icon: <FaTrashAlt />,
-                    iconColor: "#ff3232",
+                    iconColor: "var(--red)",
                 },
                 {
                     function: updateRetrospective,
                     param: "idRetrospective",
                     status: "CREATE",
                     icon: <FaEdit />,
-                    iconColor: "#ffee51",
+                    iconColor: "var(--yellow)",
                 },
                 {
                     function: deleteRetrospectiveModal,
                     param: "idRetrospective",
                     status: "CREATE",
                     icon: <FaTrashAlt />,
-                    iconColor: "#ff3232",
+                    iconColor: "var(--red)",
                 },
             ],
         },
@@ -211,7 +211,7 @@ const SprintDetails = () => {
 
     return (
             <Container
-                maxWidth="1120px"
+                maxWidth="var(--max-width)"
                 width="100%"
                 flexDirection="column"
                 gap="30px"
