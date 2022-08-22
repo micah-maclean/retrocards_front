@@ -42,121 +42,106 @@ const ItemRetroForm = () => {
     },[])
 
     return (
-        <>
-            <Container
-                backgroundColor="#12101a"
-                height="calc(100vh - 100px)"
-                padding="30px"
-                justifyContent="center"
-                alignItems="center"
+        <Container
+            flexDirection="column"
+            maxWidth="var(--max-width)"
+            width="100%"
+            backgroundColor="var(--dark-grey)"
+            borderRadius="8px"
+            padding="24px 64px"
+            paddingQuery="24px 32px"
+        >
+            <Formik
+                initialValues={{
+                    type: '',
+                    title: infoItem && infoItem.title ? infoItem.title : '',
+                    description: infoItem && infoItem.description ? infoItem.description : '',
+                }}
+                validationSchema={validationsItem}
+                enableReinitialize
+                onSubmit={(values) => {
+                    const newValues = {
+                        idRetrospective: parseInt(idRetrospective),
+                        title: values.title,
+                        description: values.description,
+                    };
+
+                    isUpdate ? handleUpdateItemRetrospective(idItemRetrospective, idRetrospective, newValues, values.type) 
+                        : handleCreateItemRetrospective( newValues, idRetrospective, values.type);
+                }}
             >
-                <Container
-                    flexDirection="column"
-                    maxWidth="1120px"
-                    width="100%"
-                    backgroundColor="#292730"
-                    borderRadius="8px"
-                    padding="24px 64px"
-                    paddingQuery="24px 32px"
-                >
-                    <Formik
-                        initialValues={{
-                            type: '',
-                            title: infoItem && infoItem.title ? infoItem.title : '',
-                            description: infoItem && infoItem.description ? infoItem.description : '',
-                        }}
-                        validationSchema={validationsItem}
-                        enableReinitialize
-                        onSubmit={(values) => {
-                            const newValues = {
-                                idRetrospective: parseInt(idRetrospective),
-                                title: values.title,
-                                description: values.description,
-                            };
-                            isUpdate ? handleUpdateItemRetrospective(idItemRetrospective, idRetrospective, newValues, values.type) : handleCreateItemRetrospective(
-                                newValues,
-                                idRetrospective,
-                                values.type
-                            );
-                        }}
-                    >
-                        {(props) => (
-                            <CustomForm color="#fff">
-                                <Title marginBottom="30px">
-                                    {isUpdate ? 'Atualizar Retrocard' : 'Cadastrar Retrocard'}
-                                </Title>
-                                <Label htmlFor="type">Tipo</Label>
-                                <Container
-                                    position="relative"
-                                    flexDirection="column"
-                                >
-                                    <Select
-                                        label="Escolha um tipo"
-                                        setKey="value"
-                                        values={Tipo}
-                                        onChange={(v) =>
-                                            props.setFieldValue("type", v)
-                                        }
-                                    />
-                                    <Dropdown top="12px" right="25px" />
-                                    <CustomErrorMessage name={"type"} />
-                                </Container>
-                                <Label htmlFor="title">Título</Label>
-                                <Input
-                                    name="title"
-                                    onChange={props.handleChange}
-                                    onBlur={props.handleBlur}
-                                    value={props.values.title}
-                                    placeholder="Digite o título do Item da Retrospectiva"
-                                    id="title"
-                                />
-                                <CustomErrorMessage name={"title"} />
-                                <Label htmlFor="description">Descrição</Label>
-                                <Input
-                                    name="description"
-                                    onChange={props.handleChange}
-                                    onBlur={props.handleBlur}
-                                    value={props.values.description}
-                                    placeholder="Digite a descrição do Item da Retrospectiva"
-                                    id="description"
-                                />
-                                <CustomErrorMessage name={"description"} />
-                                <Container justifyContent="space-around">
-                                    <Button
-                                        id="backToRetrospectiveFromItem"
-                                        backgroundColor="transparent"
-                                        color="#fff"
-                                        border="1px solid #fff"
-                                        backgroundColorHover="#5454fb"
-                                        borderHover="1px solid #5454fb"
-                                        colorHover="#fff"
-                                        onClick={() =>
-                                            navigate(
-                                                `/retrospectiva/${idRetrospective}`
-                                            )
-                                        }
-                                    >
-                                        Voltar
-                                    </Button>
-                                    <Button
-                                        id="createItemRetrospective"
-                                        backgroundColor="#fff"
-                                        color="#12101a"
-                                        border="1px solid #fff"
-                                        backgroundColorHover="#5454fb"
-                                        borderHover="1px solid #5454fb"
-                                        colorHover="#fff"
-                                        type="submit"
-                                    >
-                                        {isUpdate ? 'Atualizar' : 'Cadastrar'}
-                                    </Button>
-                                </Container>
-                            </CustomForm>
-                        )}
-                    </Formik>
-                </Container>
-            </Container>
-        </>
+                {(props) => (
+                    <CustomForm color="#fff">
+                        <Title marginBottom="30px">
+                            {isUpdate ? 'Atualizar Retrocard' : 'Cadastrar Retrocard'}
+                        </Title>
+                        <Label htmlFor="type">Tipo</Label>
+                        <Container
+                            position="relative"
+                            flexDirection="column"
+                        >
+                            <Select
+                                label="Escolha um tipo"
+                                setKey="value"
+                                values={Tipo}
+                                onChange={(v) =>
+                                    props.setFieldValue("type", v)
+                                }
+                            />
+                            <Dropdown top="12px" right="25px" />
+                            <CustomErrorMessage name={"type"} id=""type-error/>
+                        </Container>
+                        <Label htmlFor="title">Título</Label>
+                        <Input
+                            name="title"
+                            onChange={props.handleChange}
+                            onBlur={props.handleBlur}
+                            value={props.values.title}
+                            placeholder="Digite o título do Item da Retrospectiva"
+                            id="title"
+                        />
+                        <CustomErrorMessage name={"title"} id="title-error" />
+                        <Label htmlFor="description">Descrição</Label>
+                        <Input
+                            name="description"
+                            onChange={props.handleChange}
+                            onBlur={props.handleBlur}
+                            value={props.values.description}
+                            placeholder="Digite a descrição do Item da Retrospectiva"
+                            id="description"
+                        />
+                        <CustomErrorMessage name={"description"} id="description-error"/>
+                        <Container justifyContent="space-around">
+                            <Button
+                                id="backToRetrospectiveFromItem"
+                                backgroundColor="transparent"
+                                color="#fff"
+                                border="1px solid #fff"
+                                backgroundColorHover="#5454fb"
+                                borderHover="1px solid #5454fb"
+                                colorHover="#fff"
+                                onClick={() => navigate(`/retrospectiva/${idRetrospective}`)}
+                            >
+                                Voltar
+                            </Button>
+                            <Button
+                                id="createItemRetrospective"
+                                backgroundColor="#fff"
+                                color="#12101a"
+                                border="1px solid #fff"
+                                backgroundColorHover="#5454fb"
+                                borderHover="1px solid #5454fb"
+                                colorHover="#fff"
+                                type="submit"
+                            >
+                                {isUpdate ? 'Atualizar' : 'Cadastrar'}
+                            </Button>
+                        </Container>
+                    </CustomForm>
+                )}
+            </Formik>
+        </Container>
     );
 };
+
 export default ItemRetroForm;

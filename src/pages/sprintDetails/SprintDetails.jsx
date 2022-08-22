@@ -91,17 +91,11 @@ const SprintDetails = () => {
     };
 
     const updateStatusToInProgress = (idRetrospective) => {
-        Modal({
-            ...paramModal.RETROSPECTIVA.edit,
-            values: [idRetrospective, "IN_PROGRESS"],
-        });
+        Modal({...paramModal.Retrospectiva.edit, values: [idRetrospective, "IN_PROGRESS"]});
     };
 
     const updateStatusToFinished = (idRetrospective) => {
-        Modal({
-            ...paramModal.RETROSPECTIVA.edit,
-            values: [idRetrospective, "FINISHED"],
-        });
+        Modal({...paramModal.Retrospectiva.edit, values: [idRetrospective, "FINISHED"]});
     };
 
     const updateRetrospective = (idRetrospective) => {
@@ -109,17 +103,11 @@ const SprintDetails = () => {
     };
 
     const deleteRetrospectiveModal = (idRetrospective) => {
-        Modal({
-            ...paramModal.RETROSPECTIVA.delete,
-            values: [idRetrospective],
-        });
+        Modal({...paramModal.Retrospectiva.delete, values: [idRetrospective]});
     };
 
     const deleteKudoBoxModal = (idKudoBox) => {
-        Modal({
-            ...paramModal.KUDOBOX.delete,
-            values: [idKudoBox],
-        });
+        Modal({ ...paramModal["Kudo Box"].delete, values: [idKudoBox]});
     };
 
     const navigateToUpdateKudoBox = (idKudoBox) => {
@@ -144,49 +132,49 @@ const SprintDetails = () => {
                     param: "idRetrospective",
                     status: "IN_PROGRESS",
                     icon: <FaStopCircle />,
-                    iconColor: "#0B69F5",
+                    iconColor: "var(--dark-blue)",
                 },
                 {
                     function: updateStatusToInProgress,
                     param: "idRetrospective",
                     status: "CREATE",
                     icon: <FaPlayCircle />,
-                    iconColor: "#51be51",
+                    iconColor: "var(--green)",
                 },
                 {
                     function: navigateToSendEmail,
                     param: "idRetrospective",
                     status: "FINISHED",
                     icon: <FaEnvelope />,
-                    iconColor: "#4faaff",
+                    iconColor: "var(--light-blue)",
                 },
                 {
                     function: updateRetrospective,
                     param: "idRetrospective",
                     status: "IN_PROGRESS",
                     icon: <FaEdit />,
-                    iconColor: "#ffee51",
+                    iconColor: "var(--yellow)",
                 },
                 {
                     function: deleteRetrospectiveModal,
                     param: "idRetrospective",
                     status: "IN_PROGRESS",
                     icon: <FaTrashAlt />,
-                    iconColor: "#ff3232",
+                    iconColor: "var(--red)",
                 },
                 {
                     function: updateRetrospective,
                     param: "idRetrospective",
                     status: "CREATE",
                     icon: <FaEdit />,
-                    iconColor: "#ffee51",
+                    iconColor: "var(--yellow)",
                 },
                 {
                     function: deleteRetrospectiveModal,
                     param: "idRetrospective",
                     status: "CREATE",
                     icon: <FaTrashAlt />,
-                    iconColor: "#ff3232",
+                    iconColor: "var(--red)",
                 },
             ],
         },
@@ -207,35 +195,27 @@ const SprintDetails = () => {
                     param: "idKudoBox",
                     status: "IN_PROGRESS",
                     icon: <FaEdit />,
-                    iconColor: "#ffee51",
+                    iconColor: "var(--yellow)",
                 },
                 {
                     function: deleteKudoBoxModal,
                     param: "idKudoBox",
                     status: "IN_PROGRESS",
                     icon: <FaTrashAlt />,
-                    iconColor: "#ff3232",
+                    iconColor: "var(--red)",
                 },
             ],
         },
     };
 
     return (
-        <Container
-            minHeight="calc(100vh - 100px)"
-            backgroundColor="#12101A"
-            color="#fff"
-            flexDirection="column"
-            alignItems="center"
-            padding="30px"
-        >
             <Container
-                maxWidth="1120px"
+                maxWidth="var(--max-width)"
                 width="100%"
                 flexDirection="column"
                 gap="30px"
             >
-                <Container justifyContent="space-between" gap="30px">
+                <Container justifyContent="space-between" gap="30px" flexDirectionQuery="column">
                     <Tab
                         filterList={sprintFilter}
                         setFilter={setFilter}
@@ -243,19 +223,13 @@ const SprintDetails = () => {
                     />
                     {user.role !== "ROLE_MEMBER" && (
                         <Button
-                            id={
-                                filter === "RETROSPECTIVA"
-                                    ? "createRetrospective"
-                                    : "createKudoBox"
-                            }
+                            id={filter === "RETROSPECTIVA" ? "createRetrospective": "createKudoBox"}
                             backgroundColor="#fff"
                             color="#12101a"
                             padding="8px 16px"
                             onClick={() => navigate(paramSprint[filter].create)}
                         >
-                            {filter === "RETROSPECTIVA"
-                                ? "+ Criar Retrospectiva"
-                                : "+ Criar Kudos Box"}
+                            {filter === "RETROSPECTIVA" ? "+ Criar Retrospectiva" : "+ Criar Kudos Box"}
                         </Button>
                     )}
                 </Container>
@@ -270,9 +244,7 @@ const SprintDetails = () => {
 
                 {list.length === 0 && (
                     <Title textAlign="center">
-                        {filter === "RETROSPECTIVA"
-                            ? "Nenhuma retrospectiva"
-                            : "Nenhum kudobox"}
+                        {filter === "RETROSPECTIVA" ? "Nenhuma retrospectiva" : "Nenhum kudobox"}
                     </Title>
                 )}
 
@@ -284,7 +256,6 @@ const SprintDetails = () => {
                     onPageChange={setCurrentPage}
                 />
             </Container>
-        </Container>
     );
 };
 

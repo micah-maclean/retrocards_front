@@ -4,7 +4,7 @@ import { TabButton } from "./TabButton";
 
 const Tab = ({ filterList, setFilter, activeFilter }) => {
     return (
-        <Container>
+        <Container >
             {filterList.map((filter, i) => (
                 <TabButton
                     backgroundColor="transparent"

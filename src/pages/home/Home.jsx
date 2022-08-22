@@ -22,7 +22,7 @@ const Home = () => {
     const { getSprintList, handleDeleteSprint } = useContext(SprintContext);
     const navigate = useNavigate();
     const [currentPage, setCurrentPage] = useState(0);
-    const [pageSize, setPageSize] = useState(10);
+    const pageSize = 10;
     const [totalCount, setTotalCount] = useState(0);
     const [totalPages, setTotalPages] = useState(0);
     const [list, setList] = useState([]);
@@ -53,10 +53,7 @@ const Home = () => {
     };
 
     const deleteSprint = (idSprint) => {
-        Modal({
-            ...paramModal,
-            values: [idSprint],
-        });
+        Modal({...paramModal.delete, values: [idSprint]});
     };
 
     const paramsTables = {
@@ -87,57 +84,48 @@ const Home = () => {
 
     return (
         <Container
-            minHeight="calc(100vh - 100px)"
-            backgroundColor="#12101A"
+            maxWidth="var(--max-width)"
+            width="100%"
             flexDirection="column"
-            alignItems="center"
-            padding="30px"
+            gap="32px"
         >
-            <Container
-                maxWidth="1120px"
-                width="100%"
-                flexDirection="column"
-                gap="32px"
-                color="#fff"
-            >
-                <Container alignItems="center" justifyContent="space-between">
-                    <Title textAlign="left" color="#fff">
-                        Sprints
-                    </Title>
-                    {(user.role === "ROLE_FACILITATOR" ||
-                        user.role === "ROLE_ADMIN") && (
-                        <Button
-                            id="createSprint"
-                            backgroundColor="#fff"
-                            color="black"
-                            onClick={() => navigate("/sprint/cadastrar")}
-                        >
-                            {" "}
-                            + Criar
-                        </Button>
-                    )}
-                </Container>
-
-                <Table
-                    list={list}
-                    params={paramsTables.params}
-                    path={paramsTables.path}
-                    pathKey={paramsTables.pathKey}
-                    actions={paramsTables.actions}
-                />
-
-                {list.length === 0 && (
-                    <Title>Nenhuma sprint criada ainda</Title>
+            <Container alignItems="center" justifyContent="space-between">
+                <Title textAlign="left">
+                    Sprints
+                </Title>
+                {(user.role === "ROLE_FACILITATOR" ||
+                    user.role === "ROLE_ADMIN") && (
+                    <Button
+                        id="createSprint"
+                        backgroundColor="#fff"
+                        color="black"
+                        onClick={() => navigate("/sprint/cadastrar")}
+                    >
+                        {" "}
+                        + Criar
+                    </Button>
                 )}
-
-                <Pagination
-                    totalCount={totalCount}
-                    totalPages={totalPages}
-                    currentPage={currentPage}
-                    pageSize={pageSize}
-                    onPageChange={setCurrentPage}
-                />
             </Container>
+
+            <Table
+                list={list}
+                params={paramsTables.params}
+                path={paramsTables.path}
+                pathKey={paramsTables.pathKey}
+                actions={paramsTables.actions}
+            />
+
+            {list.length === 0 && (
+                <Title>Nenhuma sprint criada ainda</Title>
+            )}
+
+            <Pagination
+                totalCount={totalCount}
+                totalPages={totalPages}
+                currentPage={currentPage}
+                pageSize={pageSize}
+                onPageChange={setCurrentPage}
+            />
         </Container>
     );
 };

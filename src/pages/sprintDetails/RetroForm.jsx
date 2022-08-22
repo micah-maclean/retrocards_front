@@ -54,127 +54,102 @@ const RetroForm = () => {
         setup();
     }, []);
     return (
-        <>
-            <Container
-                backgroundColor="#12101a"
-                height="calc(100vh - 100px)"
-                padding="30px"
-                justifyContent="center"
-                alignItems="center"
+        <Container
+            flexDirection="column"
+            maxWidth="var(--max-width)"
+            width="100%"
+            backgroundColor="var(--dark-grey)"
+            borderRadius="8px"
+            padding="24px 64px"
+            paddingQuery="24px 32px"
+        >
+            <Formik
+                initialValues={{
+                    title: info ? info.title : "",
+                    occurredDate: info
+                        ? formatDateToRender(info.occurredDate)
+                        : "",
+                    startDateSprint: sprintDetail && sprintDetail.startDate,
+                    endDateSprint: sprintDetail && sprintDetail.endDate,
+                }}
+                enableReinitialize
+                validationSchema={validationsRetrospective}
+                onSubmit={(values) => {
+                    const newValues = {
+                        idSprint: idSprint,
+                        title: values.title,
+                        occurredDate: formatDateToDatabase(values.occurredDate),
+                    };
+
+                    isUpdate ? handleUpdateRetrospective( idRetrospective, idSprint, newValues)
+                        : handleCreateRetrospective( newValues, idSprint);
+                }}
             >
-                <Container
-                    flexDirection="column"
-                    maxWidth="1120px"
-                    width="100%"
-                    backgroundColor="#292730"
-                    borderRadius="8px"
-                    padding="24px 64px"
-                    paddingQuery="24px 32px"
-                >
-                    <Formik
-                        initialValues={{
-                            title: info ? info.title : "",
-                            occurredDate: info
-                                ? formatDateToRender(info.occurredDate)
-                                : "",
-                            startDateSprint:
-                                sprintDetail && sprintDetail.startDate,
-                            endDateSprint: sprintDetail && sprintDetail.endDate,
-                        }}
-                        enableReinitialize
-                        validationSchema={validationsRetrospective}
-                        onSubmit={(values) => {
-                            const newValues = {
-                                idSprint: idSprint,
-                                title: values.title,
-                                occurredDate: formatDateToDatabase(
-                                    values.occurredDate
-                                ),
-                            };
-                            isUpdate
-                                ? handleUpdateRetrospective(
-                                      idRetrospective,
-                                      idSprint,
-                                      newValues
-                                  )
-                                : handleCreateRetrospective(
-                                      newValues,
-                                      idSprint
-                                  );
-                        }}
-                    >
-                        {(props) => (
-                            <CustomForm color="#fff">
-                                <Title marginBottom="30px">
-                                    {isUpdate
-                                        ? "Editar Retrospectiva"
-                                        : "Criar Retrospectiva"}
-                                </Title>
-                                <Label htmlFor="title">Título</Label>
-                                <Input
-                                    name="title"
-                                    onChange={props.handleChange}
-                                    onBlur={props.handleBlur}
-                                    value={props.values.title}
-                                    placeholder="Digite o título da Retrospectiva"
-                                    id="title"
-                                />
-                                <CustomErrorMessage name={"title"} id='title-error'/>
-                                <Container
-                                    position="relative"
-                                    flexDirection="column"
-                                >
-                                    <Label htmlFor="initialDate">
-                                        Data da Retrospectiva
-                                    </Label>
-                                    <InputMask
-                                        mask={dataMask}
-                                        name="occurredDate"
-                                        onChange={props.handleChange}
-                                        onBlur={props.handleBlur}
-                                        value={props.values.occurredDate}
-                                        type="text"
-                                        id="occurredDate"
-                                        placeholder="Insira a data da retrospectiva"
-                                        width="100%"
-                                    />
-                                    <Calendar top="50px" right="35px" />
-                                    <CustomErrorMessage name={"occurredDate"} id="occurredDate-error" />
-                                </Container>
-                                <Container justifyContent="space-around">
-                                    <Button
-                                        id="backToSprintFromRetropective"
-                                        backgroundColor="transparent"
-                                        color="#fff"
-                                        border="1px solid #fff"
-                                        backgroundColorHover="#5454fb"
-                                        borderHover="1px solid #5454fb"
-                                        colorHover="#fff"
-                                        onClick={() =>
-                                            handleNavigateToSprintById(idSprint)
-                                        }
-                                    >
-                                        Voltar
-                                    </Button>
-                                    <Button
-                                        id="submitRetrospective"
-                                        backgroundColor="#fff"
-                                        color="#12101a"
-                                        border="1px solid #fff"
-                                        backgroundColorHover="#5454fb"
-                                        borderHover="1px solid #5454fb"
-                                        colorHover="#fff"
-                                        type="submit"
-                                    >
-                                        {isUpdate ? "Editar" : "Cadastrar"}
-                                    </Button>
-                                </Container>
-                            </CustomForm>
-                        )}
-                    </Formik>
-                </Container>
-            </Container>
-        </>
+                {(props) => (
+                    <CustomForm color="#fff">
+                        <Title marginBottom="30px">
+                            {isUpdate
+                                ? "Editar Retrospectiva"
+                                : "Criar Retrospectiva"}
+                        </Title>
+                        <Label htmlFor="title">Título</Label>
+                        <Input
+                            name="title"
+                            onChange={props.handleChange}
+                            onBlur={props.handleBlur}
+                            value={props.values.title}
+                            placeholder="Digite o título da Retrospectiva"
+                            id="title"
+                        />
+                        <CustomErrorMessage name={"title"} id='title-error'/>
+                        <Container position="relative" flexDirection="column">
+                            <Label htmlFor="initialDate">
+                                Data da Retrospectiva
+                            </Label>
+                            <InputMask
+                                mask={dataMask}
+                                name="occurredDate"
+                                onChange={props.handleChange}
+                                onBlur={props.handleBlur}
+                                value={props.values.occurredDate}
+                                type="text"
+                                id="occurredDate"
+                                placeholder="Insira a data da retrospectiva"
+                                width="100%"
+                            />
+                            <Calendar top="50px" right="35px" />
+                            <CustomErrorMessage name={"occurredDate"} id="occurredDate-error" />
+                        </Container>
+                        <Container justifyContent="space-around">
+                            <Button
+                                id="backToSprintFromRetropective"
+                                backgroundColor="transparent"
+                                color="#fff"
+                                border="1px solid #fff"
+                                backgroundColorHover="#5454fb"
+                                borderHover="1px solid #5454fb"
+                                colorHover="#fff"
+                                onClick={() => handleNavigateToSprintById(idSprint)}
+                            >
+                                Voltar
+                            </Button>
+                            <Button
+                                id="submitRetrospective"
+                                backgroundColor="#fff"
+                                color="#12101a"
+                                border="1px solid #fff"
+                                backgroundColorHover="#5454fb"
+                                borderHover="1px solid #5454fb"
+                                colorHover="#fff"
+                                type="submit"
+                            >
+                                {isUpdate ? "Editar" : "Cadastrar"}
+                            </Button>
+                        </Container>
+                    </CustomForm>
+                )}
+            </Formik>
+        </Container>
     );
 };
 export default RetroForm;

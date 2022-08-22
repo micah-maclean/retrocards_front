@@ -33,11 +33,10 @@ export const Label = styled.label`
 export const Input = styled(Field)`
     padding: 16px;
     font-size: 1rem;
-    border-radius: 8px;
+    border-radius: var(--border-radius);
     margin-bottom: 5px;
     color: ${(props) => (props.color ? props.color : "#fff")};
-    background-color: ${(props) =>
-        props.background ? props.background : "#3c3e44"};
+    background-color: ${(props) => props.background ? props.background : "#3c3e44"};
     border: ${(props) => (props.border ? props.border : "1px solid #3c3e44")};
     width: ${(props) => props.width && props.width};
 
@@ -55,11 +54,10 @@ export const InputMask = styled(MaskedInput)`
     width: ${(props) => props.width && props.width};
     padding: 16px;
     font-size: 1rem;
-    border-radius: 8px;
+    border-radius: var(--border-radius);
     margin-bottom: 5px;
     color: ${(props) => (props.color ? props.color : "#fff")};
-    background-color: ${(props) =>
-        props.background ? props.background : "#3c3e44"};
+    background-color: ${(props) => props.background ? props.background : "#3c3e44"};
     border: ${(props) => (props.border ? props.border : "1px solid #3c3e44")};
 
     ::placeholder {
@@ -81,7 +79,7 @@ export const Calendar = styled(FcCalendar)`
 
 export const Dropdown = styled(IoMdArrowDropdown)`
     font-size: 32px;
-    color: #292730;
+    color: var(--dark-grey);
     position: absolute;
     top: ${(props) => props.top && props.top};
     right: ${(props) => props.right && props.right};
@@ -104,7 +102,7 @@ export const Checkbox = styled(Field)`
     background-color: #3c3e44;
     display: flex;
     align-items: center;
-    border-radius: 8px;
+    border-radius: var(--border-radius);
     width: 26px;
     height: 26px;
     margin-right: 10px;
@@ -130,7 +128,7 @@ export const SelectContainer = styled.div`
 export const SelectLabelButton = styled.div`
     padding: 16px;
     font-size: 1rem;
-    border-radius: 8px;
+    border-radius: var(--border-radius);
     margin-bottom: 5px;
     min-width: 7rem;
     font-weight: 500;
@@ -154,7 +152,7 @@ export const DropdownStyle = styled.div`
     padding: 0.4rem;
     display: flex;
     flex-direction: column;
-    border-radius: 8px;
+    border-radius: var(--border-radius);
     background-color: #3c3e44;
     border: 1px solid #3c3e44;
     transition: max-height 0.2s ease;

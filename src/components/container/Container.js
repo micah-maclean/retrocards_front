@@ -2,12 +2,12 @@ import styled from "styled-components";
 
 export const Container = styled.div`
     display: ${(props) => (props.flex ? props.flex : "flex")};
+
     flex-direction: ${(props) => props.flexDirection && props.flexDirection};
     justify-content: ${(props) => props.justifyContent && props.justifyContent};
     align-items: ${(props) => props.alignItems && props.alignItems};
 
-    background-color: ${(props) =>
-        props.backgroundColor && props.backgroundColor};
+    background-color: ${(props) => props.backgroundColor && props.backgroundColor};
     color: ${(props) => (props.color ? props.color : "inherit")};
 
     border: ${(props) => props.border && props.border};
@@ -33,7 +33,6 @@ export const Container = styled.div`
     }
 
     @media (max-width: 576px) {
-        flex-direction: ${(props) =>
-            props.flexDirectionQuery && props.flexDirectionQuery};
+        flex-direction: ${(props) => props.flexDirectionQuery && props.flexDirectionQuery};
     }
 `;

@@ -2,8 +2,8 @@ import styled from "styled-components";
 
 export const CustomTable = styled.table`
     width: 100%;
-    border-collapse: collapse;
-    border-radius: 8px;
+    border-collapse: collapse; 
+    color: #fff;
 
     th {
         text-align: left;
@@ -15,7 +15,7 @@ export const CustomTable = styled.table`
 
     tbody {
         tr {
-            background-color: #292730;
+            background-color: var(--dark-grey);
         }
 
         tr:hover {
@@ -24,30 +24,18 @@ export const CustomTable = styled.table`
         }
     }
 
-    td,
-    th {
-        color: #fff;
-    }
-
-    td,
-    th {
+    td, th {
         padding: 16px 24px;
         text-align: center;
         border: 1px solid rgba(255, 255, 255, 0.1);
     }
-    button {
-        z-index: 2;
-    }
 
     @media (max-width: 800px) {
-        width: 100%;
         thead {
             display: none;
         }
 
-        td,
-        th,
-        tr {
+        td, th, tr {
             display: block;
             width: 100%;
         }

@@ -12,7 +12,7 @@ const NotFound = () => {
     const navigate = useNavigate();
     return (
         <Container
-            maxWidth="1120px"
+            maxWidth="var(--max-width)"
             height="100vh"
             alignItems="center"
             justifyContent="space-around"
