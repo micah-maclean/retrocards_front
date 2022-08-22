@@ -217,16 +217,7 @@ const SprintDetails = () => {
     };
 
     if (loading) {
-        return (
-            <Container
-                alignItems="center"
-                justifyContent="center"
-                backgroundColor="#12101a"
-                height="100vh"
-            >
-                <Loading />
-            </Container>
-        );
+        return <Loading />
     }
 
     return (

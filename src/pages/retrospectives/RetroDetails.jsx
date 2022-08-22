@@ -33,12 +33,8 @@ const RetroDetails = () => {
         setLoading(true);
         const data = await getRetroById(idRetrospective);
         const details = await getRetroDetailsById(idRetrospective);
-        setInfo(details);
-        if (data) {
-            setList(data);
-        } else {
-            setList([]);
-        }
+        details ? setInfo(details) : setInfo({});
+        data ? setList(data) : setList([]);
         setLoading(false);
     };
 

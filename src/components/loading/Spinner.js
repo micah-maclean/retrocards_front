@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const Loading = styled.div`
+export const Spinner = styled.div`
     border: 16px solid #fff;
     border-top: 16px solid #5454fb;
     border-radius: 50%;
