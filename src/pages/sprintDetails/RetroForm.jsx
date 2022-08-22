@@ -41,10 +41,10 @@ const RetroForm = () => {
     const [isUpdate, setIsUpdate] = useState(false);
     const [info, setInfo] = useState();
     const [sprintDetail, setSprintDetail] = useState();
-    const [loading, setLoading] = useState(true)
+    // const [loading, setLoading] = useState(true)
 
     const setup = async () => {
-        setLoading(true)
+        // setLoading(true)
         const detail = await getSprintById(idSprint);
         setSprintDetail(detail);
         if (idRetrospective) {
@@ -52,15 +52,15 @@ const RetroForm = () => {
             setInfo(data);
             setIsUpdate(true);
         }
-        setLoading(false)
+        // setLoading(false)
     };
     useEffect(() => {
         setup();
     }, []);
 
-    if (loading) {
-        return <Loading />
-    }
+    // if (loading) {
+    //     return <Loading />
+    // }
 
     return (
         <Container

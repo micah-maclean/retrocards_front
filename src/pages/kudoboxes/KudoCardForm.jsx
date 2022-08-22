@@ -32,10 +32,10 @@ const KudoCardForm = () => {
     const [infoCard, setInfoCard] = useState()
     const [isUpdate, setIsUpdate] = useState(false)
     const navigate = useNavigate();
-    const [loading, setLoading] = useState(true)
+    // const [loading, setLoading] = useState(true)
 
     const setup = async () => {
-        setLoading(true)
+        // setLoading(true)
         const data = await getUsersEmails();
         if (data) {
             setUserEmail(data);
@@ -45,16 +45,16 @@ const KudoCardForm = () => {
             setInfoCard(info)
             setIsUpdate(true)
         }
-        setLoading(false)
+        // setLoading(false)
     };
 
     useEffect(() => {
         setup();
     }, []);
 
-    if (loading) {
-        return <Loading/>
-    }
+    // if (loading) {
+    //     return <Loading/>
+    // }
 
     return (
         <Container

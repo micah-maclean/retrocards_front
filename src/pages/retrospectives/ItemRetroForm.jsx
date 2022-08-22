@@ -28,26 +28,26 @@ const ItemRetroForm = () => {
     const { idRetrospective, idItemRetrospective } = useParams();
     const [infoItem, setInfoItem] = useState()
     const [isUpdate, setIsUpdate] = useState(false)
-    const [loading, setLoading] = useState(true);
+    // const [loading, setLoading] = useState(true);
     const navigate = useNavigate();
 
     const setup = async () => {
-        setLoading(true);
+        // setLoading(true);
         if(idItemRetrospective){
             const data = await getItemRetrospectiveById(idItemRetrospective)
             setIsUpdate(true)
             setInfoItem(data)
         }
-        setLoading(false)
+        // setLoading(false)
     }
 
     useEffect(() => {
         setup()
     },[])
 
-    if(loading){
-        return <Loading/>
-    }
+    // if(loading){
+    //     return <Loading/>
+    // }
     return (
         <Container
             flexDirection="column"
