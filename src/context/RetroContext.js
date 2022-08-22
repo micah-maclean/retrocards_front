@@ -23,11 +23,7 @@ const RetroProvider = ({ children }) => {
         }
     };
 
-    const getRetrospectiveBySprintId = async (
-        idSprint,
-        currentPage,
-        pageSize
-    ) => {
+    const getRetrospectiveBySprintId = async (idSprint, currentPage, pageSize) => {
         try {
             const { data } = await api.get(
                 `/retrospective/list/sprint/${idSprint}?page=${currentPage}&quantityPerPage=${pageSize}`

@@ -45,21 +45,17 @@ const SprintDetails = () => {
     const setup = async (filter) => {
         setLoading(true)
         const detail = await getSprintById(idSprint)
-        setSprintDetail(detail)
+        detail ? setSprintDetail(detail) : navigate('/');
+
         const data =
         filter === "RETROSPECTIVA"
-        ? await getRetrospectiveBySprintId(
-            idSprint,
-            currentPage,
-            pageSize
-            )
-            : await getKudoboxBySprintId(idSprint, currentPage, pageSize);
+        ? await getRetrospectiveBySprintId(idSprint, currentPage, pageSize)
+        : await getKudoboxBySprintId(idSprint, currentPage, pageSize);
             
-            
-            if (data) {
-                setTotalCount(data.totalElements);
-                setTotalPages(data.totalPages);
-                setList(data.content);
+        if (data) {
+            setTotalCount(data.totalElements);
+            setTotalPages(data.totalPages);
+            setList(data.content);
         } else {
             setList([]);
             setTotalCount(0);
