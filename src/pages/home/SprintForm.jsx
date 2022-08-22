@@ -40,13 +40,13 @@ const SprintForm = () => {
     const [loading, setLoading] = useState(true);
 
     const setup = async () => {
-        setLoading(true);
+        // setLoading(true);
         if (idSprint) {
             const data = await getSprintById(idSprint);
             setInfo(data);
             setIsUpdate(true);
         }
-        setLoading(false);
+        // setLoading(false);
     };
 
     useEffect(() => {
