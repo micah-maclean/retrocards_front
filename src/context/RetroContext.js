@@ -88,9 +88,6 @@ const RetroProvider = ({ children }) => {
             );
             return data;
         } catch (error) {
-            if (error.response.data.status === 400) {
-                return;
-            }
             toast.error(error.response.data.message);
         }
     };
