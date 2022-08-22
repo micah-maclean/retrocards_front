@@ -11,11 +11,9 @@ import { Container } from "../../components/container/Container";
 import Pagination from "../../components/pagination/Pagination";
 import { Button } from "../../components/button/Button";
 import { Title } from "../../components/title/Title";
-import { confirmAlert } from "react-confirm-alert";
-import "react-confirm-alert/src/react-confirm-alert.css";
-import "../../components/modal/Modal.css";
 import { FaEdit, FaTrashAlt } from "react-icons/fa";
 import { Modal } from "../../components/modal/Modal";
+import { Loading } from "../../components/loading/Loading";
 
 const Home = () => {
     const { user, reducerValue } = useContext(AuthContext);
@@ -26,8 +24,10 @@ const Home = () => {
     const [totalCount, setTotalCount] = useState(0);
     const [totalPages, setTotalPages] = useState(0);
     const [list, setList] = useState([]);
+    const [loading, setLoading] = useState(true);
 
     const setup = async () => {
+        setLoading(true);
         const data = await getSprintList(currentPage, pageSize);
         if (data) {
             setTotalCount(data.totalElements);
@@ -36,6 +36,7 @@ const Home = () => {
         } else {
             setList([]);
         }
+        setLoading(false);
     };
 
     useEffect(() => {
@@ -60,7 +61,7 @@ const Home = () => {
     const paramsTables = {
         params: [
             { heading: "Id", key: "idSprint" },
-            { heading: "Titulo", key: "title" },
+            { heading: "Título", key: "title" },
             { heading: "Data de Conclusão", key: "endDate" },
         ],
         actions: [
@@ -83,6 +84,10 @@ const Home = () => {
         pathKey: "idSprint",
     };
 
+    if(loading){
+        return <Loading/>
+    }
+
     return (
         <Container
             maxWidth="var(--max-width)"
@@ -102,7 +107,6 @@ const Home = () => {
                         color="black"
                         onClick={() => navigate("/sprint/cadastrar")}
                     >
-                        {" "}
                         + Criar
                     </Button>
                 )}

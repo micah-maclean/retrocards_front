@@ -19,25 +19,34 @@ import { Formik } from "formik";
 import Table from "../../components/table/Table";
 import { RetroContext } from "../../context/RetroContext";
 import { useNavigate, useParams } from "react-router-dom";
+import { Loading } from "../../components/loading/Loading";
 
 const SendEmailForm = () => {
     const { getUsersEmails } = useContext(AuthContext);
     const { sendEmail } = useContext(RetroContext);
     const { idRetrospective, idSprint } = useParams();
+    const [loading, setLoading] = useState(true);
     const [userEmail, setUserEmail] = useState([]);
     const [receivers, setReceivers] = useState([]);
     const navigate = useNavigate();
 
     const setup = async () => {
+        setLoading(true);
         const data = await getUsersEmails();
         if (data) {
             setUserEmail(data);
         }
+        setLoading(false);
     };
 
     useEffect(() => {
         setup();
     }, []);
+
+    if(loading) {
+        return <Loading/>
+    }
+    
     return (
             <Container
                 flexDirection="column"

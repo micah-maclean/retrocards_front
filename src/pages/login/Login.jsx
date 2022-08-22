@@ -7,11 +7,7 @@ import { useContext } from "react";
 //Import referente ao context
 import { AuthContext } from "../../context/AuthContext";
 //Import referente aos componentes
-import {
-    CustomForm,
-    Input,
-    Label,
-} from "../../components/customForm/CustomForm";
+import { CustomForm, Input, Label} from "../../components/customForm/CustomForm";
 import { Container } from "../../components/container/Container";
 import { Button } from "../../components/button/Button";
 import CustomErrorMessage from "../../components/customForm/CustomErrorMessage";
@@ -24,6 +20,7 @@ import { Paragraph } from "../../components/paragraph/Paragraph";
 
 const Login = () => {
     const { handleLogin } = useContext(AuthContext);
+
     return (
         <Container width="100%" height="100vh" position="relative">
             <Container

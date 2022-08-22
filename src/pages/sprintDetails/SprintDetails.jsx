@@ -118,10 +118,10 @@ const SprintDetails = () => {
         RETROSPECTIVA: {
             param: [
                 { heading: "Id", key: "idRetrospective" },
-                { heading: "Titulo", key: "title" },
+                { heading: "Título", key: "title" },
                 { heading: "Data da Reunião", key: "occurredDate" },
                 { heading: "Status", key: "status" },
-                { heading: "Quantidade de Items", key: "numberOfItens" },
+                { heading: "Quantidade de Itens", key: "numberOfItens" },
             ],
             path: "/retrospectiva",
             pathKey: "idRetrospective",
@@ -181,10 +181,10 @@ const SprintDetails = () => {
         KUDOBOX: {
             param: [
                 { heading: "Id", key: "idKudoBox" },
-                { heading: "Titulo", key: "title" },
+                { heading: "Título", key: "title" },
                 { heading: "Data de encerramento", key: "endDate" },
                 { heading: "Status", key: "status" },
-                { heading: "Quantidade de Items", key: "numberOfItens" },
+                { heading: "Quantidade de Itens", key: "numberOfItens" },
             ],
             path: "/kudobox",
             pathKey: "idKudoBox",

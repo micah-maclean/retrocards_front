@@ -27,9 +27,11 @@ const AuthProvider = ({ children }) => {
             setToken(token);
             api.defaults.headers.common["Authorization"] = token;
             getLogged();
+        } else{
+            setLoading(false)
         }
-        setLoading(false);
     }, []);
+
 
     const handleLogin = async (values) => {
         setLoading(true);
@@ -48,15 +50,14 @@ const AuthProvider = ({ children }) => {
     };
 
     const handleLogout = () => {
-        setLoading(true);
         setToken("");
         delete api.defaults.headers.common["Authorization"];
         localStorage.removeItem("token");
         navigate("/login");
-        setLoading(false);
     };
 
     const handleSignup = async (values) => {
+        setLoading(true);
         try {
             await api.post("/user/create", values);
             toast.success("Cadastro realizado com sucesso");
@@ -64,6 +65,7 @@ const AuthProvider = ({ children }) => {
         } catch (error) {
             toast.error(error.response.data.message);
         }
+        setLoading(false);
     };
 
     const getLogged = async () => {
@@ -74,6 +76,7 @@ const AuthProvider = ({ children }) => {
             toast.error(error.response.data.message);
             handleLogout()
         }
+        setLoading(false)
     };
 
     const getUsersEmails = async () => {
