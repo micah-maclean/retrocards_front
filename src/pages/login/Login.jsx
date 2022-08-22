@@ -1,7 +1,7 @@
 //Import referente a dependência Formik
 import { Formik } from "formik";
 //Import referente a dependência de rotas
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 //Import referente ao react
 import { useContext } from "react";
 //Import referente ao context

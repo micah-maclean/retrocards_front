@@ -53,7 +53,7 @@ const SprintForm = () => {
         }
     }, []);
 
-    if(Loading){
+    if(loading){
         return <Loading/>
     }
 

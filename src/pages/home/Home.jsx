@@ -61,7 +61,7 @@ const Home = () => {
     const paramsTables = {
         params: [
             { heading: "Id", key: "idSprint" },
-            { heading: "Titulo", key: "title" },
+            { heading: "Título", key: "title" },
             { heading: "Data de Conclusão", key: "endDate" },
         ],
         actions: [
@@ -87,7 +87,7 @@ const Home = () => {
     if(loading){
         return <Loading/>
     }
-    
+
     return (
         <Container
             maxWidth="var(--max-width)"

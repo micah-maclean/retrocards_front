@@ -16,7 +16,6 @@ const AuthProvider = ({ children }) => {
     const location = useLocation();
     const navigate = useNavigate();
     const [loading, setLoading] = useState(true);
-    const [loadingUser, setLoadingUser] = useState(false);
     const [token, setToken] = useState(null);
     const [user, setUser] = useState({});
     const [reducerValue, forceUpdate] = useReducer((x) => x + 1, 0);
@@ -45,7 +44,6 @@ const AuthProvider = ({ children }) => {
             localStorage.setItem("token", data.token);
             navigate(from, { replace: true });
         } catch (error) {
-            console.log(error)
             toast.error(error.response.data.message);
         }
         setLoading(false);
