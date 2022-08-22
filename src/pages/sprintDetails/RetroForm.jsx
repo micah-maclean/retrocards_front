@@ -69,8 +69,7 @@ const RetroForm = () => {
                     occurredDate: info
                         ? formatDateToRender(info.occurredDate)
                         : "",
-                    startDateSprint:
-                        sprintDetail && sprintDetail.startDate,
+                    startDateSprint: sprintDetail && sprintDetail.startDate,
                     endDateSprint: sprintDetail && sprintDetail.endDate,
                 }}
                 enableReinitialize
@@ -79,20 +78,11 @@ const RetroForm = () => {
                     const newValues = {
                         idSprint: idSprint,
                         title: values.title,
-                        occurredDate: formatDateToDatabase(
-                            values.occurredDate
-                        ),
+                        occurredDate: formatDateToDatabase(values.occurredDate),
                     };
-                    isUpdate
-                        ? handleUpdateRetrospective(
-                                idRetrospective,
-                                idSprint,
-                                newValues
-                            )
-                        : handleCreateRetrospective(
-                                newValues,
-                                idSprint
-                            );
+
+                    isUpdate ? handleUpdateRetrospective( idRetrospective, idSprint, newValues)
+                        : handleCreateRetrospective( newValues, idSprint);
                 }}
             >
                 {(props) => (
@@ -111,11 +101,8 @@ const RetroForm = () => {
                             placeholder="Digite o título da Retrospectiva"
                             id="title"
                         />
-                        <CustomErrorMessage name={"title"} />
-                        <Container
-                            position="relative"
-                            flexDirection="column"
-                        >
+                        <CustomErrorMessage name={"title"} id='title-error'/>
+                        <Container position="relative" flexDirection="column">
                             <Label htmlFor="initialDate">
                                 Data da Retrospectiva
                             </Label>
@@ -131,7 +118,7 @@ const RetroForm = () => {
                                 width="100%"
                             />
                             <Calendar top="50px" right="35px" />
-                            <CustomErrorMessage name={"occurredDate"} />
+                            <CustomErrorMessage name={"occurredDate"} id="occurredDate-error" />
                         </Container>
                         <Container justifyContent="space-around">
                             <Button
@@ -142,9 +129,7 @@ const RetroForm = () => {
                                 backgroundColorHover="#5454fb"
                                 borderHover="1px solid #5454fb"
                                 colorHover="#fff"
-                                onClick={() =>
-                                    handleNavigateToSprintById(idSprint)
-                                }
+                                onClick={() => handleNavigateToSprintById(idSprint)}
                             >
                                 Voltar
                             </Button>

@@ -100,16 +100,9 @@ const SprintForm = () => {
                             placeholder="Digite o título da Sprint"
                             id="title"
                         />
-                        <CustomErrorMessage name={"title"} />
-                        <Container
-                            flexDirectionQuery="column"
-                            gap="0 30px"
-                        >
-                            <Container
-                                flexDirection="column"
-                                position="relative"
-                                width="100%"
-                            >
+                        <CustomErrorMessage name={"title"} id="title-error"/>
+                        <Container flexDirectionQuery="column" gap="0 30px" >
+                            <Container flexDirection="column" position="relative" width="100%" >
                                 <Label htmlFor="initialDate">
                                     Data de Início
                                 </Label>
@@ -123,15 +116,9 @@ const SprintForm = () => {
                                     placeholder="Insira a data inicial"
                                 />
                                 <Calendar top="50px" right="15px" />
-                                <CustomErrorMessage
-                                    name={"startDate"}
-                                />
+                                <CustomErrorMessage name={"startDate"} id="startDate-error"/>
                             </Container>
-                            <Container
-                                flexDirection="column"
-                                position="relative"
-                                width="100%"
-                            >
+                            <Container flexDirection="column" position="relative" width="100%" >
                                 <Label htmlFor="endDate">
                                     Data de Final
                                 </Label>
@@ -145,7 +132,7 @@ const SprintForm = () => {
                                     placeholder="Insira a data final"
                                 />
                                 <Calendar top="50px" right="15px" />
-                                <CustomErrorMessage name={"endDate"} />
+                                <CustomErrorMessage name={"endDate"} id="endDate-error"/>
                             </Container>
                         </Container>
                         <Container justifyContent="space-around">

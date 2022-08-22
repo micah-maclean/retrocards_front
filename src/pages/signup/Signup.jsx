@@ -60,29 +60,22 @@ const Signup = () => {
                     }}
                 >
                     <CustomForm maxwidth="500px">
-                        <Title
-                            textAlign="left"
-                            marginBottom="56px"
-                            textDecoration="underline 8px"
-                        >
+                        <Title textAlign="left" marginBottom="56px" textDecoration="underline 8px">
                             Faça seu Cadastro
                         </Title>
 
                         <Label htmlFor="name">Nome*:</Label>
-                        <Input name="name" placeholder="Nome" />
-                        <CustomErrorMessage name="name" />
+                        <Input name="name" placeholder="Nome" id="name" />
+                        <CustomErrorMessage name="name" id="name-error" />
 
                         <Label htmlFor="email">Email*:</Label>
-                        <Input name="email" placeholder="Email" />
-                        <CustomErrorMessage name="email" />
+                        <Input name="email" placeholder="Email" id="email" />
+                        <CustomErrorMessage name="email" id="email-error" />
 
                         <Label htmlFor="password">Senha*:</Label>
-                        <Input
-                            name="password"
-                            placeholder="Senha"
-                            type="password"
+                        <Input name="password" placeholder="Senha" type="password" id="password"
                         />
-                        <CustomErrorMessage name="password" />
+                        <CustomErrorMessage name="password" id="password-error"/>
 
                         <Button
                             id="createLogin"

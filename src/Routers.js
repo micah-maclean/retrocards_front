@@ -80,6 +80,10 @@ const Routers = () => {
                                         element={<KudoCardForm />}
                                     />
                                     <Route
+                                        path="/kudo-card/editar/:idKudoBox/:idKudoCard"
+                                        element={<KudoCardForm />}
+                                    />
+                                    <Route
                                         path="/kudobox/:idKudobox"
                                         element={<KudoboxDetails />}
                                     />

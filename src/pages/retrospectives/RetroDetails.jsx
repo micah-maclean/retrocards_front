@@ -13,7 +13,8 @@ import { Button } from "../../components/button/Button";
 import Tab from "../../components/tab/Tab";
 //Import icons
 import { FaTrashAlt, FaEdit } from "react-icons/fa";
-import { confirmAlert } from "react-confirm-alert";
+import { filterListRetro, TypeRetro } from "../../utils/variables";
+import { Modal } from "../../components/modal/Modal";
 
 const RetroDetails = () => {
     const { getRetroById, getRetroDetailsById, deleteRetro } =
@@ -26,56 +27,6 @@ const RetroDetails = () => {
     const [info, setInfo] = useState({});
     const [filter, setFilter] = useState("ALL");
 
-    const handleDeleteModal = (id) => {
-        confirmAlert({
-            customUI: ({ onClose }) => {
-                return (
-                    <Container
-                        width="450px"
-                        height="180px"
-                        flexDirection="column"
-                        justifyContent="space-between"
-                        backgroundColor="#2a2831"
-                        color="#fff"
-                        padding="32px"
-                        borderRadius="8px"
-                    >
-                        <Title fontSize="1.25rem">
-                            Certeza que deseja excluir?
-                        </Title>
-                        <Container justifyContent="space-between">
-                            <Button
-                                width="30%"
-                                backgroundColor="transparent"
-                                border="1px solid #fff"
-                                backgroundColorHover="#5454fb"
-                                borderHover="1px solid #5454fb"
-                                onClick={onClose}
-                            >
-                                Cancelar
-                            </Button>
-                            <Button
-                                width="30%"
-                                backgroundColor="#fff"
-                                border="1px solid #fff"
-                                color="#12101a"
-                                backgroundColorHover="#5454fb"
-                                colorHover="#fff"
-                                borderHover="1px solid #5454fb"
-                                onClick={() => {
-                                    deleteRetro(id);
-                                    onClose();
-                                }}
-                            >
-                                Deletar
-                            </Button>
-                        </Container>
-                    </Container>
-                );
-            },
-        });
-    };
-
     const setup = async () => {
         const data = await getRetroById(idRetrospective);
         const details = await getRetroDetailsById(idRetrospective);
@@ -87,6 +38,16 @@ const RetroDetails = () => {
         }
     };
 
+    const paramModal = {
+        function: deleteRetro,
+        message: "Certeza que deseja deletar o item da retrospectiva?",
+        confirmText: "Deletar",
+    };
+
+    const handleModal = (idItemRetrospective) => {
+        Modal({ ...paramModal, values: [idItemRetrospective] });
+    };
+
     useEffect(() => {
         setup();
     }, [reducerValue]);
@@ -96,19 +57,6 @@ const RetroDetails = () => {
         WORKED: (retrocard) => retrocard.type === "WORKED",
         NEXT: (retrocard) => retrocard.type === "NEXT",
         IMPROVE: (retrocard) => retrocard.type === "IMPROVE",
-    };
-
-    const filterList = [
-        { name: "Todos", value: "ALL" },
-        { name: "O que Funcionou", value: "WORKED" },
-        { name: "Próxima Sprint", value: "NEXT" },
-        { name: "Há Melhorar", value: "IMPROVE" },
-    ];
-
-    const Type = {
-        WORKED: "Funcionou",
-        NEXT: "Próxima Sprint",
-        IMPROVE: "Há melhorar",
     };
 
     return (
@@ -144,7 +92,7 @@ const RetroDetails = () => {
                         )}
                 </Container>
                 <Tab
-                    filterList={filterList}
+                    filterList={filterListRetro}
                     activeFilter={filter}
                     setFilter={setFilter}
                 />
@@ -177,7 +125,7 @@ const RetroDetails = () => {
                                                 backgroundColor="transparent"
                                                 color="#ff3232"
                                                 onClick={() =>
-                                                    handleDeleteModal(
+                                                    handleModal(
                                                         retrocard.idItemRetrospective
                                                     )
                                                 }
@@ -187,7 +135,7 @@ const RetroDetails = () => {
                                         </>
                                     )}
                                 </Container>
-                                <p>{Type[retrocard.type]}</p>
+                                <p>{TypeRetro[retrocard.type]}</p>
                                 <h4>Descrição:</h4>
                                 <p>{retrocard.description}</p>
                             </li>

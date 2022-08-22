@@ -27,7 +27,7 @@ const Pagination = ({
             </Button>
 
             {totalCount > 0 && (
-                <Paragraph textAlign="center">
+                <Paragraph textAlign="center" id="text-pagination">
                     Mostrando do {currentPage * pageSize + 1} ao{" "}
                     {pageSize * (currentPage + 1) > totalCount
                         ? totalCount

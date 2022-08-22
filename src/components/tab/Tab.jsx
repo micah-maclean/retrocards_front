@@ -11,6 +11,7 @@ const Tab = ({ filterList, setFilter, activeFilter }) => {
                     isActive={filter.value === activeFilter}
                     onClick={() => setFilter(filter.value)}
                     key={i}
+                    id={filter.value}
                 >
                     {filter.name}
                 </TabButton>

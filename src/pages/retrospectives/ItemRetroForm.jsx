@@ -1,7 +1,7 @@
 //Import referente a dependência Formik
 import { Formik } from "formik";
 //Import referente ao context
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 //Import referente as rotas
 import { useNavigate, useParams } from "react-router-dom";
 //Import referente aos componentes
@@ -23,9 +23,23 @@ import { Title } from "../../components/title/Title";
 import { Tipo } from "../../utils/variables";
 
 const ItemRetroForm = () => {
-    const { handleCreateItemRetrospective } = useContext(RetroContext);
-    const { idRetrospective } = useParams();
+    const { handleCreateItemRetrospective, getItemRetrospectiveById, handleUpdateItemRetrospective } = useContext(RetroContext);
+    const { idRetrospective, idItemRetrospective } = useParams();
+    const [infoItem, setInfoItem] = useState()
+    const [isUpdate, setIsUpdate] = useState(false)
     const navigate = useNavigate();
+
+    const setup = async () => {
+        if(idItemRetrospective){
+            const data = await getItemRetrospectiveById(idItemRetrospective)
+            setIsUpdate(true)
+            setInfoItem(data)
+        }
+    }
+
+    useEffect(() => {
+        setup()
+    },[])
 
     return (
         <Container
@@ -39,28 +53,27 @@ const ItemRetroForm = () => {
         >
             <Formik
                 initialValues={{
-                    type: "",
-                    title: "",
-                    description: "",
+                    type: '',
+                    title: infoItem && infoItem.title ? infoItem.title : '',
+                    description: infoItem && infoItem.description ? infoItem.description : '',
                 }}
                 validationSchema={validationsItem}
+                enableReinitialize
                 onSubmit={(values) => {
                     const newValues = {
                         idRetrospective: parseInt(idRetrospective),
                         title: values.title,
                         description: values.description,
                     };
-                    handleCreateItemRetrospective(
-                        newValues,
-                        idRetrospective,
-                        values.type
-                    );
+
+                    isUpdate ? handleUpdateItemRetrospective(idItemRetrospective, idRetrospective, newValues, values.type) 
+                        : handleCreateItemRetrospective( newValues, idRetrospective, values.type);
                 }}
             >
                 {(props) => (
                     <CustomForm color="#fff">
                         <Title marginBottom="30px">
-                            Criar Item da Retrospectiva
+                            {isUpdate ? 'Atualizar Retrocard' : 'Cadastrar Retrocard'}
                         </Title>
                         <Label htmlFor="type">Tipo</Label>
                         <Container
@@ -76,7 +89,7 @@ const ItemRetroForm = () => {
                                 }
                             />
                             <Dropdown top="12px" right="25px" />
-                            <CustomErrorMessage name={"type"} />
+                            <CustomErrorMessage name={"type"} id=""type-error/>
                         </Container>
                         <Label htmlFor="title">Título</Label>
                         <Input
@@ -87,7 +100,7 @@ const ItemRetroForm = () => {
                             placeholder="Digite o título do Item da Retrospectiva"
                             id="title"
                         />
-                        <CustomErrorMessage name={"title"} />
+                        <CustomErrorMessage name={"title"} id="title-error" />
                         <Label htmlFor="description">Descrição</Label>
                         <Input
                             name="description"
@@ -97,7 +110,7 @@ const ItemRetroForm = () => {
                             placeholder="Digite a descrição do Item da Retrospectiva"
                             id="description"
                         />
-                        <CustomErrorMessage name={"description"} />
+                        <CustomErrorMessage name={"description"} id="description-error"/>
                         <Container justifyContent="space-around">
                             <Button
                                 id="backToRetrospectiveFromItem"
@@ -107,11 +120,7 @@ const ItemRetroForm = () => {
                                 backgroundColorHover="#5454fb"
                                 borderHover="1px solid #5454fb"
                                 colorHover="#fff"
-                                onClick={() =>
-                                    navigate(
-                                        `/retrospectiva/${idRetrospective}`
-                                    )
-                                }
+                                onClick={() => navigate(`/retrospectiva/${idRetrospective}`)}
                             >
                                 Voltar
                             </Button>
@@ -125,7 +134,7 @@ const ItemRetroForm = () => {
                                 colorHover="#fff"
                                 type="submit"
                             >
-                                Cadastrar
+                                {isUpdate ? 'Atualizar' : 'Cadastrar'}
                             </Button>
                         </Container>
                     </CustomForm>

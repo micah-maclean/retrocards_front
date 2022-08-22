@@ -12,7 +12,7 @@ import { Container } from "../../components/container/Container";
 import { Button } from "../../components/button/Button";
 import Pagination from "../../components/pagination/Pagination";
 //Import icons
-import { FaTrashAlt } from "react-icons/fa";
+import { FaTrashAlt, FaEdit } from "react-icons/fa";
 import { formatDateToRenderWithHour } from "../../utils/masks";
 import { Modal } from "../../components/modal/Modal";
 import { Loading } from "../../components/loading/Loading";
@@ -61,7 +61,6 @@ const KudoboxDetails = () => {
         }
     };
 
-    console.log(user);
     useEffect(() => {
         setup();
     }, [currentPage, reducerValue]);
@@ -110,17 +109,28 @@ const KudoboxDetails = () => {
                                 {user.idUser === kudocard.idCreator &&
                                     infoKudoBox.status ===
                                         "IN_PROGRESS" && (
-                                        <Button
-                                            padding="none"
-                                            backgroundColor="transparent"
-                                            onClick={() =>
-                                                deleteKudoCardModal(
-                                                    kudocard.idKudoCard
-                                                )
-                                            }
-                                        >
-                                            <FaTrashAlt />
-                                        </Button>
+                                        <>
+                                            <Button
+                                                padding="none"
+                                                backgroundColor="transparent"
+                                                onClick={() =>
+                                                        navigate(`/kudo-card/editar/${idKudobox}/${kudocard.idKudoCard}`)
+                                                        }
+                                            >
+                                                <FaEdit />
+                                            </Button>
+                                            <Button
+                                                padding="none"
+                                                backgroundColor="transparent"
+                                                onClick={() =>
+                                                    deleteKudoCardModal(
+                                                        kudocard.idKudoCard
+                                                    )
+                                                }
+                                            >
+                                                <FaTrashAlt />
+                                            </Button>
+                                        </>
                                     )}
                             </Container>
                             <p>
