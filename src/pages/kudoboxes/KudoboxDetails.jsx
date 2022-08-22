@@ -51,7 +51,8 @@ const KudoboxDetails = () => {
         setLoading(true)
         const data = await getKudoboxById(idKudobox, currentPage, pageSize);
         const info = await getKudoBoxDetailsById(idKudobox);
-        setInfoKudoBox(info);
+        info ? setInfoKudoBox(info) : navigate("/");
+        
         if (data) {
             setTotalCount(data.totalElements);
             setTotalPages(data.totalPages);
