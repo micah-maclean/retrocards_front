@@ -30,6 +30,7 @@ const KudoboxDetails = () => {
     const [list, setList] = useState([]);
     const [infoKudoBox, setInfoKudoBox] = useState({});
     const pageSize = 10;
+    const [loading, setLoading] = useState(true)
 
     const paramModal = {
         delete: {
@@ -47,6 +48,7 @@ const KudoboxDetails = () => {
     };
 
     const setup = async () => {
+        setLoading(true)
         const data = await getKudoboxById(idKudobox, currentPage, pageSize);
         const info = await getKudoBoxDetailsById(idKudobox);
         setInfoKudoBox(info);
@@ -59,14 +61,24 @@ const KudoboxDetails = () => {
             setTotalPages(0);
             setList([]);
         }
+        setLoading(false)
     };
 
     useEffect(() => {
         setup();
     }, [currentPage, reducerValue]);
 
-    if (user.idUser === undefined) {
-        <Loading />;
+    if (loading) {
+        return (
+            <Container
+                alignItems="center"
+                justifyContent="center"
+                backgroundColor="#12101a"
+                height="100vh"
+            >
+                <Loading />
+            </Container>
+        );
     }
 
     return (
@@ -144,8 +156,8 @@ const KudoboxDetails = () => {
                             <p>
                                 <span>Para:</span> {kudocard.receiver}
                             </p>
-                            <p>
-                                <span>Descrição:</span>
+                            <h4>Descrição:</h4>
+                            <p>                                
                                 {kudocard.description}
                             </p>
                         </li>

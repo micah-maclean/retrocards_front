@@ -11,11 +11,9 @@ import { Container } from "../../components/container/Container";
 import Pagination from "../../components/pagination/Pagination";
 import { Button } from "../../components/button/Button";
 import { Title } from "../../components/title/Title";
-import { confirmAlert } from "react-confirm-alert";
-import "react-confirm-alert/src/react-confirm-alert.css";
-import "../../components/modal/Modal.css";
 import { FaEdit, FaTrashAlt } from "react-icons/fa";
 import { Modal } from "../../components/modal/Modal";
+import { Loading } from "../../components/loading/Loading";
 
 const Home = () => {
     const { user, reducerValue } = useContext(AuthContext);
@@ -102,7 +100,6 @@ const Home = () => {
                         color="black"
                         onClick={() => navigate("/sprint/cadastrar")}
                     >
-                        {" "}
                         + Criar
                     </Button>
                 )}

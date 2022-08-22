@@ -22,6 +22,7 @@ import { validationsKudoCard } from "../../utils/validations";
 //Import referente ao context
 import { KudosContext } from "../../context/KudosContext";
 import { AuthContext } from "../../context/AuthContext";
+import { Loading } from "../../components/loading/Loading";
 
 const KudoCardForm = () => {
     const { handleCreateKudoCard, getKudoCardById, handleUpdateKudoCard } = useContext(KudosContext);
@@ -31,8 +32,10 @@ const KudoCardForm = () => {
     const [infoCard, setInfoCard] = useState()
     const [isUpdate, setIsUpdate] = useState(false)
     const navigate = useNavigate();
+    const [loading, setLoading] = useState(true)
 
     const setup = async () => {
+        setLoading(true)
         const data = await getUsersEmails();
         if (data) {
             setUserEmail(data);
@@ -42,11 +45,25 @@ const KudoCardForm = () => {
             setInfoCard(info)
             setIsUpdate(true)
         }
+        setLoading(false)
     };
 
     useEffect(() => {
         setup();
     }, []);
+
+    if (loading) {
+        return (
+            <Container
+                alignItems="center"
+                justifyContent="center"
+                backgroundColor="#12101a"
+                height="100vh"
+            >
+                <Loading />
+            </Container>
+        );
+    }
 
     return (
         <Container

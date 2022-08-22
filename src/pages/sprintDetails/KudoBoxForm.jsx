@@ -26,6 +26,7 @@ import { validationsKudoBox } from "../../utils/validations";
 import { KudosContext } from "../../context/KudosContext";
 import { SprintContext } from "../../context/SprintContext";
 import { Title } from "../../components/title/Title";
+import { Loading } from "../../components/loading/Loading";
 
 const KudoBoxForm = () => {
     const { handleCreateKudoBox, getKudoBoxDetailsById, handleUpdateKudoBox } =
@@ -36,8 +37,10 @@ const KudoBoxForm = () => {
     const [isUpdate, setIsUpdate] = useState(false);
     const [info, setInfo] = useState();
     const [sprintDetail, setSprintDetail] = useState();
+    const [loading, setLoading] = useState(true)
 
     const setup = async () => {
+        setLoading(true)
         const detail = await getSprintById(idSprint);
         setSprintDetail(detail);
         if (idKudoBox) {
@@ -45,11 +48,25 @@ const KudoBoxForm = () => {
             const data = await getKudoBoxDetailsById(idKudoBox);
             setInfo(data);
         }
+        setLoading(false)
     };
 
     useEffect(() => {
         setup();
     }, []);
+
+    if (loading) {
+        return (
+            <Container
+                alignItems="center"
+                justifyContent="center"
+                backgroundColor="#12101a"
+                height="100vh"
+            >
+                <Loading />
+            </Container>
+        );
+    }
 
     return (
         <Container

@@ -27,6 +27,7 @@ import {
 import { validationsRetrospective } from "../../utils/validations";
 import { SprintContext } from "../../context/SprintContext";
 import { Title } from "../../components/title/Title";
+import { Loading } from "../../components/loading/Loading";
 
 const RetroForm = () => {
     const {
@@ -40,8 +41,10 @@ const RetroForm = () => {
     const [isUpdate, setIsUpdate] = useState(false);
     const [info, setInfo] = useState();
     const [sprintDetail, setSprintDetail] = useState();
+    const [loading, setLoading] = useState(true)
 
     const setup = async () => {
+        setLoading(true)
         const detail = await getSprintById(idSprint);
         setSprintDetail(detail);
         if (idRetrospective) {
@@ -49,10 +52,25 @@ const RetroForm = () => {
             setInfo(data);
             setIsUpdate(true);
         }
+        setLoading(false)
     };
     useEffect(() => {
         setup();
     }, []);
+
+    if (loading) {
+        return (
+            <Container
+                alignItems="center"
+                justifyContent="center"
+                backgroundColor="#12101a"
+                height="100vh"
+            >
+                <Loading />
+            </Container>
+        );
+    }
+
     return (
         <Container
             flexDirection="column"

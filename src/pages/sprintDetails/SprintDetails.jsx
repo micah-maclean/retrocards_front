@@ -21,6 +21,7 @@ import {
     FaStopCircle,
 } from "react-icons/fa";
 import { sprintFilter } from "../../utils/variables";
+import { Loading } from "../../components/loading/Loading";
 
 const SprintDetails = () => {
     const { idSprint } = useParams();
@@ -31,33 +32,40 @@ const SprintDetails = () => {
         deleteRetrospective,
     } = useContext(RetroContext);
     const { getKudoboxBySprintId, deleteKudoBox } = useContext(KudosContext);
-    const { filter, setFilter } = useContext(SprintContext);
+    const { filter, setFilter, getSprintById } = useContext(SprintContext);
     const { user, reducerValue } = useContext(AuthContext);
     const [currentPage, setCurrentPage] = useState(0);
     const pageSize = 10;
     const [totalCount, setTotalCount] = useState(0);
     const [totalPages, setTotalPages] = useState(0);
     const [list, setList] = useState([]);
+    const [loading, setLoading] = useState(true)
+    const [sprintDetail, setSprintDetail] = useState()
 
     const setup = async (filter) => {
+        setLoading(true)
+        const detail = await getSprintById(idSprint)
+        setSprintDetail(detail)
         const data =
-            filter === "RETROSPECTIVA"
-                ? await getRetrospectiveBySprintId(
-                      idSprint,
-                      currentPage,
-                      pageSize
-                  )
-                : await getKudoboxBySprintId(idSprint, currentPage, pageSize);
-
-        if (data) {
-            setTotalCount(data.totalElements);
-            setTotalPages(data.totalPages);
-            setList(data.content);
+        filter === "RETROSPECTIVA"
+        ? await getRetrospectiveBySprintId(
+            idSprint,
+            currentPage,
+            pageSize
+            )
+            : await getKudoboxBySprintId(idSprint, currentPage, pageSize);
+            
+            
+            if (data) {
+                setTotalCount(data.totalElements);
+                setTotalPages(data.totalPages);
+                setList(data.content);
         } else {
             setList([]);
             setTotalCount(0);
             setTotalPages(0);
         }
+        setLoading(false)
     };
 
     useEffect(() => {
@@ -208,6 +216,19 @@ const SprintDetails = () => {
         },
     };
 
+    if (loading) {
+        return (
+            <Container
+                alignItems="center"
+                justifyContent="center"
+                backgroundColor="#12101a"
+                height="100vh"
+            >
+                <Loading />
+            </Container>
+        );
+    }
+
     return (
             <Container
                 maxWidth="var(--max-width)"
@@ -221,7 +242,7 @@ const SprintDetails = () => {
                         setFilter={setFilter}
                         activeFilter={filter}
                     />
-                    {user.role !== "ROLE_MEMBER" && (
+                    {user.role !== "ROLE_MEMBER" && sprintDetail.status === 'IN_PROGRESS' && (
                         <Button
                             id={filter === "RETROSPECTIVA" ? "createRetrospective": "createKudoBox"}
                             backgroundColor="#fff"
