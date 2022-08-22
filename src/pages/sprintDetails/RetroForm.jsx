@@ -119,7 +119,7 @@ const RetroForm = () => {
                                     placeholder="Digite o título da Retrospectiva"
                                     id="title"
                                 />
-                                <CustomErrorMessage name={"title"} />
+                                <CustomErrorMessage name={"title"} id='title-error'/>
                                 <Container
                                     position="relative"
                                     flexDirection="column"
@@ -139,7 +139,7 @@ const RetroForm = () => {
                                         width="100%"
                                     />
                                     <Calendar top="50px" right="35px" />
-                                    <CustomErrorMessage name={"occurredDate"} />
+                                    <CustomErrorMessage name={"occurredDate"} id="occurredDate-error" />
                                 </Container>
                                 <Container justifyContent="space-around">
                                     <Button

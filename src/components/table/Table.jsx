@@ -54,7 +54,7 @@ const Table = ({ list, params, actions, path, pathKey }) => {
                                             <>
                                                 {row.status ===
                                                     button.status && (
-                                                    <Button
+                                                    <Button                                                        
                                                         backgroundColor="transparent"
                                                         color={button.iconColor}
                                                         padding="4px"
@@ -84,33 +84,3 @@ const Table = ({ list, params, actions, path, pathKey }) => {
     );
 };
 export default Table;
-
-{
-    /* {row.status === "CREATE" && (
-                                            <Button
-                                                backgroundColor="transparent"
-                                                color="#fff"
-                                                onClick={() =>
-                                                    button.function(
-                                                        row[button.param],
-                                                        row.status
-                                                    )
-                                                }
-                                            >
-                                                PLAY
-                                            </Button>
-                                        )}
-                                        {row.status === "FINISHED" && (
-                                            <Button
-                                                backgroundColor="transparent"
-                                                color="#fff"
-                                                onClick={() =>
-                                                    button.navigate(
-                                                        row[button.param]
-                                                    )
-                                                }
-                                            >
-                                                X
-                                            </Button>
-                                        )} */
-}

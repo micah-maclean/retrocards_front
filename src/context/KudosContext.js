@@ -97,8 +97,27 @@ const KudosProvider = ({ children }) => {
     const handleUpdateKudoBox = async (idKudoBox, idSprint, values) => {
         try {
             await api.put(`/kudobox/update/${idKudoBox}`, values);
-            toast.success("KudoBox deletado com sucesso");
+            toast.success("KudoBox atualizado com sucesso");
             navigate(`/sprint/${idSprint}`);
+        } catch (error) {
+            toast.error(error.response.data.message);
+        }
+    };
+
+    const getKudoCardById = async (idKudoCard) => {
+        try {
+            const { data } = await api.get(`/kudocard/list/${idKudoCard}`);
+            return data;
+        } catch (error) {
+            toast.error(error.response.data.message);
+        }
+    }
+
+    const handleUpdateKudoCard = async (idKudoCard, idKudoBox, values) => {
+        try {
+            await api.put(`/kudocard/update/${idKudoCard}`, values);
+            toast.success("KudoCard atualizado com sucesso");
+            navigate(`/kudobox/${idKudoBox}`);
         } catch (error) {
             toast.error(error.response.data.message);
         }
@@ -115,6 +134,8 @@ const KudosProvider = ({ children }) => {
                 getKudoBoxDetailsById,
                 deleteKudoBox,
                 handleUpdateKudoBox,
+                getKudoCardById,
+                handleUpdateKudoCard
             }}
         >
             {children}

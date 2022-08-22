@@ -13,7 +13,7 @@ const SprintProvider = ({ children }) => {
     const navigate = useNavigate();
     const { forceUpdate } = useContext(AuthContext);
 
-    const [filter, setFilter] = useState("Retrospectiva");
+    const [filter, setFilter] = useState("RETROSPECTIVA");
 
     const getSprintList = async (page, pageSize) => {
         try {

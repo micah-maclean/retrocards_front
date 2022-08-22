@@ -24,16 +24,23 @@ import { KudosContext } from "../../context/KudosContext";
 import { AuthContext } from "../../context/AuthContext";
 
 const KudoCardForm = () => {
-    const { handleCreateKudoCard } = useContext(KudosContext);
+    const { handleCreateKudoCard, getKudoCardById, handleUpdateKudoCard } = useContext(KudosContext);
     const { getUsersEmails, user } = useContext(AuthContext);
-    const { idKudoBox } = useParams();
+    const { idKudoBox, idKudoCard } = useParams();
     const [userEmail, setUserEmail] = useState([]);
+    const [infoCard, setInfoCard] = useState()
+    const [isUpdate, setIsUpdate] = useState(false)
     const navigate = useNavigate();
 
     const setup = async () => {
         const data = await getUsersEmails();
         if (data) {
             setUserEmail(data);
+        }
+        if(idKudoCard){
+            const info = await getKudoCardById(idKudoCard)
+            setInfoCard(info)
+            setIsUpdate(true)
         }
     };
 
@@ -61,12 +68,13 @@ const KudoCardForm = () => {
                 >
                     <Formik
                         initialValues={{
-                            title: "",
-                            description: "",
+                            title: infoCard && infoCard.title ? infoCard.title : '',
+                            description: infoCard && infoCard.description ? infoCard.description : '',
                             receiver: "",
                             anonymous: false,
                         }}
                         validationSchema={validationsKudoCard}
+                        enableReinitialize
                         onSubmit={(values) => {
                             const newValues = {
                                 idKudoBox: parseInt(idKudoBox),
@@ -75,13 +83,13 @@ const KudoCardForm = () => {
                                 anonymous: values.anonymous,
                                 receiver: values.receiver,
                             };
-                            handleCreateKudoCard(newValues, idKudoBox);
+                            isUpdate ? handleUpdateKudoCard(idKudoCard, idKudoBox, newValues) : handleCreateKudoCard(newValues, idKudoBox);
                         }}
                     >
                         {(props) => (
                             <CustomForm color="#fff">
                                 <Title marginBottom="30px">
-                                    Criar Kudo Card
+                                    {isUpdate ? 'Atualizar Kudo Card' : 'Criar Kudo Card'}
                                 </Title>
                                 <Label htmlFor="title">Título</Label>
                                 <Input
@@ -167,7 +175,7 @@ const KudoCardForm = () => {
                                         colorHover="#fff"
                                         type="submit"
                                     >
-                                        Cadastrar
+                                        {isUpdate ? 'Atualizar' : 'Cadastrar'}
                                     </Button>
                                 </Container>
                             </CustomForm>

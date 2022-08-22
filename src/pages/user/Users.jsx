@@ -50,7 +50,7 @@ const Users = () => {
                 color="#fff"
             >
                 <Container alignItems="center" justifyContent="space-between">
-                    <Title textAlign="left" color="#fff">
+                    <Title textAlign="left" id="user-text">
                         Usuários
                     </Title>
                 </Container>

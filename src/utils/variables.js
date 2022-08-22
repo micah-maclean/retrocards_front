@@ -26,6 +26,24 @@ export const paramsUsers = [
 ];
 
 export const sprintFilter = [
-    { name: "Retrospectiva", value: "Retrospectiva" },
-    { name: "Kudo Box", value: "Kudo Box" },
+    { name: "Retrospectiva", value: "RETROSPECTIVA" },
+    { name: "Kudo Box", value: "KUDOBOX" },
 ];
+
+export const rolesSelect = [
+    { name: "Facilitador", value: "FACILITATOR" },
+    { name: "Membro", value: "MEMBER" },
+];
+
+export const filterListRetro = [
+    { name: "Todos", value: "ALL" },
+    { name: "O que Funcionou", value: "WORKED" },
+    { name: "Próxima Sprint", value: "NEXT" },
+    { name: "Há Melhorar", value: "IMPROVE" },
+];
+
+export const TypeRetro = {
+    WORKED: "Funcionou",
+    NEXT: "Próxima Sprint",
+    IMPROVE: "Há melhorar",
+};

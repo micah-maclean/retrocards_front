@@ -29,7 +29,6 @@ export const validationsLogin = Yup.object({
         .email("Insira um email válido")
         .required("Campo Obrigatório"),
     password: Yup.string()
-        .min(3, "A senha precisa de pelo menos 3 caracteres")
         .required("Campo Obrigatório"),
 });
 
@@ -41,7 +40,8 @@ export const validationSignup = Yup.object({
         .email("Insira um email válido")
         .required("Campo Obrigatório"),
     password: Yup.string()
-        .min(3, "A senha precisa de pelo menos 3 caracteres")
+        .min(5, "A senha precisa de pelo menos 5 caracteres")
+        .max(20, "A senha precisa ter menos de 20 caracteres")
         .required("Campo Obrigatório"),
 });
 
