@@ -91,11 +91,11 @@ const SprintDetails = () => {
     };
 
     const updateStatusToInProgress = (idRetrospective) => {
-        Modal({...paramModal.Retrospectiva.edit, values: [idRetrospective, "IN_PROGRESS"]});
+        Modal({...paramModal.RETROSPECTIVA.edit, values: [idRetrospective, "IN_PROGRESS"]});
     };
 
     const updateStatusToFinished = (idRetrospective) => {
-        Modal({...paramModal.Retrospectiva.edit, values: [idRetrospective, "FINISHED"]});
+        Modal({...paramModal.RETROSPECTIVA.edit, values: [idRetrospective, "FINISHED"]});
     };
 
     const updateRetrospective = (idRetrospective) => {
@@ -103,11 +103,11 @@ const SprintDetails = () => {
     };
 
     const deleteRetrospectiveModal = (idRetrospective) => {
-        Modal({...paramModal.Retrospectiva.delete, values: [idRetrospective]});
+        Modal({...paramModal.RETROSPECTIVA.delete, values: [idRetrospective]});
     };
 
     const deleteKudoBoxModal = (idKudoBox) => {
-        Modal({ ...paramModal["Kudo Box"].delete, values: [idKudoBox]});
+        Modal({ ...paramModal.KUDOBOX.delete, values: [idKudoBox]});
     };
 
     const navigateToUpdateKudoBox = (idKudoBox) => {

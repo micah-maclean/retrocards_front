@@ -38,7 +38,7 @@ const Table = ({ list, params, actions, path, pathKey }) => {
                         ))}
                         {actions && user.role !== "ROLE_MEMBER" && (
                             <td date-title='Ações'>
-                                <Container justifyContent="space-between">
+                                <Container justifyContent="space-between" gap="16px">
                                     {actions.map((button, i) => (
                                         <>
                                             {row.status ===
