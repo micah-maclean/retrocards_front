@@ -5,7 +5,7 @@ export default createGlobalStyle`
     :root {
         --screen-size: calc(100vh - 100px);
         --max-width: 1120px;
-        --border-radius: var(--border-radius);
+        --border-radius: 8px;
         --primary-color: #12101A;
         --secondary-color: #FFFFFF;
         --dark-grey: #292730;

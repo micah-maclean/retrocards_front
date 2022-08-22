@@ -40,6 +40,7 @@ const Home = () => {
 
     useEffect(() => {
         setup();
+        window.scrollTo(0, 0)
     }, [currentPage, reducerValue]);
 
     const paramModal = {
@@ -53,7 +54,7 @@ const Home = () => {
     };
 
     const deleteSprint = (idSprint) => {
-        Modal({...paramModal.delete, values: [idSprint]});
+        Modal({...paramModal, values: [idSprint]});
     };
 
     const paramsTables = {
