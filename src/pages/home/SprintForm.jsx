@@ -25,6 +25,7 @@ import {
 import { validationsSprint } from "../../utils/validations";
 import { Title } from "../../components/title/Title";
 import { useParams } from "react-router-dom";
+import { Loading } from "../../components/loading/Loading";
 
 const SprintForm = () => {
     const {
@@ -36,19 +37,26 @@ const SprintForm = () => {
     const { idSprint } = useParams();
     const [isUpdate, setIsUpdate] = useState(false);
     const [info, setInfo] = useState();
+    const [loading, setLoading] = useState(true);
 
     const setup = async () => {
+        setLoading(true);
         const data = await getSprintById(idSprint);
         setInfo(data);
+        setLoading(false);
     };
 
-    console.log(info);
     useEffect(() => {
         if (idSprint) {
             setIsUpdate(true);
             setup();
         }
     }, []);
+
+    if(Loading){
+        return <Loading/>
+    }
+
     return (
         <Container
             flexDirection="column"

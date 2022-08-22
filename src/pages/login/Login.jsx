@@ -1,17 +1,13 @@
 //Import referente a dependência Formik
 import { Formik } from "formik";
 //Import referente a dependência de rotas
-import { Link } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 //Import referente ao react
 import { useContext } from "react";
 //Import referente ao context
 import { AuthContext } from "../../context/AuthContext";
 //Import referente aos componentes
-import {
-    CustomForm,
-    Input,
-    Label,
-} from "../../components/customForm/CustomForm";
+import { CustomForm, Input, Label} from "../../components/customForm/CustomForm";
 import { Container } from "../../components/container/Container";
 import { Button } from "../../components/button/Button";
 import CustomErrorMessage from "../../components/customForm/CustomErrorMessage";
@@ -24,6 +20,7 @@ import { Paragraph } from "../../components/paragraph/Paragraph";
 
 const Login = () => {
     const { handleLogin } = useContext(AuthContext);
+
     return (
         <Container width="100%" height="100vh" position="relative">
             <Container

@@ -21,26 +21,33 @@ import { validationsItem } from "../../utils/validations";
 import { RetroContext } from "../../context/RetroContext";
 import { Title } from "../../components/title/Title";
 import { Tipo } from "../../utils/variables";
+import { Loading } from "../../components/loading/Loading";
 
 const ItemRetroForm = () => {
     const { handleCreateItemRetrospective, getItemRetrospectiveById, handleUpdateItemRetrospective } = useContext(RetroContext);
     const { idRetrospective, idItemRetrospective } = useParams();
     const [infoItem, setInfoItem] = useState()
     const [isUpdate, setIsUpdate] = useState(false)
+    const [loading, setLoading] = useState(true);
     const navigate = useNavigate();
 
     const setup = async () => {
+        setLoading(true);
         if(idItemRetrospective){
             const data = await getItemRetrospectiveById(idItemRetrospective)
             setIsUpdate(true)
             setInfoItem(data)
         }
+        setLoading(false)
     }
 
     useEffect(() => {
         setup()
     },[])
 
+    if(loading){
+        return <Loading/>
+    }
     return (
         <Container
             flexDirection="column"

@@ -16,6 +16,7 @@ const AuthProvider = ({ children }) => {
     const location = useLocation();
     const navigate = useNavigate();
     const [loading, setLoading] = useState(true);
+    const [loadingUser, setLoadingUser] = useState(false);
     const [token, setToken] = useState(null);
     const [user, setUser] = useState({});
     const [reducerValue, forceUpdate] = useReducer((x) => x + 1, 0);
@@ -27,9 +28,11 @@ const AuthProvider = ({ children }) => {
             setToken(token);
             api.defaults.headers.common["Authorization"] = token;
             getLogged();
+        } else{
+            setLoading(false)
         }
-        setLoading(false);
     }, []);
+
 
     const handleLogin = async (values) => {
         setLoading(true);
@@ -42,21 +45,21 @@ const AuthProvider = ({ children }) => {
             localStorage.setItem("token", data.token);
             navigate(from, { replace: true });
         } catch (error) {
+            console.log(error)
             toast.error(error.response.data.message);
         }
         setLoading(false);
     };
 
     const handleLogout = () => {
-        setLoading(true);
         setToken("");
         delete api.defaults.headers.common["Authorization"];
         localStorage.removeItem("token");
         navigate("/login");
-        setLoading(false);
     };
 
     const handleSignup = async (values) => {
+        setLoading(true);
         try {
             await api.post("/user/create", values);
             toast.success("Cadastro realizado com sucesso");
@@ -64,6 +67,7 @@ const AuthProvider = ({ children }) => {
         } catch (error) {
             toast.error(error.response.data.message);
         }
+        setLoading(false);
     };
 
     const getLogged = async () => {
@@ -74,6 +78,7 @@ const AuthProvider = ({ children }) => {
             toast.error(error.response.data.message);
             handleLogout()
         }
+        setLoading(false)
     };
 
     const getUsersEmails = async () => {

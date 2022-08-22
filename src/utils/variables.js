@@ -39,11 +39,11 @@ export const filterListRetro = [
     { name: "Todos", value: "ALL" },
     { name: "O que Funcionou", value: "WORKED" },
     { name: "Próxima Sprint", value: "NEXT" },
-    { name: "Há Melhorar", value: "IMPROVE" },
+    { name: "À Melhorar", value: "IMPROVE" },
 ];
 
 export const TypeRetro = {
     WORKED: "Funcionou",
     NEXT: "Próxima Sprint",
-    IMPROVE: "Há melhorar",
+    IMPROVE: "À melhorar",
 };

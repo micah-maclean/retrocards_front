@@ -14,7 +14,7 @@ import { paramsUsers } from "../../utils/variables";
 const Users = () => {
     const { getUsersList } = useContext(AuthContext);
     const [currentPage, setCurrentPage] = useState(0);
-    const [pageSize, setPageSize] = useState(10);
+    const pageSize= 10;
     const [totalCount, setTotalCount] = useState(0);
     const [totalPages, setTotalPages] = useState(0);
     const [list, setList] = useState([]);

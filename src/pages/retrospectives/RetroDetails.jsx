@@ -15,6 +15,7 @@ import Tab from "../../components/tab/Tab";
 import { FaTrashAlt, FaEdit } from "react-icons/fa";
 import { filterListRetro, TypeRetro } from "../../utils/variables";
 import { Modal } from "../../components/modal/Modal";
+import { Loading } from "../../components/loading/Loading";
 
 const RetroDetails = () => {
     const { getRetroById, getRetroDetailsById, deleteRetro } =
@@ -23,11 +24,13 @@ const RetroDetails = () => {
     const { idRetrospective } = useParams();
     const navigate = useNavigate();
 
+    const [loading, setLoading] = useState(true);
     const [list, setList] = useState([]);
     const [info, setInfo] = useState({});
     const [filter, setFilter] = useState("ALL");
 
     const setup = async () => {
+        setLoading(true);
         const data = await getRetroById(idRetrospective);
         const details = await getRetroDetailsById(idRetrospective);
         setInfo(details);
@@ -36,6 +39,7 @@ const RetroDetails = () => {
         } else {
             setList([]);
         }
+        setLoading(false);
     };
 
     const paramModal = {
@@ -59,6 +63,11 @@ const RetroDetails = () => {
         IMPROVE: (retrocard) => retrocard.type === "IMPROVE",
     };
 
+    if(loading){
+        return (
+        <Loading/>)
+    }
+
     return (
             <Container
                 maxWidth="var(--max-width)"
@@ -73,8 +82,7 @@ const RetroDetails = () => {
                     flexDirectionQuery='column'
                 >
                     <Title textAlign="left">{info.title}</Title>
-                    {user.role === "ROLE_MEMBER" &&
-                        info.status === "IN_PROGRESS" && (
+                    {user.role === "ROLE_MEMBER" && info.status === "IN_PROGRESS" && (
                             <Button
                                 id="createRetrocard"
                                 backgroundColor="#fff"
@@ -106,7 +114,7 @@ const RetroDetails = () => {
                                     gap="16px"
                                 >
                                     <h3>{retrocard.title}</h3>
-                                    {info.status === "IN_PROGRESS" && (
+                                    {info.status === "IN_PROGRESS" && user.role === "ROLE_MEMBER" &&(
                                         <>
                                             <Button
                                                 padding="none"
