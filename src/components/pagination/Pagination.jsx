@@ -13,16 +13,14 @@ const Pagination = ({
     return (
         <Container
             justifyContent="space-between"
-            color="#fff"
             width="100%"
-            gap="30px"
+            gap="16px"
         >
             <Button
                 id="previous"
                 visibility={currentPage === 0 ? "hidden" : "visible"}
                 border="1px solid #fff"
                 backgroundColor="transparent"
-                color="#fff"
                 onClick={() => onPageChange(currentPage - 1)}
             >
                 Anterior
@@ -45,7 +43,6 @@ const Pagination = ({
                 }
                 border="1px solid #fff"
                 backgroundColor="transparent"
-                color="#fff"
                 onClick={() => onPageChange(currentPage + 1)}
             >
                 Próximo

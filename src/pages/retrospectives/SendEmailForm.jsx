@@ -39,13 +39,6 @@ const SendEmailForm = () => {
         setup();
     }, []);
     return (
-        <Container
-            backgroundColor="#12101a"
-            minHeight="calc(100vh - 100px)"
-            padding="30px"
-            justifyContent="center"
-            alignItems="center"
-        >
             <Container
                 flexDirection="column"
                 maxWidth="1120px"
@@ -60,11 +53,7 @@ const SendEmailForm = () => {
                         receiver: "",
                     }}
                     validationSchema={Yup.object({
-                        receiver: Yup.mixed().test(
-                            "Arrayvazio",
-                            "Escolha ao menos uma pessoa",
-                            () => receivers.length > 0
-                        ),
+                        receiver: Yup.mixed().test( "Arrayvazio", "Escolha ao menos uma pessoa", () => receivers.length > 0),
                     })}
                     onSubmit={() => {
                         const newValues = {
@@ -101,10 +90,7 @@ const SendEmailForm = () => {
                                     height="55px"
                                     padding="0"
                                     onClick={() => {
-                                        if (
-                                            props.getFieldProps("receiver")
-                                                .value !== ""
-                                        ) {
+                                        if (props.getFieldProps("receiver").value !== "") {
                                             setReceivers([
                                                 ...receivers,
                                                 props.getFieldProps("receiver")
@@ -126,7 +112,7 @@ const SendEmailForm = () => {
                             />
                             <Container
                                 justifyContent="space-around"
-                                margin="32px 0 0 0 "
+                                margin="32px 0 0 0"
                             >
                                 <Button
                                     id="backToKudoBoxFromKudoCard"
@@ -136,9 +122,7 @@ const SendEmailForm = () => {
                                     backgroundColorHover="#5454fb"
                                     borderHover="1px solid #5454fb"
                                     colorHover="#fff"
-                                    onClick={() =>
-                                        navigate(`/sprint/${idSprint}`)
-                                    }
+                                    onClick={() => navigate(`/sprint/${idSprint}`)}
                                 >
                                     Voltar
                                 </Button>
@@ -159,7 +143,6 @@ const SendEmailForm = () => {
                     )}
                 </Formik>
             </Container>
-        </Container>
     );
 };
 export default SendEmailForm;

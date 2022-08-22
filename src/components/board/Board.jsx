@@ -2,7 +2,6 @@ import styled from "styled-components";
 
 export const Board = styled.ul`
     width: 100%;
-    height: 100;
     display: grid;
     gap: 20px;
     grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr);
@@ -14,13 +13,13 @@ export const Board = styled.ul`
     }
 
     li {
+        display: flex;
+        flex-direction: column;
         aspect-ratio: 1;
         color: #fff;
         padding: 20px;
         border-radius: 8px;
         background-color: rgba(255, 255, 255, 0.1);
-        display: flex;
-        flex-direction: column;
         gap: 5px;
 
         p {

@@ -112,13 +112,6 @@ const RetroDetails = () => {
     };
 
     return (
-        <Container
-            minHeight="calc(100vh - 100px)"
-            backgroundColor="#12101A"
-            justifyContent="center"
-            color="#fff"
-            padding="30px"
-        >
             <Container
                 maxWidth="1120px"
                 width="100%"
@@ -129,6 +122,7 @@ const RetroDetails = () => {
                     justifyContent="space-between"
                     alignItems="center"
                     gap="30px"
+                    flexDirectionQuery='column'
                 >
                     <Title textAlign="left">{info.title}</Title>
                     {user.role === "ROLE_MEMBER" &&
@@ -206,7 +200,6 @@ const RetroDetails = () => {
                     </Title>
                 )}
             </Container>
-        </Container>
     );
 };
 

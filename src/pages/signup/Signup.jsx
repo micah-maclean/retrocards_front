@@ -34,15 +34,7 @@ const Signup = () => {
                         Bem Vindo a Retrocard
                     </Title>
                     <Paragraph textAlign="justify">
-                        Lorem, ipsum dolor sit amet consectetur adipisicing
-                        elit. Eos esse repellat aperiam animi alias, provident
-                        temporibus, deleniti consequatur ad, nisi mollitia vitae
-                        eius omnis voluptas. At repudiandae vero fugit harum!
-                        Sit quidem repudiandae dignissimos delectus, a iure
-                        adipisci iste, repellendus minus ipsam illum ipsa,
-                        doloremque cupiditate reiciendis tempore? Quo explicabo
-                        reiciendis debitis a. Voluptates commodi praesentium,
-                        hic consequuntur vitae culpa.
+                    Um software para equipes que desejam gerenciar seus projetos e atingir metas de maneira mais fácil, inteligente e rápida. É por isso que agências de criação, marketing, web design, empresas de software, departamentos e freelancers de todo o mundo confiam nele para melhorar seu desempenho.
                     </Paragraph>
                 </Container>
             </Container>

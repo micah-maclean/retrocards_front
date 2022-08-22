@@ -36,8 +36,7 @@ export const Input = styled(Field)`
     border-radius: 8px;
     margin-bottom: 5px;
     color: ${(props) => (props.color ? props.color : "#fff")};
-    background-color: ${(props) =>
-        props.background ? props.background : "#3c3e44"};
+    background-color: ${(props) => props.background ? props.background : "#3c3e44"};
     border: ${(props) => (props.border ? props.border : "1px solid #3c3e44")};
     width: ${(props) => props.width && props.width};
 

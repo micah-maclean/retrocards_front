@@ -86,9 +86,7 @@ const AuthProvider = ({ children }) => {
 
     const getUsersList = async (page, pageSize) => {
         try {
-            const { data } = await api.get(
-                `/user/list?page=${page}&quantityPerPage=${pageSize}`
-            );
+            const { data } = await api.get(`/user/list?page=${page}&quantityPerPage=${pageSize}`);
             return data;
         } catch (error) {
             toast.error(error.response.data.message);

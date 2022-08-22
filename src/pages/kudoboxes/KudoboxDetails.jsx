@@ -72,97 +72,89 @@ const KudoboxDetails = () => {
 
     return (
         <Container
-            minHeight="calc(100vh - 100px)"
-            backgroundColor="#12101A"
-            justifyContent="center"
-            color="#fff"
-            padding="30px"
+            maxWidth="1120px"
+            width="100%"
+            flexDirection="column"
+            gap="30px"
         >
-            <Container
-                maxWidth="1120px"
-                width="100%"
-                flexDirection="column"
-                gap="30px"
-            >
-                <Container justifyContent="space-between" alignItems="center">
-                    <Title textAlign="left">{infoKudoBox.title}</Title>
-                    {user.role === "ROLE_MEMBER" &&
-                        infoKudoBox.status === "IN_PROGRESS" && (
-                            <Button
-                                id="createKudocard"
-                                backgroundColor="#fff"
-                                color="#12101a"
-                                padding="8px 16px"
-                                height="fit-content"
-                                onClick={() =>
-                                    navigate(
-                                        `/kudo-card/cadastrar/${idKudobox}`
-                                    )
-                                }
-                            >
-                                + Criar Kudocard
-                            </Button>
-                        )}
-                </Container>
-                <Board>
-                    {list.length > 0 &&
-                        list.map((kudocard) => (
-                            <li key={kudocard.idKudoCard}>
-                                <Container
-                                    alignItems="center"
-                                    justifyContent="space-between"
-                                    margin="0 0 24px 0"
-                                >
-                                    <h3>{kudocard.title}</h3>
-                                    {user.idUser === kudocard.idCreator &&
-                                        infoKudoBox.status ===
-                                            "IN_PROGRESS" && (
-                                            <Button
-                                                padding="none"
-                                                backgroundColor="transparent"
-                                                onClick={() =>
-                                                    deleteKudoCardModal(
-                                                        kudocard.idKudoCard
-                                                    )
-                                                }
-                                            >
-                                                <FaTrashAlt />
-                                            </Button>
-                                        )}
-                                </Container>
-                                <p>
-                                    {formatDateToRenderWithHour(
-                                        kudocard.createDate
-                                    )}
-                                </p>
-                                <p>
-                                    <span>De:</span> {kudocard.sender}
-                                </p>
-                                <p>
-                                    <span>Para:</span> {kudocard.receiver}
-                                </p>
-                                <p>
-                                    <span>Descrição:</span>
-                                    {kudocard.description}
-                                </p>
-                            </li>
-                        ))}
-                </Board>
-
-                {list.length === 0 && (
-                    <Title textAlign="center">
-                        Ainda não existe nenhum kudocard
-                    </Title>
-                )}
-
-                <Pagination
-                    totalCount={totalCount}
-                    totalPages={totalPages}
-                    currentPage={currentPage}
-                    pageSize={pageSize}
-                    onPageChange={setCurrentPage}
-                />
+            <Container justifyContent="space-between" alignItems="center">
+                <Title textAlign="left">{infoKudoBox.title}</Title>
+                {user.role === "ROLE_MEMBER" &&
+                    infoKudoBox.status === "IN_PROGRESS" && (
+                        <Button
+                            id="createKudocard"
+                            backgroundColor="#fff"
+                            color="#12101a"
+                            padding="8px 16px"
+                            height="fit-content"
+                            onClick={() =>
+                                navigate(
+                                    `/kudo-card/cadastrar/${idKudobox}`
+                                )
+                            }
+                        >
+                            + Criar Kudocard
+                        </Button>
+                    )}
             </Container>
+            <Board>
+                {list.length > 0 &&
+                    list.map((kudocard) => (
+                        <li key={kudocard.idKudoCard}>
+                            <Container
+                                alignItems="center"
+                                justifyContent="space-between"
+                                margin="0 0 24px 0"
+                            >
+                                <h3>{kudocard.title}</h3>
+                                {user.idUser === kudocard.idCreator &&
+                                    infoKudoBox.status ===
+                                        "IN_PROGRESS" && (
+                                        <Button
+                                            padding="none"
+                                            backgroundColor="transparent"
+                                            onClick={() =>
+                                                deleteKudoCardModal(
+                                                    kudocard.idKudoCard
+                                                )
+                                            }
+                                        >
+                                            <FaTrashAlt />
+                                        </Button>
+                                    )}
+                            </Container>
+                            <p>
+                                {formatDateToRenderWithHour(
+                                    kudocard.createDate
+                                )}
+                            </p>
+                            <p>
+                                <span>De:</span> {kudocard.sender}
+                            </p>
+                            <p>
+                                <span>Para:</span> {kudocard.receiver}
+                            </p>
+                            <p>
+                                <span>Descrição:</span>
+                                {kudocard.description}
+                            </p>
+                        </li>
+                    ))}
+            </Board>
+
+            {list.length === 0 && (
+                <Title textAlign="center">
+                    Ainda não existe nenhum kudocard
+                </Title>
+            )}
+
+            <Pagination
+                totalCount={totalCount}
+                totalPages={totalPages}
+                currentPage={currentPage}
+                pageSize={pageSize}
+                onPageChange={setCurrentPage}
+            />
         </Container>
     );
 };

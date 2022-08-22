@@ -91,17 +91,11 @@ const SprintDetails = () => {
     };
 
     const updateStatusToInProgress = (idRetrospective) => {
-        Modal({
-            ...paramModal.Retrospectiva.edit,
-            values: [idRetrospective, "IN_PROGRESS"],
-        });
+        Modal({...paramModal.Retrospectiva.edit, values: [idRetrospective, "IN_PROGRESS"]});
     };
 
     const updateStatusToFinished = (idRetrospective) => {
-        Modal({
-            ...paramModal.Retrospectiva.edit,
-            values: [idRetrospective, "FINISHED"],
-        });
+        Modal({...paramModal.Retrospectiva.edit, values: [idRetrospective, "FINISHED"]});
     };
 
     const updateRetrospective = (idRetrospective) => {
@@ -109,17 +103,11 @@ const SprintDetails = () => {
     };
 
     const deleteRetrospectiveModal = (idRetrospective) => {
-        Modal({
-            ...paramModal.Retrospectiva.delete,
-            values: [idRetrospective],
-        });
+        Modal({...paramModal.Retrospectiva.delete, values: [idRetrospective]});
     };
 
     const deleteKudoBoxModal = (idKudoBox) => {
-        Modal({
-            ...paramModal["Kudo Box"].delete,
-            values: [idKudoBox],
-        });
+        Modal({ ...paramModal["Kudo Box"].delete, values: [idKudoBox]});
     };
 
     const navigateToUpdateKudoBox = (idKudoBox) => {
@@ -222,21 +210,13 @@ const SprintDetails = () => {
     };
 
     return (
-        <Container
-            minHeight="calc(100vh - 100px)"
-            backgroundColor="#12101A"
-            color="#fff"
-            flexDirection="column"
-            alignItems="center"
-            padding="30px"
-        >
             <Container
                 maxWidth="1120px"
                 width="100%"
                 flexDirection="column"
                 gap="30px"
             >
-                <Container justifyContent="space-between" gap="30px">
+                <Container justifyContent="space-between" gap="30px" flexDirectionQuery="column">
                     <Tab
                         filterList={sprintFilter}
                         setFilter={setFilter}
@@ -244,19 +224,13 @@ const SprintDetails = () => {
                     />
                     {user.role !== "ROLE_MEMBER" && (
                         <Button
-                            id={
-                                filter === "Retrospectiva"
-                                    ? "createRetrospective"
-                                    : "createKudoBox"
-                            }
+                            id={filter === "Retrospectiva" ? "createRetrospective": "createKudoBox"}
                             backgroundColor="#fff"
                             color="#12101a"
                             padding="8px 16px"
                             onClick={() => navigate(paramSprint[filter].create)}
                         >
-                            {filter === "Retrospectiva"
-                                ? "+ Criar Retrospectiva"
-                                : "+ Criar Kudos Box"}
+                            {filter === "Retrospectiva" ? "+ Criar Retrospectiva" : "+ Criar Kudos Box"}
                         </Button>
                     )}
                 </Container>
@@ -271,9 +245,7 @@ const SprintDetails = () => {
 
                 {list.length === 0 && (
                     <Title textAlign="center">
-                        {filter === "Retrospectiva"
-                            ? "Nenhuma retrospectiva"
-                            : "Nenhum kudobox"}
+                        {filter === "Retrospectiva" ? "Nenhuma retrospectiva" : "Nenhum kudobox"}
                     </Title>
                 )}
 
@@ -285,7 +257,6 @@ const SprintDetails = () => {
                     onPageChange={setCurrentPage}
                 />
             </Container>
-        </Container>
     );
 };
 

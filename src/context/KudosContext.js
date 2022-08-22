@@ -26,14 +26,10 @@ const KudosProvider = ({ children }) => {
 
     const getKudoboxBySprintId = async (sprintId, currentPage, pageSize) => {
         try {
-            const { data } = await api.get(
-                `/kudobox/list/sprint/${sprintId}?page=${currentPage}&quantityPerPage=${pageSize}`
-            );
+            const { data } = await api.get(`/kudobox/list/sprint/${sprintId}?page=${currentPage}&quantityPerPage=${pageSize}`);
             return data;
         } catch (error) {
-            if (error.response.data.status === 400) {
-                return;
-            }
+            if (error.response.data.status === 400) return;
 
             toast.error(error.response.data.message);
         }
@@ -51,14 +47,11 @@ const KudosProvider = ({ children }) => {
 
     const getKudoboxById = async (idKudobox, page, pageSize) => {
         try {
-            const { data } = await api.get(
-                `/kudocard/list/kudocards/${idKudobox}?page=${page}&quantityPerPage=${pageSize}`
-            );
+            const { data } = await api.get(`/kudocard/list/kudocards/${idKudobox}?page=${page}&quantityPerPage=${pageSize}`);
             return data;
         } catch (error) {
-            if (error.response.data.status === 400) {
-                return;
-            }
+            if (error.response.data.status === 400) return;
+
             toast.error(error.response.data.message);
         }
     };
@@ -77,9 +70,8 @@ const KudosProvider = ({ children }) => {
             const { data } = await api.get(`/kudobox/list/${idKudoBox}`);
             return data;
         } catch (error) {
-            if (error.response.data.status === 400) {
-                return;
-            }
+            if (error.response.data.status === 400) return;
+    
             toast.error(error.response.data.message);
         }
     };
@@ -106,8 +98,7 @@ const KudosProvider = ({ children }) => {
 
     return (
         <KudosContext.Provider
-            value={{
-                handleCreateKudoBox,
+            value={{handleCreateKudoBox,
                 handleCreateKudoCard,
                 getKudoboxById,
                 getKudoboxBySprintId,

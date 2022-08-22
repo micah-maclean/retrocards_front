@@ -42,140 +42,130 @@ const KudoCardForm = () => {
     }, []);
 
     return (
-        <>
-            <Container
-                backgroundColor="#12101a"
-                height="calc(100vh - 100px)"
-                padding="30px"
-                justifyContent="center"
-                alignItems="center"
+        <Container
+            flexDirection="column"
+            maxWidth="1120px"
+            width="100%"
+            backgroundColor="#292730"
+            borderRadius="8px"
+            padding="24px 64px"
+            paddingQuery="24px 32px"
+        >
+            <Formik
+                initialValues={{
+                    title: "",
+                    description: "",
+                    receiver: "",
+                    anonymous: false,
+                }}
+                validationSchema={validationsKudoCard}
+                onSubmit={(values) => {
+                    const newValues = {
+                        idKudoBox: parseInt(idKudoBox),
+                        title: values.title,
+                        description: values.description,
+                        anonymous: values.anonymous,
+                        receiver: values.receiver,
+                    };
+                    handleCreateKudoCard(newValues, idKudoBox);
+                }}
             >
-                <Container
-                    flexDirection="column"
-                    maxWidth="1120px"
-                    width="100%"
-                    backgroundColor="#292730"
-                    borderRadius="8px"
-                    padding="24px 64px"
-                    paddingQuery="24px 32px"
-                >
-                    <Formik
-                        initialValues={{
-                            title: "",
-                            description: "",
-                            receiver: "",
-                            anonymous: false,
-                        }}
-                        validationSchema={validationsKudoCard}
-                        onSubmit={(values) => {
-                            const newValues = {
-                                idKudoBox: parseInt(idKudoBox),
-                                title: values.title,
-                                description: values.description,
-                                anonymous: values.anonymous,
-                                receiver: values.receiver,
-                            };
-                            handleCreateKudoCard(newValues, idKudoBox);
-                        }}
-                    >
-                        {(props) => (
-                            <CustomForm color="#fff">
-                                <Title marginBottom="30px">
-                                    Criar Kudo Card
-                                </Title>
-                                <Label htmlFor="title">Título</Label>
-                                <Input
-                                    name="title"
-                                    onChange={props.handleChange}
-                                    onBlur={props.handleBlur}
-                                    value={props.values.title}
-                                    placeholder="Digite o título do Kudo Box"
-                                    id="title"
-                                />
-                                <CustomErrorMessage name={"title"} />
-                                <Label htmlFor="description">Descrição</Label>
-                                <Input
-                                    name="description"
-                                    onChange={props.handleChange}
-                                    onBlur={props.handleBlur}
-                                    value={props.values.description}
-                                    placeholder="Digite a descrição do Kudo Card"
-                                    id="description"
-                                />
-                                <CustomErrorMessage name={"description"} />
-                                <Label htmlFor="receiver">Para</Label>
-                                <Container
-                                    position="relative"
-                                    flexDirection="column"
-                                >
-                                    <Select
-                                        label="Escolha uma pessoa"
-                                        setKey="name"
-                                        values={userEmail.filter(
-                                            (receiver) =>
-                                                receiver.email !== user.email &&
-                                                receiver.email !==
-                                                    "admin@gmail.com"
-                                        )}
-                                        onChange={(v) =>
-                                            props.setFieldValue("receiver", v)
-                                        }
-                                    />
-                                    <Dropdown top="12px" right="25px" />
-                                    <CustomErrorMessage name={"receiver"} />
-                                </Container>
-                                <Container
-                                    margin="8px 0 40px 0 "
-                                    alignItems="center"
-                                >
-                                    <Checkbox
-                                        type="checkbox"
-                                        name="anonymous"
-                                        id="anonymous"
-                                    />
-                                    <Label
-                                        htmlFor="anonymous"
-                                        margin="8px 0 0 0"
-                                    >
-                                        Enviar Anônimo
-                                    </Label>
-                                </Container>
-                                <Container justifyContent="space-around">
-                                    <Button
-                                        id="backToKudoBoxFromKudoCard"
-                                        backgroundColor="transparent"
-                                        color="#fff"
-                                        margin="12px 0 20px 0"
-                                        border="1px solid #fff"
-                                        backgroundColorHover="#5454fb"
-                                        borderHover="1px solid #5454fb"
-                                        colorHover="#fff"
-                                        onClick={() =>
-                                            navigate(`/kudobox/${idKudoBox}`)
-                                        }
-                                    >
-                                        Voltar
-                                    </Button>
-                                    <Button
-                                        id="createKudoCard"
-                                        backgroundColor="#fff"
-                                        color="#12101a"
-                                        margin="12px 0 20px 0"
-                                        border="1px solid #fff"
-                                        backgroundColorHover="#5454fb"
-                                        borderHover="1px solid #5454fb"
-                                        colorHover="#fff"
-                                        type="submit"
-                                    >
-                                        Cadastrar
-                                    </Button>
-                                </Container>
-                            </CustomForm>
-                        )}
-                    </Formik>
-                </Container>
-            </Container>
-        </>
+                {(props) => (
+                    <CustomForm color="#fff">
+                        <Title marginBottom="30px">
+                            Criar Kudo Card
+                        </Title>
+                        <Label htmlFor="title">Título</Label>
+                        <Input
+                            name="title"
+                            onChange={props.handleChange}
+                            onBlur={props.handleBlur}
+                            value={props.values.title}
+                            placeholder="Digite o título do Kudo Box"
+                            id="title"
+                        />
+                        <CustomErrorMessage name={"title"} />
+                        <Label htmlFor="description">Descrição</Label>
+                        <Input
+                            name="description"
+                            onChange={props.handleChange}
+                            onBlur={props.handleBlur}
+                            value={props.values.description}
+                            placeholder="Digite a descrição do Kudo Card"
+                            id="description"
+                        />
+                        <CustomErrorMessage name={"description"} />
+                        <Label htmlFor="receiver">Para</Label>
+                        <Container
+                            position="relative"
+                            flexDirection="column"
+                        >
+                            <Select
+                                label="Escolha uma pessoa"
+                                setKey="name"
+                                values={userEmail.filter(
+                                    (receiver) =>
+                                        receiver.email !== user.email &&
+                                        receiver.email !==
+                                            "admin@gmail.com"
+                                )}
+                                onChange={(v) =>
+                                    props.setFieldValue("receiver", v)
+                                }
+                            />
+                            <Dropdown top="12px" right="25px" />
+                            <CustomErrorMessage name={"receiver"} />
+                        </Container>
+                        <Container
+                            margin="8px 0 40px 0 "
+                            alignItems="center"
+                        >
+                            <Checkbox
+                                type="checkbox"
+                                name="anonymous"
+                                id="anonymous"
+                            />
+                            <Label
+                                htmlFor="anonymous"
+                                margin="8px 0 0 0"
+                            >
+                                Enviar Anônimo
+                            </Label>
+                        </Container>
+                        <Container justifyContent="space-around">
+                            <Button
+                                id="backToKudoBoxFromKudoCard"
+                                backgroundColor="transparent"
+                                color="#fff"
+                                margin="12px 0 20px 0"
+                                border="1px solid #fff"
+                                backgroundColorHover="#5454fb"
+                                borderHover="1px solid #5454fb"
+                                colorHover="#fff"
+                                onClick={() =>
+                                    navigate(`/kudobox/${idKudoBox}`)
+                                }
+                            >
+                                Voltar
+                            </Button>
+                            <Button
+                                id="createKudoCard"
+                                backgroundColor="#fff"
+                                color="#12101a"
+                                margin="12px 0 20px 0"
+                                border="1px solid #fff"
+                                backgroundColorHover="#5454fb"
+                                borderHover="1px solid #5454fb"
+                                colorHover="#fff"
+                                type="submit"
+                            >
+                                Cadastrar
+                            </Button>
+                        </Container>
+                    </CustomForm>
+                )}
+            </Formik>
+        </Container>
     );
 };
 export default KudoCardForm;

@@ -36,42 +36,34 @@ const Users = () => {
 
     return (
         <Container
-            minHeight="calc(100vh - 100px)"
-            backgroundColor="#12101A"
+            maxWidth="1120px"
+            width="100%"
             flexDirection="column"
-            alignItems="center"
-            padding="30px"
+            gap="32px"
+            color="#fff"
         >
-            <Container
-                maxWidth="1120px"
-                width="100%"
-                flexDirection="column"
-                gap="32px"
-                color="#fff"
-            >
-                <Container alignItems="center" justifyContent="space-between">
-                    <Title textAlign="left" color="#fff">
-                        Usuários
-                    </Title>
-                </Container>
-                <Table
-                    list={list}
-                    params={paramsUsers}
-                    path="/users"
-                    pathKey="idUser"
-                />
-
-                {list.length === 0 && <Title>Nenhum usuário criado</Title>}
-
-                <Pagination
-                    totalCount={totalCount}
-                    totalPages={totalPages}
-                    currentPage={currentPage}
-                    pageSize={pageSize}
-                    onPageChange={setCurrentPage}
-                />
+            <Container alignItems="center" justifyContent="space-between">
+                <Title textAlign="left" color="#fff">
+                    Usuários
+                </Title>
             </Container>
+            <Table
+                list={list}
+                params={paramsUsers}
+                path="/users"
+                pathKey="idUser"
+            />
+
+            {list.length === 0 && <Title>Nenhum usuário criado</Title>}
+
+            <Pagination
+                totalCount={totalCount}
+                totalPages={totalPages}
+                currentPage={currentPage}
+                pageSize={pageSize}
+                onPageChange={setCurrentPage}
+            />
         </Container>
-    );
+);
 };
 export default Users;
