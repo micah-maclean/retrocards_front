@@ -28,6 +28,7 @@ export const Modal = (paramModal) => {
                             backgroundColorHover="#5454fb"
                             borderHover="1px solid #5454fb"
                             onClick={onClose}
+                            id='close-modal'
                         >
                             Cancelar
                         </Button>
@@ -43,6 +44,7 @@ export const Modal = (paramModal) => {
                                 paramModal.function(...paramModal.values);
                                 onClose();
                             }}
+                            id='confirm-modal'
                         >
                             {paramModal.confirmText}
                         </Button>

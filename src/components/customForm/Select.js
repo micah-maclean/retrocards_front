@@ -42,6 +42,7 @@ const Select = ({ label, values, onChange, setKey }) => {
                             onClick={() => handleChange(value)}
                             active={value.name === currentValue}
                             key={index}
+                            id={value.value}
                         >
                             {value.name}
                         </DropdownItem>

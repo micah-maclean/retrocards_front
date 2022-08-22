@@ -43,11 +43,9 @@ const Home = () => {
     }, [currentPage, reducerValue]);
 
     const paramModal = {
-        delete: {
-            function: handleDeleteSprint,
-            message: "Certeza que deseja deletar a sprint?",
-            confirmText: "Deletar",
-        },
+        function: handleDeleteSprint,
+        message: "Certeza que deseja deletar a sprint?",
+        confirmText: "Deletar",
     };
 
     const updateSprint = (idSprint) => {
@@ -56,7 +54,7 @@ const Home = () => {
 
     const deleteSprint = (idSprint) => {
         Modal({
-            ...paramModal.delete,
+            ...paramModal,
             values: [idSprint],
         });
     };

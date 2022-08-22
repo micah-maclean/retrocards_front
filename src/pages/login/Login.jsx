@@ -101,7 +101,7 @@ const Login = () => {
                             placeholder="Email"
                             id="email"
                         />
-                        <CustomErrorMessage name={"email"} />
+                        <CustomErrorMessage name={"email"} id="email-error" />
                         <Label htmlFor="password">Senha</Label>
                         <Input
                             background="#fff"
@@ -113,7 +113,10 @@ const Login = () => {
                             type="password"
                             id="password"
                         />
-                        <CustomErrorMessage name={"password"} />
+                        <CustomErrorMessage
+                            name={"password"}
+                            id="password-error"
+                        />
                         <Button
                             id="login"
                             width="100%"
@@ -130,7 +133,9 @@ const Login = () => {
 
                         <Paragraph alignSelf="center">
                             Não possui login?{" "}
-                            <Link to="/cadastrar">Cadastre-se aqui</Link>
+                            <Link to="/cadastrar" id="sign-up">
+                                Cadastre-se aqui
+                            </Link>
                         </Paragraph>
                     </CustomForm>
                 </Formik>

@@ -39,10 +39,10 @@ const Header = () => {
                     justifyContent="space-between"
                     gap="50px"
                 >
-                    <span>Bem vindo {user.name && nomeFinal(user.name)}</span>
+                    <span id="header-text">Bem vindo {user.name && nomeFinal(user.name)}</span>
                     {user.role === "ROLE_ADMIN" && (
                         <Button
-                            id="logout"
+                            id="users"
                             backgroundColor="transparent"
                             border="1px solid #fff"
                             width="100px"

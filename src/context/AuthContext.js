@@ -71,7 +71,8 @@ const AuthProvider = ({ children }) => {
             const { data } = await api.get("/user/get-logged");
             setUser(data);
         } catch (error) {
-            toast.error(error.message);
+            toast.error(error.response.data.message);
+            handleLogout()
         }
     };
 

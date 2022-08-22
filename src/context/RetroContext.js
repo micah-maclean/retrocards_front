@@ -102,6 +102,7 @@ const RetroProvider = ({ children }) => {
     const deleteRetro = async (idRetro) => {
         try {
             await api.delete(`/itemretrospective/delete/${idRetro}`);
+            toast.success("Item deletado com sucesso");
             forceUpdate();
         } catch (error) {
             toast.error(error.response.data.message);
@@ -144,6 +145,33 @@ const RetroProvider = ({ children }) => {
         }
     };
 
+    const getItemRetrospectiveById = async (idItemRetrospective) => {
+        try {
+            const {data} = await api.get(`/itemretrospective/list/${idItemRetrospective}`)
+            return data
+        } catch (error) {
+            if (error.response.data.status === 400) {
+                return;
+            }
+            toast.error(error.response.data.message);
+        }
+    }
+
+    const handleUpdateItemRetrospective = async (
+        idItemRetrospective,
+        idRetrospective,
+        values,
+        type
+    ) => {
+        try {
+            await api.put(`/itemretrospective/update/${idItemRetrospective}?itemType=${type}`, values);
+            toast.success("Retrocard alterado com sucesso");
+            navigate(`/sprint/${idRetrospective}`);
+        } catch (error) {
+            toast.error(error.response.data.message);
+        }
+    };
+
     return (
         <RetroContext.Provider
             value={{
@@ -157,6 +185,8 @@ const RetroProvider = ({ children }) => {
                 updateStatusRetrospective,
                 deleteRetrospective,
                 handleUpdateRetrospective,
+                handleUpdateItemRetrospective,
+                getItemRetrospectiveById
             }}
         >
             {children}

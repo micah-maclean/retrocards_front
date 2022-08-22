@@ -15,18 +15,14 @@ import { Button } from "../../components/button/Button";
 import CustomErrorMessage from "../../components/customForm/CustomErrorMessage";
 import Select from "../../components/customForm/Select";
 import { Formik } from "formik";
-import Table from "../../components/table/Table";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { validationsRole } from "../../utils/validations";
+import { rolesSelect } from "../../utils/variables";
 
 const UsersForm = () => {
     const { idUser } = useParams();
     const { handleUpdateRole } = useContext(AuthContext);
-
-    const roles = [
-        { name: "Facilitador", value: "FACILITATOR" },
-        { name: "Membro", value: "MEMBER" },
-    ];
+    const navigate = useNavigate();
 
     return (
         <Container
@@ -59,27 +55,20 @@ const UsersForm = () => {
                             <Title marginBottom="30px">Alterar Cargo</Title>
                             <Label htmlFor="role">Cargo</Label>
                             <Container gap="32px" margin="0 0 30px 0">
-                                <Container
-                                    position="relative"
-                                    flexDirection="column"
-                                    width="100%"
-                                >
+                                <Container position="relative" flexDirection="column" width="100%">
                                     <Select
                                         label="Escolha um cargo"
                                         setKey="value"
-                                        values={roles}
+                                        values={rolesSelect}
                                         onChange={(v) =>
                                             props.setFieldValue("role", v)
                                         }
                                     />
                                     <Dropdown top="12px" right="25px" />
-                                    <CustomErrorMessage name="role" />
+                                    <CustomErrorMessage name="role" id='role-error' />
                                 </Container>
                             </Container>
-                            <Container
-                                justifyContent="space-around"
-                                margin="32px 0 0 0 "
-                            >
+                            <Container justifyContent="space-around" margin="32px 0 0 0 ">
                                 <Button
                                     id="backToKudoBoxFromKudoCard"
                                     backgroundColor="transparent"
@@ -88,6 +77,7 @@ const UsersForm = () => {
                                     backgroundColorHover="#5454fb"
                                     borderHover="1px solid #5454fb"
                                     colorHover="#fff"
+                                    onClick={() => navigate("/users")}
                                 >
                                     Voltar
                                 </Button>
@@ -111,4 +101,5 @@ const UsersForm = () => {
         </Container>
     );
 };
+
 export default UsersForm;

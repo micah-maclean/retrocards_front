@@ -41,7 +41,7 @@ const SprintDetails = () => {
 
     const setup = async (filter) => {
         const data =
-            filter === "Retrospectiva"
+            filter === "RETROSPECTIVA"
                 ? await getRetrospectiveBySprintId(
                       idSprint,
                       currentPage,
@@ -65,7 +65,7 @@ const SprintDetails = () => {
     }, [filter, currentPage, reducerValue]);
 
     const paramModal = {
-        Retrospectiva: {
+        RETROSPECTIVA: {
             edit: {
                 function: updateStatusRetrospective,
                 message: "Certeza que deseja alterar o status?",
@@ -77,7 +77,7 @@ const SprintDetails = () => {
                 confirmText: "Deletar",
             },
         },
-        "Kudo Box": {
+        KUDOBOX: {
             delete: {
                 function: deleteKudoBox,
                 message: "Certeza que deseja deletar o KudoBox?",
@@ -92,14 +92,14 @@ const SprintDetails = () => {
 
     const updateStatusToInProgress = (idRetrospective) => {
         Modal({
-            ...paramModal.Retrospectiva.edit,
+            ...paramModal.RETROSPECTIVA.edit,
             values: [idRetrospective, "IN_PROGRESS"],
         });
     };
 
     const updateStatusToFinished = (idRetrospective) => {
         Modal({
-            ...paramModal.Retrospectiva.edit,
+            ...paramModal.RETROSPECTIVA.edit,
             values: [idRetrospective, "FINISHED"],
         });
     };
@@ -110,14 +110,14 @@ const SprintDetails = () => {
 
     const deleteRetrospectiveModal = (idRetrospective) => {
         Modal({
-            ...paramModal.Retrospectiva.delete,
+            ...paramModal.RETROSPECTIVA.delete,
             values: [idRetrospective],
         });
     };
 
     const deleteKudoBoxModal = (idKudoBox) => {
         Modal({
-            ...paramModal["Kudo Box"].delete,
+            ...paramModal.KUDOBOX.delete,
             values: [idKudoBox],
         });
     };
@@ -127,7 +127,7 @@ const SprintDetails = () => {
     };
 
     const paramSprint = {
-        Retrospectiva: {
+        RETROSPECTIVA: {
             param: [
                 { heading: "Id", key: "idRetrospective" },
                 { heading: "Titulo", key: "title" },
@@ -190,8 +190,7 @@ const SprintDetails = () => {
                 },
             ],
         },
-
-        "Kudo Box": {
+        KUDOBOX: {
             param: [
                 { heading: "Id", key: "idKudoBox" },
                 { heading: "Titulo", key: "title" },
@@ -245,7 +244,7 @@ const SprintDetails = () => {
                     {user.role !== "ROLE_MEMBER" && (
                         <Button
                             id={
-                                filter === "Retrospectiva"
+                                filter === "RETROSPECTIVA"
                                     ? "createRetrospective"
                                     : "createKudoBox"
                             }
@@ -254,7 +253,7 @@ const SprintDetails = () => {
                             padding="8px 16px"
                             onClick={() => navigate(paramSprint[filter].create)}
                         >
-                            {filter === "Retrospectiva"
+                            {filter === "RETROSPECTIVA"
                                 ? "+ Criar Retrospectiva"
                                 : "+ Criar Kudos Box"}
                         </Button>
@@ -271,7 +270,7 @@ const SprintDetails = () => {
 
                 {list.length === 0 && (
                     <Title textAlign="center">
-                        {filter === "Retrospectiva"
+                        {filter === "RETROSPECTIVA"
                             ? "Nenhuma retrospectiva"
                             : "Nenhum kudobox"}
                     </Title>
