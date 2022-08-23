@@ -65,7 +65,7 @@ const SendEmailForm = () => {
                     validationSchema={Yup.object({
                         receiver: Yup.mixed().test( "Arrayvazio", "Escolha ao menos uma pessoa", () => receivers.length > 0),
                     })}
-                    onSubmit={({isS}) => {
+                    onSubmit={() => {
                         const newValues = {
                             receiver: receivers.map((value) => value.email),
                         };
