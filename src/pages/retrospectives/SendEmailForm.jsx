@@ -46,7 +46,7 @@ const SendEmailForm = () => {
     if(loading) {
         return <Loading/>
     }
-    
+
     return (
             <Container
                 flexDirection="column"
@@ -65,7 +65,7 @@ const SendEmailForm = () => {
                     validationSchema={Yup.object({
                         receiver: Yup.mixed().test( "Arrayvazio", "Escolha ao menos uma pessoa", () => receivers.length > 0),
                     })}
-                    onSubmit={() => {
+                    onSubmit={({isS}) => {
                         const newValues = {
                             receiver: receivers.map((value) => value.email),
                         };
@@ -145,6 +145,7 @@ const SendEmailForm = () => {
                                     borderHover="1px solid #5454fb"
                                     colorHover="#fff"
                                     type="submit"
+                                    disabled={props.isSubmitting}
                                 >
                                     Enviar
                                 </Button>
