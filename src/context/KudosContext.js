@@ -69,9 +69,7 @@ const KudosProvider = ({ children }) => {
         try {
             const { data } = await api.get(`/kudobox/list/${idKudoBox}`);
             return data;
-        } catch (error) {
-            if (error.response.data.status === 400) return;
-    
+        } catch (error) {   
             toast.error(error.response.data.message);
         }
     };

@@ -23,11 +23,7 @@ const RetroProvider = ({ children }) => {
         }
     };
 
-    const getRetrospectiveBySprintId = async (
-        idSprint,
-        currentPage,
-        pageSize
-    ) => {
+    const getRetrospectiveBySprintId = async (idSprint, currentPage, pageSize) => {
         try {
             const { data } = await api.get(
                 `/retrospective/list/sprint/${idSprint}?page=${currentPage}&quantityPerPage=${pageSize}`
@@ -92,9 +88,6 @@ const RetroProvider = ({ children }) => {
             );
             return data;
         } catch (error) {
-            if (error.response.data.status === 400) {
-                return;
-            }
             toast.error(error.response.data.message);
         }
     };
