@@ -150,16 +150,11 @@ const RetroProvider = ({ children }) => {
         }
     }
 
-    const handleUpdateItemRetrospective = async (
-        idItemRetrospective,
-        idRetrospective,
-        values,
-        type
-    ) => {
+    const handleUpdateItemRetrospective = async (idItemRetrospective, idRetrospective, values, type) => {
         try {
             await api.put(`/itemretrospective/update/${idItemRetrospective}?itemType=${type}`, values);
             toast.success("Retrocard alterado com sucesso");
-            navigate(`/sprint/${idRetrospective}`);
+            navigate(`/retrospectiva/${idRetrospective}`);
         } catch (error) {
             toast.error(error.response.data.message);
         }

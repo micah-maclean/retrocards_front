@@ -46,7 +46,7 @@ const SendEmailForm = () => {
     if(loading) {
         return <Loading/>
     }
-    
+
     return (
             <Container
                 flexDirection="column"
@@ -125,7 +125,7 @@ const SendEmailForm = () => {
                                 margin="32px 0 0 0"
                             >
                                 <Button
-                                    id="backToKudoBoxFromKudoCard"
+                                    id="backToSprintFromSendEmail"
                                     backgroundColor="transparent"
                                     color="#fff"
                                     border="1px solid #fff"
@@ -137,7 +137,7 @@ const SendEmailForm = () => {
                                     Voltar
                                 </Button>
                                 <Button
-                                    id="createKudoCard"
+                                    id="sendEmail"
                                     backgroundColor="#fff"
                                     color="#12101a"
                                     border="1px solid #fff"
@@ -145,6 +145,7 @@ const SendEmailForm = () => {
                                     borderHover="1px solid #5454fb"
                                     colorHover="#fff"
                                     type="submit"
+                                    disabled={props.isSubmitting}
                                 >
                                     Enviar
                                 </Button>
